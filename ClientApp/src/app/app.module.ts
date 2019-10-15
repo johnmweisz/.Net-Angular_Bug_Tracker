@@ -22,6 +22,7 @@ import { RegisterComponent } from './register/register.component';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: LoginComponent, pathMatch: 'full' },
+      { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent }
     ])
   ],

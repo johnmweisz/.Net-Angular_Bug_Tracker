@@ -28,7 +28,7 @@ namespace BugTracker.Controllers
                 // Check if Email already exists.
                 if(context.Users.Any(u => u.Email == NewUser.Email))
                 {
-                    ModelState.AddModelError("Email", "already in use, please log in.");
+                    ModelState.AddModelError("Email", "Email already in use, please log in.");
                     return BadRequest(JsonConvert.SerializeObject(ModelState));
                 }
                 // Hash password.
@@ -59,7 +59,7 @@ namespace BugTracker.Controllers
                 // Check if email does not exist.
                 if(FindUserByEmail == null)
                 {
-                    ModelState.AddModelError("Email", "does not exist, please register.");
+                    ModelState.AddModelError("Email", "Email does not exist, please register.");
                     return BadRequest(JsonConvert.SerializeObject(ModelState));
                 }
                 // Convert string to hash and compare against hashed hassword.
@@ -76,7 +76,7 @@ namespace BugTracker.Controllers
                             }
                     ));
                 }
-                ModelState.AddModelError("Password", "incorrect.");
+                ModelState.AddModelError("Password", "Password incorrect, please try again.");
                 return BadRequest(JsonConvert.SerializeObject(ModelState));
             }
             return BadRequest(JsonConvert.SerializeObject(ModelState));
