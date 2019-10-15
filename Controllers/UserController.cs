@@ -29,21 +29,24 @@ namespace BugTracker.Controllers
                 if(context.Users.Any(u => u.Email == NewUser.Email))
                 {
                     ModelState.AddModelError("Email", "already in use, please log in.");
-                    return BadRequest(Json(ModelState));
+                    return BadRequest(JsonConvert.SerializeObject(ModelState));
                 }
                 // Hash password.
                 PasswordHasher<User> Hasher = new PasswordHasher<User>();
                 NewUser.Password = Hasher.HashPassword(NewUser, NewUser.Password);
                 context.Add(NewUser);
                 context.SaveChanges();
-                return Ok(JsonConvert.SerializeObject(NewUser, Formatting.Indented, 
+                // Send User to Client for locastorage.
+                return Ok(JsonConvert.SerializeObject(
+                    NewUser,
+                    Formatting.Indented,
                     new JsonSerializerSettings 
-                        { 
+                        {
                             ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                         }
                 ));
             }
-            return BadRequest(Json(ModelState));
+            return BadRequest(JsonConvert.SerializeObject(ModelState));
         }
 
         [HttpPost("[action]")]
@@ -57,25 +60,28 @@ namespace BugTracker.Controllers
                 if(FindUserByEmail == null)
                 {
                     ModelState.AddModelError("Email", "does not exist, please register.");
-                    return BadRequest(Json(ModelState));
+                    return BadRequest(JsonConvert.SerializeObject(ModelState));
                 }
-                // Convert string to hash and compare against hashed hassword in the context.
+                // Convert string to hash and compare against hashed hassword.
                 var hasher = new PasswordHasher<User>();
                 var result = hasher.VerifyHashedPassword(FindUserByEmail, FindUserByEmail.Password, TryUser.Password);
                 if(result == PasswordVerificationResult.Success)
                 {
-                    return Ok(JsonConvert.SerializeObject(FindUserByEmail, Formatting.Indented, 
+                    return Ok(JsonConvert.SerializeObject(
+                        FindUserByEmail, 
+                        Formatting.Indented, 
                         new JsonSerializerSettings 
                             { 
                                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                             }
                     ));
                 }
-                ModelState.AddModelError("Password", "incorrect!");
-                return BadRequest(Json(ModelState));
+                ModelState.AddModelError("Password", "incorrect.");
+                return BadRequest(JsonConvert.SerializeObject(ModelState));
             }
-            return BadRequest(Json(ModelState));
+            return BadRequest(JsonConvert.SerializeObject(ModelState));
         }
 
     }
+
 }
