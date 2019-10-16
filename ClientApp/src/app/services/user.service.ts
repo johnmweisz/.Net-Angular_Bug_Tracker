@@ -61,4 +61,18 @@ export class UserService {
     localStorage.removeItem('user');
     this.userSub.next(null);
   }
+
+  checkLog(redirect) {
+    if (localStorage.getItem('user') != null) {
+      this.userSub.next(JSON.parse(localStorage.getItem('user')));
+      if (redirect) {
+        this._router.navigate(['/']);
+      }
+    }
+  }
+
+  clearErrors() {
+    this.errorSub.next(null);
+  }
+
 }

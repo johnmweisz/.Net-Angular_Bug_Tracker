@@ -18,9 +18,8 @@ export class LoginComponent implements OnInit {
     ) {}
 
   ngOnInit() {
-    if (localStorage.getItem('user') != null) {
-      return this._router.navigate(['/']);
-    }
+    this._user.clearErrors();
+    this._user.checkLog(true);
     this._user.userErrors.subscribe(e => this.errors = e);
   }
 

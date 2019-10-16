@@ -18,6 +18,7 @@ export class NavMenuComponent implements OnInit {
 
   ngOnInit() {
     this.isExpanded = false;
+    this._user.checkLog(false);
     this._user.userLog.subscribe(u => this.user = u);
   }
 
