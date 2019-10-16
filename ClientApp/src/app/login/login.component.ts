@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -10,14 +10,18 @@ import { HttpClient } from '@angular/common/http';
 export class LoginComponent implements OnInit {
   Email: string;
   Password: string;
-  errors: object[] = [];
+  errors: object;
 
   constructor(
-    private _http: HttpClient,
+    private _user: UserService,
     private _router: Router
     ) {}
 
   ngOnInit() {
+    if (localStorage.getItem('user') != null) {
+      return this._router.navigate(['/']);
+    }
+    this._user.userErrors.subscribe(e => this.errors = e);
   }
 
   login() {
@@ -25,20 +29,7 @@ export class LoginComponent implements OnInit {
       Email: this.Email,
       Password: this.Password,
     };
-    return this._http.post('/User/Login', tryUser).subscribe(
-      res => {
-        this.errors = [];
-        localStorage.setItem('user', JSON.stringify(res));
-        this._router.navigate(['/']);
-      },
-      err => {
-        for (const key in err.error) {
-          if (err.error.hasOwnProperty(key)) {
-            this.errors[key] = err.error[key].Errors[0].ErrorMessage;
-          }
-        }
-      }
-    );
+    return this._user.login(tryUser);
   }
 
 }

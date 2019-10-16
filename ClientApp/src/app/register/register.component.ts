@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-
+import { UserService } from '../services/user.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -13,14 +12,18 @@ export class RegisterComponent implements OnInit {
   public Email: string;
   public Password: string;
   public Confirm: string;
-  public errors: object[] = [];
+  public errors: object;
 
   constructor(
-    private _http: HttpClient,
+    private _user: UserService,
     private _router: Router
     ) {}
 
   ngOnInit() {
+    if (localStorage.getItem('user') != null) {
+      return this._router.navigate(['/']);
+    }
+    this._user.userErrors.subscribe(e => this.errors = e);
   }
 
   register() {
@@ -31,20 +34,7 @@ export class RegisterComponent implements OnInit {
       Password: this.Password,
       Confirm: this.Confirm
     };
-    return this._http.post('/User/Register', newUser).subscribe(
-      res => {
-        this.errors = [];
-        localStorage.setItem('user', JSON.stringify(res));
-        this._router.navigate(['/']);
-      },
-      err => {
-        for (const key in err.error) {
-          if (err.error.hasOwnProperty(key)) {
-            this.errors[key] = err.error[key].Errors[0].ErrorMessage;
-          }
-        }
-      }
-    );
+    return this._user.register(newUser);
   }
 
 }
