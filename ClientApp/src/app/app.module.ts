@@ -9,6 +9,8 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { BugHomeComponent } from './bug-home/bug-home.component';
+import { BugsHomeComponent } from './bugs-home/bugs-home.component';
+import { UserHomeComponent } from './user-home/user-home.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { BugHomeComponent } from './bug-home/bug-home.component';
     NavMenuComponent,
     LoginComponent,
     RegisterComponent,
-    BugHomeComponent
+    BugHomeComponent,
+    BugsHomeComponent,
+    UserHomeComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
