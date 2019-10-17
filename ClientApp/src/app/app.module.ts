@@ -15,6 +15,10 @@ import { BugsListComponent } from './bugs-list/bugs-list.component';
 import { BugsAddedComponent } from './bugs-added/bugs-added.component';
 import { BugsAssignedComponent } from './bugs-assigned/bugs-assigned.component';
 import { BugsAddComponent } from './bugs-add/bugs-add.component';
+import { BugTrackComponent } from './bug-track/bug-track.component';
+import { BugEditComponent } from './bug-edit/bug-edit.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserEditComponent } from './user-edit/user-edit.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +32,11 @@ import { BugsAddComponent } from './bugs-add/bugs-add.component';
     BugsListComponent,
     BugsAddedComponent,
     BugsAssignedComponent,
-    BugsAddComponent
+    BugsAddComponent,
+    BugTrackComponent,
+    BugEditComponent,
+    UserProfileComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -45,8 +53,14 @@ import { BugsAddComponent } from './bugs-add/bugs-add.component';
           { path: 'add', component: BugsAddComponent }
         ]
       },
-      { path: 'bug', component: BugHomeComponent },
-      { path: 'register', component: RegisterComponent }
+      { path: 'bug', component: BugHomeComponent,
+        children: [
+          { path: 'track', component: BugTrackComponent },
+          { path: 'edit', component: BugEditComponent }
+        ]
+      },
+      { path: 'register', component: RegisterComponent },
+      {path: '**', redirectTo: 'bugs' }
     ])
   ],
   providers: [],
