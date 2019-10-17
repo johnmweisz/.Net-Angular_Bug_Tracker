@@ -1,14 +1,19 @@
-<ul class="nav nav-tabs">
-  <li class="nav-item">
-    <a class="nav-link active" href="#">Active</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link disabled" href="#">Disabled</a>
-  </li>
-</ul>
+<div>
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['list']">Bugs</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['added']">Added</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['assigned']">Assigned</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['add']">Add</a>
+    </li>
+  </ul>
+</div>
+<div>
+  <router-outlet></router-outlet>
+</div>

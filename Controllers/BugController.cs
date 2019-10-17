@@ -29,12 +29,15 @@ namespace BugTracker.Controllers
                 .ThenInclude(a => a.User)
             .OrderBy(b => b.CreatedAt)
             .ToList();
-            return Ok(JsonConvert.SerializeObject(Bugs, Formatting.Indented,
+            return Ok(JsonConvert.SerializeObject(
+                Bugs, 
+                Formatting.Indented,
                 new JsonSerializerSettings
                     {
                         ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                     }
-            ));
+                )
+            );
         }
     }
 }
