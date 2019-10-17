@@ -44,9 +44,16 @@ import { UserEditComponent } from './user-edit/user-edit.component';
     FormsModule,
     RouterModule.forRoot([
       { path: '', redirectTo: 'bugs', pathMatch: 'full' },
-      { path: 'user', component: UserHomeComponent },
+      { path: 'user', component: UserHomeComponent,
+        children: [
+          {path: '', redirectTo: 'profile', pathMatch: 'full' },
+          { path: 'profile', component: UserProfileComponent },
+          { path: 'edit', component: UserEditComponent }
+        ]
+      },
       { path: 'bugs', component: BugsHomeComponent,
         children: [
+          {path: '', redirectTo: 'list', pathMatch: 'full' },
           { path: 'list', component: BugsListComponent },
           { path: 'added', component: BugsAddedComponent },
           { path: 'assigned', component: BugsAssignedComponent },
@@ -55,12 +62,13 @@ import { UserEditComponent } from './user-edit/user-edit.component';
       },
       { path: 'bug', component: BugHomeComponent,
         children: [
+          {path: '', redirectTo: 'track', pathMatch: 'full' },
           { path: 'track', component: BugTrackComponent },
           { path: 'edit', component: BugEditComponent }
         ]
       },
       { path: 'register', component: RegisterComponent },
-      {path: '**', redirectTo: 'bugs' }
+      {path: '**', redirectTo: 'bugs/list' }
     ])
   ],
   providers: [],
