@@ -11,7 +11,6 @@ namespace BugTracker.Models
         public DbSet<Comment> Comments {get; set;}
         public DbSet<Project> Projects {get; set;}
         public DbSet<Assign> Assigned {get; set;}
-
     }
     
 }

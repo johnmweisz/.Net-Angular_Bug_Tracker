@@ -44,7 +44,7 @@ import { UserEditComponent } from './user-edit/user-edit.component';
     FormsModule,
     RouterModule.forRoot([
       { path: '', redirectTo: 'bugs', pathMatch: 'full' },
-      { path: 'user', component: UserHomeComponent,
+      { path: 'user/:UserId', component: UserHomeComponent,
         children: [
           {path: '', redirectTo: 'profile', pathMatch: 'full' },
           { path: 'profile', component: UserProfileComponent },
@@ -67,6 +67,7 @@ import { UserEditComponent } from './user-edit/user-edit.component';
           { path: 'edit', component: BugEditComponent }
         ]
       },
+      { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       {path: '**', redirectTo: 'bugs/list' }
     ])

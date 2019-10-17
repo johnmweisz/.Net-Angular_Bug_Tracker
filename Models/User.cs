@@ -34,9 +34,8 @@ namespace BugTracker.Models
         [Display(Name = "Confirm Password")]
         public string Confirm {get;set;}
         // Link & Navigation
-        [JsonIgnore]
-        public ICollection<Bug> Assigned {get;set;}
-        [JsonIgnore]
+        public ICollection<Assign> Assigned {get;set;}
+        public ICollection<Bug> Created {get;set;}
         public ICollection<Comment> Comments {get;set;}
     }
 }

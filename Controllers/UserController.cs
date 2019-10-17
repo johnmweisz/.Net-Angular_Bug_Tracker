@@ -82,6 +82,25 @@ namespace BugTracker.Controllers
             return BadRequest(JsonConvert.SerializeObject(ModelState));
         }
 
+        [HttpGet("[action]/{UserId}")]
+        public IActionResult Profile(int UserId)
+        {
+            User User = context.Users
+            .Include(u => u.Created)
+            .Include(u => u.Assigned)
+                .ThenInclude(a => a.Bug)
+            .FirstOrDefault(u => u.UserId == UserId);
+            return Ok(JsonConvert.SerializeObject(
+                User,
+                Formatting.Indented,
+                new JsonSerializerSettings
+                    {
+                        ReferenceLoopHandling = ReferenceLoopHandling.Serialize
+                    }
+                )
+            );
+        }
+
     }
 
 }

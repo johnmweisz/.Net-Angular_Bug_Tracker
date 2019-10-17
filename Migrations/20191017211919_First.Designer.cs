@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BugTracker.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20191015001905_Initial")]
-    partial class Initial
+    [Migration("20191017211919_First")]
+    partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -173,7 +173,7 @@ namespace BugTracker.Migrations
                         .IsRequired();
 
                     b.HasOne("BugTracker.Models.User", "User")
-                        .WithMany()
+                        .WithMany("Assigned")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -182,7 +182,7 @@ namespace BugTracker.Migrations
             modelBuilder.Entity("BugTracker.Models.Bug", b =>
                 {
                     b.HasOne("BugTracker.Models.User", "Creator")
-                        .WithMany("Assigned")
+                        .WithMany("Created")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

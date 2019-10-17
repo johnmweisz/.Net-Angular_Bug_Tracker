@@ -9,8 +9,10 @@ import { Router } from '@angular/router';
 export class UserService {
   private errorSub = new BehaviorSubject<object>(null);
   private userSub = new BehaviorSubject<object>(null);
+  private profileSub = new BehaviorSubject<object>(null);
   userErrors = this.errorSub.asObservable();
   userLog = this.userSub.asObservable();
+  userProfile = this.userSub.asObservable();
 
   constructor(
     private _http: HttpClient,
@@ -62,10 +64,10 @@ export class UserService {
     this.userSub.next(null);
   }
 
-  checkLog(redirect) {
+  checkLog(shouldRedirect) {
     if (localStorage.getItem('user') != null) {
       this.userSub.next(JSON.parse(localStorage.getItem('user')));
-      if (redirect) {
+      if (shouldRedirect) {
         this._router.navigate(['/']);
       }
     }
@@ -73,6 +75,17 @@ export class UserService {
 
   clearErrors() {
     this.errorSub.next(null);
+  }
+
+  getProfile(UserId: number) {
+    return this._http.get(`/User/Profile/${UserId}`).subscribe(
+      res => {
+        this.profileSub.next(res);
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
 }
