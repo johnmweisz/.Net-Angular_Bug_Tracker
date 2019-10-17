@@ -27,9 +27,7 @@ namespace BugTracker.Models
         // Link & Navigation
         public int UserId {get;set;}
         public User Creator {get;set;}
-        [JsonIgnore]
         public ICollection<Assign> Assigned {get;set;}
-        [JsonIgnore]
         public ICollection<Comment> Comments {get;set;}
     }
 }

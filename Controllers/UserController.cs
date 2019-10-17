@@ -85,6 +85,7 @@ namespace BugTracker.Controllers
         [HttpGet("[action]/{UserId}")]
         public IActionResult Profile(int UserId)
         {
+            Console.WriteLine(UserId);
             User User = context.Users
             .Include(u => u.Created)
             .Include(u => u.Assigned)

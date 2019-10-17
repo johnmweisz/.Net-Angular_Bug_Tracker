@@ -12,7 +12,7 @@ export class UserService {
   private profileSub = new BehaviorSubject<object>(null);
   userErrors = this.errorSub.asObservable();
   userLog = this.userSub.asObservable();
-  userProfile = this.userSub.asObservable();
+  userProfile = this.profileSub.asObservable();
 
   constructor(
     private _http: HttpClient,
