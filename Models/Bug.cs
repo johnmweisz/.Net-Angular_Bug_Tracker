@@ -19,11 +19,10 @@ namespace BugTracker.Models
         [Required]
         public string Status {get;set;}
         [Display(Name = "Due Date")]
-        public DateTime? DueDate {get;set;}
+        public DateTime DueDate {get;set;}
         [Display(Name = "Start Date")]
         public DateTime CreatedAt {get;set;} = DateTime.Now;
         public DateTime UpdatedAt {get;set;} = DateTime.Now;
-        public string Confirm {get;set;}
         // Link & Navigation
         public int UserId {get;set;}
         public User Creator {get;set;}

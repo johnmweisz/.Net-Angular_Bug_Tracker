@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { User } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -33,15 +34,15 @@ export class UserService {
     this.errorSub.next(null);
   }
 
-  setUser(res: object) {
+  setUser(res: User) {
     this.clearErrors();
     this.userSub.next(res);
     localStorage.setItem('user', JSON.stringify(res));
   }
 
-  register(newUser: object) {
+  register(newUser: User) {
     return this._http.post('/User/Register', newUser).subscribe(
-      res => {
+      (res: User) => {
         this.setUser(res);
         this._router.navigate(['/']);
       },
@@ -49,9 +50,9 @@ export class UserService {
     );
   }
 
-  login(tryUser: object) {
+  login(tryUser: User) {
     return this._http.post('/User/Login', tryUser).subscribe(
-      res => {
+      (res: User) => {
         this.setUser(res);
         this._router.navigate(['/']);
       },
@@ -84,11 +85,11 @@ export class UserService {
     );
   }
 
-  edit(editUser: object) {
-    return this._http.post(`/User/Edit/`, editUser).subscribe(
-      res => {
+  editUser(editUser: User) {
+    return this._http.post('/User/Edit/', editUser).subscribe(
+      (res: User) => {
         this.setUser(res);
-        this.getProfile(res['UserId']);
+        this.getProfile(res.UserId);
       },
       err => this.parseErrors(err)
     );
