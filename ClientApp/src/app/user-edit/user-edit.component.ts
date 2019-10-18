@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-edit.component.css']
 })
 export class UserEditComponent implements OnInit {
+  user: object;
 
-  constructor() { }
+  constructor(
+    private _user: UserService
+    ) { }
 
   ngOnInit() {
+    this._user.userProfile.subscribe(u => this.user = u);
   }
 
 }

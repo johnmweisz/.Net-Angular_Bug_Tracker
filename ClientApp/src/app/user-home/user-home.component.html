@@ -11,6 +11,7 @@
     </li>
   </ul>
 </div>
-<div>
+<p *ngIf="!user">Loading...</p>
+<div class="container" *ngIf="user">
   <router-outlet></router-outlet>
 </div>

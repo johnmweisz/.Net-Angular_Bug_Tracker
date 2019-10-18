@@ -18,9 +18,11 @@ export class UserHomeComponent implements OnInit {
   ngOnInit() {
     this._route.params.subscribe(
       params => {
-        this._user.userProfile.subscribe(u => this.user = u);
         this._user.getProfile(params.UserId);
-        console.log(this.user);
+        this._user.userProfile.subscribe(u => {
+          this.user = u;
+          console.log(u); // obviously take this out when done.
+        });
       },
       error => {
         console.error(error);

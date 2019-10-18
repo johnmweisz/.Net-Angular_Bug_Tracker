@@ -19,10 +19,10 @@ namespace BugTracker.Models
         [Required]
         [EmailAddress]
         public string Email {get;set;}
+        [JsonIgnore]
         [Required]
         [RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$", ErrorMessage="Minimum eight characters, at least one letter, one number, and one special character.")]
         [DataType(DataType.Password)]
-        [JsonIgnore]
         public string Password {get;set;}
         public DateTime CreatedAt {get;set;} = DateTime.Now;
         public DateTime UpdatedAt {get;set;} = DateTime.Now;

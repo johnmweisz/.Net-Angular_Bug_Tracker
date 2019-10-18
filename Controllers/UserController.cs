@@ -83,8 +83,9 @@ namespace BugTracker.Controllers
         }
 
         [HttpGet("[action]/{UserId}")]
-        public IActionResult Profile(int UserId)
+        public IActionResult Profile(int? UserId)
         {
+            if (UserId == null) BadRequest();
             Console.WriteLine(UserId);
             User User = context.Users
             .Include(u => u.Created)
@@ -96,7 +97,7 @@ namespace BugTracker.Controllers
                 Formatting.Indented,
                 new JsonSerializerSettings
                     {
-                        ReferenceLoopHandling = ReferenceLoopHandling.Serialize
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                     }
                 )
             );
