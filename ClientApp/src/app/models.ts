@@ -3,13 +3,13 @@ export interface User {
   FirstName: string;
   LastName: string;
   Email: string;
-  Password: string;
-  Confirm: string;
+  Password?: string;
+  Confirm?: string;
   CreatedAt: Date;
   UpdatedAt: Date;
-  Assigned: Bug[];
-  Created: Bug[];
-  Comments: Comment[];
+  Assigned?: Bug[];
+  Created?: Bug[];
+  Comments?: Comment[];
 }
 
 export interface Bug {
@@ -25,8 +25,8 @@ export interface Bug {
   Creator: User;
   ProjectId: number;
   Project: Project;
-  Assigned: User[];
-  Comments: Comment[];
+  Assigned?: User[];
+  Comments?: Comment[];
 }
 
 export interface Project {
@@ -41,6 +41,6 @@ export interface Comment {
   BugId: number;
   UserId: number;
   CreatedAt: Date;
-  Bug: Bug;
-  User: User;
+  Bug?: Bug;
+  User?: User;
 }

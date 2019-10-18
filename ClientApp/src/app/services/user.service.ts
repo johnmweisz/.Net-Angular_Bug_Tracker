@@ -76,7 +76,7 @@ export class UserService {
 
   getProfile(UserId: number) {
     return this._http.get(`/User/Profile/${UserId}`).subscribe(
-      res => {
+      (res: User) => {
         this.profileSub.next(res);
       },
       err => {
