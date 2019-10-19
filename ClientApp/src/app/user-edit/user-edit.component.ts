@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { User } from '../models';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-edit',
@@ -18,15 +19,21 @@ export class UserEditComponent implements OnInit, OnDestroy {
   public errors: object;
 
   constructor(
-    private _user: UserService
+    private _user: UserService,
+    private _router: Router
     ) { }
 
   ngOnInit() {
-    this.userProfileSub = this._user.userProfile.subscribe(u => this.user = u);
-    this.UserId = this.user.UserId;
-    this.FirstName = this.user.FirstName;
-    this.LastName = this.user.LastName;
-    this.Email = this.user.Email;
+    this.userProfileSub = this._user.userProfile.subscribe(u => {
+      if (u === null || JSON.parse(localStorage.getItem('user')).UserId !== u.UserId) {
+        return this._router.navigate(['/']);
+      }
+      this.user = u;
+      this.UserId = u.UserId;
+      this.FirstName = u.FirstName;
+      this.LastName = u.LastName;
+      this.Email = u.Email;
+    });
   }
 
   ngOnDestroy() {

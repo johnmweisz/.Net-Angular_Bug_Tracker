@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { Subscription } from 'rxjs';
 
@@ -15,8 +14,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   public errors: object;
 
   constructor(
-    private _user: UserService,
-    private _router: Router
+    private _user: UserService
     ) {}
 
   ngOnInit() {
