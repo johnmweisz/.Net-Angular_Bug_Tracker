@@ -120,6 +120,16 @@ namespace BugTracker.Controllers
             return BadRequest(JsonConvert.SerializeObject(ModelState));
         }
 
+        [HttpGet("[action]/{UserId}")]
+        public IActionResult Delete(int? UserId)
+        {
+            if (UserId == null) BadRequest();
+            User User = context.Users.FirstOrDefault(u => u.UserId == UserId);
+            context.Remove(User);
+            context.SaveChanges();
+            return Ok();
+        }
+
     }
 
 }
