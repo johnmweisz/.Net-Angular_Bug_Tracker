@@ -4,7 +4,7 @@
       <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['profile']">Profile</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['edit']">Edit</a>
+      <a class="nav-link" *ngIf="canEdit" [routerLinkActive]="['active']" [routerLink]="['edit']">Edit</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/bugs']">Back</a>

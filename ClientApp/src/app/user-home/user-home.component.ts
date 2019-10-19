@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 })
 export class UserHomeComponent implements OnInit, OnDestroy {
   private paramsSub: Subscription;
-  public user: object;
+  public canEdit = false;
 
   constructor(
     private _user: UserService,
@@ -19,7 +19,12 @@ export class UserHomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.paramsSub = this._route.params.subscribe(
-      par => this._user.getProfile(par.UserId),
+      par => {
+        this._user.getProfile(par.UserId);
+        if (JSON.parse(localStorage.getItem('user')).UserId === JSON.parse(par.UserId)) {
+          this.canEdit = true;
+        }
+      },
       err => console.error(err)
     );
   }

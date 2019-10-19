@@ -91,6 +91,7 @@ export class UserService {
       (res: User) => {
         this.setUser(res);
         this.getProfile(res.UserId);
+        this._router.navigate([`/user/${res.UserId}`]);
       },
       err => this.parseErrors(err)
     );
