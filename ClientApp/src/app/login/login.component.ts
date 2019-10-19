@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
-  Email: string;
-  Password: string;
-  errors: object;
+export class LoginComponent implements OnInit, OnDestroy {
+  private errorSub: Subscription;
+  public Email: string;
+  public Password: string;
+  public errors: object;
 
   constructor(
     private _user: UserService,
@@ -20,7 +22,11 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this._user.clearErrors();
     this._user.checkLog(true);
-    this._user.userErrors.subscribe(e => this.errors = e);
+    this.errorSub = this._user.userErrors.subscribe(e => this.errors = e);
+  }
+
+  ngOnDestroy() {
+    this.errorSub.unsubscribe();
   }
 
   login() {

@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
+import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
+  private errorSub: Subscription;
   public FirstName: string;
   public LastName: string;
   public Email: string;
@@ -22,7 +25,11 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this._user.clearErrors();
     this._user.checkLog(true);
-    this._user.userErrors.subscribe(e => this.errors = e);
+    this.errorSub = this._user.userErrors.subscribe(e => this.errors = e);
+  }
+
+  ngOnDestroy() {
+    this.errorSub.unsubscribe();
   }
 
   register() {

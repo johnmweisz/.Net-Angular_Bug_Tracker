@@ -11,10 +11,8 @@ namespace BugTracker.Models
         [Key]
         public int UserId {get;set;}
         [Required]
-        [Display(Name = "First Name")]
         public string FirstName {get;set;}
         [Required]
-        [Display(Name = "Last Name")]
         public string LastName {get;set;}
         [Required]
         [EmailAddress]
@@ -31,7 +29,6 @@ namespace BugTracker.Models
         [NotMapped]
         [Compare("Password")]
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm Password")]
         public string Confirm {get;set;}
         // Link & Navigation
         public ICollection<Assign> Assigned {get;set;}

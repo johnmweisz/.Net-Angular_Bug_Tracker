@@ -1,4 +1,5 @@
-<div>
+<p *ngIf="!user">Loading...</p>
+<div *ngIf="user">
     <form #valForm='ngForm' (ngSubmit)="editUser()">
         <div class="form-group">
             <label for="FirstName">First Name</label>
@@ -33,32 +34,10 @@
               <p>Please enter a valid email.</p>
             </div>
         </div>
-        <div class="form-group">
-            <label for="Password">Password</label>
-            <input class="form-control" type="password" name="Password" required pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$" #valPassword='ngModel' [(ngModel)]="Password" placeholder="Password">
-            <div class="alert alert-danger" *ngIf="errors?.Password">
-              <p>{{ errors['Password'] }}</p>
-            </div>
-            <div class="alert alert-danger" *ngIf="valPassword.errors?.required && (valPassword.dirty || valPassword.touched)">
-              <p>Required</p>
-            </div>
-            <div class="alert alert-danger" *ngIf="valPassword.errors?.pattern && (valPassword.dirty || valPassword.touched)">
-              <p>Minimum eight characters, at least one letter, one number and one special character.</p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="Confirm">Confirm Password</label>
-            <input class="form-control" type="password" name="Confirm" required #valConfirm='ngModel' [(ngModel)]="Confirm" placeholder="Confirm Password">
-            <div class="alert alert-danger" *ngIf="errors?.Confirm">
-              <p>{{ errors['Confirm'] }}</p>
-            </div>
-            <div class="alert alert-danger" *ngIf="Password != Confirm && (valConfirm.dirty || valConfirm.touched)">
-              <p>Password does not match.</p>
-            </div>
-        </div>
         <div>
-            <button class="btn btn-danger" *ngIf="!valForm.valid" type="button">Submit</button>
+            <button class="btn btn-warning" *ngIf="!valForm.valid" type="button">Submit</button>
             <button class="btn btn-primary" *ngIf="valForm.valid" type="submit">Submit</button>
+            <button class="btn btn-danger float-right" (click)="deleteUser()" type="button">Submit</button>
         </div>
     </form>
   </div>

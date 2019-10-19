@@ -9,8 +9,8 @@ import { User } from '../models';
 })
 export class UserService {
   private errorSub = new BehaviorSubject<object>(null);
-  private userSub = new BehaviorSubject<object>(null);
-  private profileSub = new BehaviorSubject<object>(null);
+  private userSub = new BehaviorSubject<User>(null);
+  private profileSub = new BehaviorSubject<User>(null);
   userErrors = this.errorSub.asObservable();
   userLog = this.userSub.asObservable();
   userProfile = this.profileSub.asObservable();
@@ -63,6 +63,7 @@ export class UserService {
   logout() {
     localStorage.removeItem('user');
     this.userSub.next(null);
+    this.profileSub.next(null);
   }
 
   checkLog(shouldRedirect: boolean) {
@@ -92,6 +93,18 @@ export class UserService {
         this.getProfile(res.UserId);
       },
       err => this.parseErrors(err)
+    );
+  }
+
+  deleteUser(UserId: number) {
+    return this._http.get(`/User/Delete/${UserId}`).subscribe(
+      res => {
+        this.logout();
+        this._router.navigate(['/']);
+      },
+      err => {
+        console.log(err);
+      }
     );
   }
 

@@ -25,18 +25,15 @@ namespace BugTracker.Controllers
         {
             if(ModelState.IsValid)
             {
-                // Check if Email already exists.
                 if(context.Users.Any(u => u.Email == NewUser.Email))
                 {
                     ModelState.AddModelError("Email", "Email already in use, please log in.");
                     return BadRequest(JsonConvert.SerializeObject(ModelState));
                 }
-                // Hash password.
                 PasswordHasher<User> Hasher = new PasswordHasher<User>();
                 NewUser.Password = Hasher.HashPassword(NewUser, NewUser.Password);
                 context.Add(NewUser);
                 context.SaveChanges();
-                // Send User to Client for locastorage.
                 return Ok(JsonConvert.SerializeObject(
                     NewUser,
                     Formatting.Indented,
@@ -54,15 +51,12 @@ namespace BugTracker.Controllers
         {
             if(ModelState.IsValid)
             {
-                // Find user that matches Email provided.
                 User FindUserByEmail = context.Users.FirstOrDefault(u => u.Email == TryUser.Email);
-                // Check if email does not exist.
                 if(FindUserByEmail == null)
                 {
                     ModelState.AddModelError("Email", "Email does not exist, please register.");
                     return BadRequest(JsonConvert.SerializeObject(ModelState));
                 }
-                // Convert string to hash and compare against hashed hassword.
                 var hasher = new PasswordHasher<User>();
                 var result = hasher.VerifyHashedPassword(FindUserByEmail, FindUserByEmail.Password, TryUser.Password);
                 if(result == PasswordVerificationResult.Success)
@@ -86,7 +80,6 @@ namespace BugTracker.Controllers
         public IActionResult Profile(int? UserId)
         {
             if (UserId == null) BadRequest();
-            Console.WriteLine(UserId);
             User User = context.Users
             .Include(u => u.Created)
             .Include(u => u.Assigned)
@@ -101,6 +94,30 @@ namespace BugTracker.Controllers
                     }
                 )
             );
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult Edit([FromBody] EditUser EditUser)
+        {
+            if (ModelState.IsValid)
+            {
+                User User = context.Users.FirstOrDefault(u => u.UserId == EditUser.UserId);
+                User.FirstName = EditUser.FirstName;
+                User.LastName = EditUser.LastName;
+                User.Email = EditUser.Email;
+                User.UpdatedAt = DateTime.Now;
+                context.SaveChanges();
+                return Ok(JsonConvert.SerializeObject(
+                    User,
+                    Formatting.Indented,
+                    new JsonSerializerSettings
+                        {
+                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                        }
+                    )
+                );
+            }
+            return BadRequest(JsonConvert.SerializeObject(ModelState));
         }
 
     }
