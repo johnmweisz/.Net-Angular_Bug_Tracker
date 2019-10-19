@@ -1,11 +1,21 @@
-<p *ngIf="!user">Loading...</p>
-<div class="row" *ngIf="user">
+<div *ngIf="!user" class="d-flex justify-content-center m-5">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+<div class="row text-center" *ngIf="user">
   <div class="col-4">
-    <h3 class="m-1">{{ user['FirstName'] }} {{ user['LastName'] }}</h3>
-    <h5 class="m-1">Joined: {{ user['CreatedAt'] | date}}</h5>
-    <h5 class="m-1">{{ user['Email'] }}</h5>
-    <h5 class="m-1 badge badge-dark">Bugs Added: {{ user['Created'].length }}</h5>
-    <h5 class="m-1 badge badge-dark">Bugs Assigned: {{ user['Assigned'].length }}</h5>
+    <div class="card m-1">
+      <h3 class="card-header">{{ user['FirstName'] }} {{ user['LastName'] }}</h3>
+      <div class="card-body">
+          <p class="card-subtitle">Joined: {{ user['CreatedAt'] | date}}</p>
+          <p class="card-subtitle">{{ user['Email'] }}</p>
+      </div>
+      <div class="card-footer">
+          <p class="m-2 badge badge-dark">Bugs Added: {{ user['Created'].length }}</p>
+          <p class="m-2 badge badge-dark">Bugs Assigned: {{ user['Assigned'].length }}</p>
+      </div>
+    </div>
   </div>
   <div class="col-8">
     <div class="card m-1">
@@ -18,8 +28,13 @@
             <th scope="col">Status</th>
           </tr>
         </thead>
-        <tbody *ngFor="let bug of user['Created']">
-          <tr>
+        <tbody>
+          <tr *ngIf="user['Created'].length == 0">
+            <td scope="row">N/A</td>
+            <td>N/A</td>
+            <td>N/A</td>
+          </tr>
+          <tr *ngFor="let bug of user['Created']">
             <td scope="row">{{ bug['Project'] }}</td>
             <td>{{ bug['Subject'] }}</td>
             <td>{{ bug['Status'] }}</td>
@@ -37,8 +52,13 @@
             <th scope="col">Status</th>
           </tr>
         </thead>
-        <tbody *ngFor="let bug of user['Assigned']">
-          <tr>
+        <tbody>
+          <tr *ngIf="user['Assigned'].length == 0">
+            <td scope="row">N/A</td>
+            <td>N/A</td>
+            <td>N/A</td>
+          </tr>
+          <tr *ngFor="let bug of user['Assigned']">
             <td scope="row">{{ bug['Project'] }}</td>
             <td>{{ bug['Subject'] }}</td>
             <td>{{ bug['Status'] }}</td>
