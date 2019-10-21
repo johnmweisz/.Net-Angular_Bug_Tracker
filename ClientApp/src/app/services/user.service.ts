@@ -11,9 +11,9 @@ export class UserService {
   private errorSub = new BehaviorSubject<object>(null);
   private userSub = new BehaviorSubject<User>(null);
   private profileSub = new BehaviorSubject<User>(null);
-  userErrors = this.errorSub.asObservable();
-  userLog = this.userSub.asObservable();
-  userProfile = this.profileSub.asObservable();
+  public userErrors = this.errorSub.asObservable();
+  public userLog = this.userSub.asObservable();
+  public userProfile = this.profileSub.asObservable();
 
   constructor(
     private _http: HttpClient,
