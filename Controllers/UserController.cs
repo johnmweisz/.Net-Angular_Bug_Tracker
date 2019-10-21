@@ -20,6 +20,18 @@ namespace BugTracker.Controllers
         {
             this.context = context;
         }
+
+		private IActionResult Jsonify(object ToJSON) {
+			return Ok(JsonConvert.SerializeObject(
+				ToJSON,
+				Formatting.Indented,
+				new JsonSerializerSettings 
+					{
+						ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+					}
+			));
+		}
+
         [HttpPost("[action]")]
         public IActionResult Register([FromBody] User NewUser)
         {
@@ -34,14 +46,7 @@ namespace BugTracker.Controllers
                 NewUser.Password = Hasher.HashPassword(NewUser, NewUser.Password);
                 context.Add(NewUser);
                 context.SaveChanges();
-                return Ok(JsonConvert.SerializeObject(
-                    NewUser,
-                    Formatting.Indented,
-                    new JsonSerializerSettings 
-                        {
-                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                        }
-                ));
+                return Jsonify(NewUser);
             }
             return BadRequest(JsonConvert.SerializeObject(ModelState));
         }
@@ -61,14 +66,7 @@ namespace BugTracker.Controllers
                 var result = hasher.VerifyHashedPassword(FindUserByEmail, FindUserByEmail.Password, TryUser.Password);
                 if(result == PasswordVerificationResult.Success)
                 {
-                    return Ok(JsonConvert.SerializeObject(
-                        FindUserByEmail, 
-                        Formatting.Indented, 
-                        new JsonSerializerSettings 
-                            { 
-                                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                            }
-                    ));
+                return Jsonify(FindUserByEmail);
                 }
                 ModelState.AddModelError("Password", "Password incorrect, please try again.");
                 return BadRequest(JsonConvert.SerializeObject(ModelState));
@@ -85,15 +83,7 @@ namespace BugTracker.Controllers
             .Include(u => u.Assigned)
                 .ThenInclude(a => a.Bug)
             .FirstOrDefault(u => u.UserId == UserId);
-            return Ok(JsonConvert.SerializeObject(
-                User,
-                Formatting.Indented,
-                new JsonSerializerSettings
-                    {
-                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                    }
-                )
-            );
+            return Jsonify(User);
         }
 
         [HttpPost("[action]")]
@@ -107,15 +97,7 @@ namespace BugTracker.Controllers
                 User.Email = EditUser.Email;
                 User.UpdatedAt = DateTime.Now;
                 context.SaveChanges();
-                return Ok(JsonConvert.SerializeObject(
-                    User,
-                    Formatting.Indented,
-                    new JsonSerializerSettings
-                        {
-                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                        }
-                    )
-                );
+                return Jsonify(User);
             }
             return BadRequest(JsonConvert.SerializeObject(ModelState));
         }

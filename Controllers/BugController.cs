@@ -20,6 +20,18 @@ namespace BugTracker.Controllers
         {
             this.context = context;
         }
+
+		private IActionResult Jsonify(object ToJSON) {
+			return Ok(JsonConvert.SerializeObject(
+				ToJSON,
+				Formatting.Indented,
+				new JsonSerializerSettings 
+					{
+						ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+					}
+			));
+		}
+
         [HttpGet("[action]")]
         public IActionResult GetBugs()
         {
@@ -29,15 +41,7 @@ namespace BugTracker.Controllers
                 .ThenInclude(a => a.User)
             .OrderBy(b => b.CreatedAt)
             .ToList();
-            return Ok(JsonConvert.SerializeObject(
-                Bugs,
-                Formatting.Indented,
-                new JsonSerializerSettings
-                    {
-                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                    }
-                )
-            );
+            return Jsonify(Bugs);
         }
 
 		[HttpGet("[action]/{BugId}")]
@@ -48,32 +52,17 @@ namespace BugTracker.Controllers
             .Include(b => b.Assigned)
                 .ThenInclude(a => a.User)
 			.FirstOrDefault(b => b.BugId == BugId);
-            return Ok(JsonConvert.SerializeObject(
-                Bug,
-                Formatting.Indented,
-                new JsonSerializerSettings
-                    {
-                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                    }
-                )
-            );
+            return Jsonify(Bug);
         }
 
-		[HttpGet("[action]")]
+		[HttpPost("[action]")]
         public IActionResult AddBug([FromBody] Bug NewBug)
         {
             if(ModelState.IsValid)
             {
                 context.Add(NewBug);
                 context.SaveChanges();
-                return Ok(JsonConvert.SerializeObject(
-                    NewBug,
-                    Formatting.Indented,
-                    new JsonSerializerSettings 
-                        {
-                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                        }
-                ));
+                return Jsonify(NewBug);
             }
             return BadRequest(JsonConvert.SerializeObject(ModelState));
         }
