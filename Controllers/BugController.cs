@@ -44,6 +44,32 @@ namespace BugTracker.Controllers
             return OkJson(Bugs);
         }
 
+        [HttpGet("[action]/{UserId}")]
+        public IActionResult GetAdded(int? UserId)
+        {
+            List<Bug> Bugs = context.Bugs
+            .Include(b => b.Creator)
+            .Include(b => b.Assigned)
+                .ThenInclude(a => a.User)
+			.Where(b => b.UserId == UserId)
+            .OrderBy(b => b.CreatedAt)
+            .ToList();
+            return OkJson(Bugs);
+        }
+
+        [HttpGet("[action]/{UserId}")]
+        public IActionResult GetAssigned(int? UserId)
+        {
+            List<Bug> Bugs = context.Bugs
+            .Include(b => b.Creator)
+            .Include(b => b.Assigned)
+                .ThenInclude(a => a.User)
+			.Where(b => b.Assigned.Any(a => a.UserId == UserId))
+            .OrderBy(b => b.CreatedAt)
+            .ToList();
+            return OkJson(Bugs);
+        }
+
 		[HttpGet("[action]/{BugId}")]
         public IActionResult GetOne(int? BugId)
         {

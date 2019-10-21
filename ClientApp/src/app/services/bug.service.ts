@@ -30,7 +30,7 @@ export class BugService {
       this.errorSub.next(errors);
     }
 
-    getBugs() {
+    getAll() {
       return this._http.get('/Bug/GetAll/').subscribe(
         (res: Bug[]) => {
           this.bugsSub.next(res);
@@ -41,7 +41,29 @@ export class BugService {
       );
     }
 
-    getBug(BugId: number) {
+    getAdded(UserId: number) {
+      return this._http.get(`/Bug/GetAdded/${UserId}`).subscribe(
+        (res: Bug[]) => {
+          this.bugsSub.next(res);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    }
+
+    getAssigned(UserId: number) {
+      return this._http.get(`/Bug/GetAssigned/${UserId}`).subscribe(
+        (res: Bug[]) => {
+          this.bugsSub.next(res);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    }
+
+    getOne(BugId: number) {
       return this._http.get(`/Bug/GetOne/${BugId}`).subscribe(
         (res: Bug) => {
           this.bugSub.next(res);
@@ -57,9 +79,7 @@ export class BugService {
         (res: Bug) => {
           this.bugSub.next(res);
         },
-        err => {
-          console.log(err);
-        }
+        err => this.parseErrors(err)
       );
     }
 
@@ -68,9 +88,7 @@ export class BugService {
         (res: Bug) => {
           this.bugSub.next(res);
         },
-        err => {
-          console.log(err);
-        }
+        err => this.parseErrors(err)
       );
     }
 
