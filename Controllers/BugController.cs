@@ -21,7 +21,7 @@ namespace BugTracker.Controllers
             this.context = context;
         }
 
-		private IActionResult Jsonify(object ToJSON) {
+		private IActionResult OkJson(object ToJSON) {
 			return Ok(JsonConvert.SerializeObject(
 				ToJSON,
 				Formatting.Indented,
@@ -33,7 +33,7 @@ namespace BugTracker.Controllers
 		}
 
         [HttpGet("[action]")]
-        public IActionResult GetBugs()
+        public IActionResult GetAll()
         {
             List<Bug> Bugs = context.Bugs
             .Include(b => b.Creator)
@@ -41,28 +41,28 @@ namespace BugTracker.Controllers
                 .ThenInclude(a => a.User)
             .OrderBy(b => b.CreatedAt)
             .ToList();
-            return Jsonify(Bugs);
+            return OkJson(Bugs);
         }
 
 		[HttpGet("[action]/{BugId}")]
-        public IActionResult GetBug(int? BugId)
+        public IActionResult GetOne(int? BugId)
         {
             Bug Bug = context.Bugs
             .Include(b => b.Creator)
             .Include(b => b.Assigned)
                 .ThenInclude(a => a.User)
 			.FirstOrDefault(b => b.BugId == BugId);
-            return Jsonify(Bug);
+            return OkJson(Bug);
         }
 
 		[HttpPost("[action]")]
-        public IActionResult AddBug([FromBody] Bug NewBug)
+        public IActionResult Add([FromBody] Bug NewBug)
         {
             if(ModelState.IsValid)
             {
                 context.Add(NewBug);
                 context.SaveChanges();
-                return Jsonify(NewBug);
+                return OkJson(NewBug);
             }
             return BadRequest(JsonConvert.SerializeObject(ModelState));
         }

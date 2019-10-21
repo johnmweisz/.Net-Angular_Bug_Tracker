@@ -21,7 +21,7 @@ namespace BugTracker.Controllers
             this.context = context;
         }
 
-		private IActionResult Jsonify(object ToJSON) {
+		private IActionResult OkJson(object ToJSON) {
 			return Ok(JsonConvert.SerializeObject(
 				ToJSON,
 				Formatting.Indented,
@@ -46,7 +46,7 @@ namespace BugTracker.Controllers
                 NewUser.Password = Hasher.HashPassword(NewUser, NewUser.Password);
                 context.Add(NewUser);
                 context.SaveChanges();
-                return Jsonify(NewUser);
+                return OkJson(NewUser);
             }
             return BadRequest(JsonConvert.SerializeObject(ModelState));
         }
@@ -66,7 +66,7 @@ namespace BugTracker.Controllers
                 var result = hasher.VerifyHashedPassword(FindUserByEmail, FindUserByEmail.Password, TryUser.Password);
                 if(result == PasswordVerificationResult.Success)
                 {
-                return Jsonify(FindUserByEmail);
+                return OkJson(FindUserByEmail);
                 }
                 ModelState.AddModelError("Password", "Password incorrect, please try again.");
                 return BadRequest(JsonConvert.SerializeObject(ModelState));
@@ -83,7 +83,7 @@ namespace BugTracker.Controllers
             .Include(u => u.Assigned)
                 .ThenInclude(a => a.Bug)
             .FirstOrDefault(u => u.UserId == UserId);
-            return Jsonify(User);
+            return OkJson(User);
         }
 
         [HttpPost("[action]")]
@@ -97,7 +97,7 @@ namespace BugTracker.Controllers
                 User.Email = EditUser.Email;
                 User.UpdatedAt = DateTime.Now;
                 context.SaveChanges();
-                return Jsonify(User);
+                return OkJson(User);
             }
             return BadRequest(JsonConvert.SerializeObject(ModelState));
         }

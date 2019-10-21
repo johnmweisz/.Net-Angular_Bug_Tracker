@@ -31,9 +31,31 @@ export class BugService {
     }
 
     getBugs() {
-      return this._http.get('/Bug/GetBugs/').subscribe(
+      return this._http.get('/Bug/GetAll/').subscribe(
         (res: Bug[]) => {
           this.bugsSub.next(res);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    }
+
+    getBug(BugId: number) {
+      return this._http.get(`/Bug/GetOne/${BugId}`).subscribe(
+        (res: Bug) => {
+          this.bugSub.next(res);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    }
+
+    addBug(newBug: Bug) {
+      return this._http.post('/Bug/Add/', newBug).subscribe(
+        (res: Bug) => {
+          this.bugSub.next(res);
         },
         err => {
           console.log(err);
