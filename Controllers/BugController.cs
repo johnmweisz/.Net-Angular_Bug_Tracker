@@ -67,5 +67,33 @@ namespace BugTracker.Controllers
             return BadRequest(JsonConvert.SerializeObject(ModelState));
         }
 
+        [HttpPost("[action]")]
+        public IActionResult Edit([FromBody] EditBug EditBug)
+        {
+            if (ModelState.IsValid)
+            {
+                Bug Bug = context.Bugs.FirstOrDefault(b => b.BugId == EditBug.BugId);
+				Bug.Subject = EditBug.Subject;
+				Bug.Description = EditBug.Description;
+				Bug.Priority = EditBug.Priority;
+				Bug.Status = EditBug.Status;
+				Bug.DueDate = EditBug.DueDate;
+                Bug.UpdatedAt = DateTime.Now;
+                context.SaveChanges();
+                return OkJson(Bug);
+            }
+            return BadRequest(JsonConvert.SerializeObject(ModelState));
+        }
+
+		[HttpGet("[action]/{BugId}")]
+        public IActionResult Delete(int? BugId)
+        {
+            if (BugId == null) BadRequest();
+			Bug Bug = context.Bugs.FirstOrDefault(b => b.BugId == BugId);
+            context.Remove(Bug);
+            context.SaveChanges();
+            return Ok();
+        }
+
     }
 }

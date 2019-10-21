@@ -63,4 +63,26 @@ export class BugService {
       );
     }
 
+    editBug(editBug: Bug) {
+      return this._http.post('/Bug/Edit/', editBug).subscribe(
+        (res: Bug) => {
+          this.bugSub.next(res);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    }
+
+    deleteBug(editBug: Bug) {
+      return this._http.post('/Bug/Edit/', editBug).subscribe(
+        res => {
+          this._router.navigate(['/']);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    }
+
 }
