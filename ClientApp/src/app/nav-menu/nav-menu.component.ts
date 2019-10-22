@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { Subscription } from 'rxjs';
+import { User } from '../models';
 
 @Component({
   selector: 'app-nav-menu',
@@ -11,7 +12,7 @@ import { Subscription } from 'rxjs';
 export class NavMenuComponent implements OnInit, OnDestroy {
   private loginSub: Subscription;
   public isExpanded: boolean;
-  public user: object;
+  public user: User;
 
   constructor(
     private _user: UserService,

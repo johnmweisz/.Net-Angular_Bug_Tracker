@@ -30,6 +30,10 @@ export class BugService {
       this.errorSub.next(errors);
     }
 
+    clearErrors() {
+      this.errorSub.next(null);
+    }
+
     getAll() {
       return this._http.get('/Bug/GetAll/').subscribe(
         (res: Bug[]) => {

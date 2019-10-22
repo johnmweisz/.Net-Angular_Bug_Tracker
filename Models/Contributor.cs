@@ -6,13 +6,15 @@ using Newtonsoft.Json;
 
 namespace BugTracker.Models
 {
-    public class Project
+    public class Contributor
     {
         [Key]
+        public int ContributorId {get;set;}
+        [Required]
         public int ProjectId {get;set;}
         [Required]
-        public string Name {get;set;}
-        public ICollection<Contributor> Contributors {get;set;}
-        public Bug Bugs {get;set;}
+        public int UserId {get;set;}
+        public Project Project {get;set;}
+        public User User {get;set;}
     }
 }

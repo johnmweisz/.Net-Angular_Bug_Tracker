@@ -9,12 +9,12 @@ import { Subscription } from 'rxjs';
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   private errorSub: Subscription;
+  public errors: object;
   public FirstName: string;
   public LastName: string;
   public Email: string;
   public Password: string;
   public Confirm: string;
-  public errors: object;
 
   constructor(
     private _user: UserService

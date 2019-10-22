@@ -22,8 +22,10 @@ namespace BugTracker.Models
         public DateTime CreatedAt {get;set;} = DateTime.Now;
         public DateTime UpdatedAt {get;set;} = DateTime.Now;
         // Link & Navigation
+        [Required]
         public int UserId {get;set;}
         public User Creator {get;set;}
+        [Required]
         public int ProjectId {get;set;}
         public Project Project {get;set;}
         public ICollection<Assign> Assigned {get;set;}

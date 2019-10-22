@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BugTracker.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20191017211919_First")]
+    [Migration("20191022193231_First")]
     partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,9 +46,6 @@ namespace BugTracker.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Confirm")
-                        .HasColumnType("longtext");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
@@ -56,12 +53,15 @@ namespace BugTracker.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<DateTime?>("DueDate")
+                    b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Priority")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -78,6 +78,9 @@ namespace BugTracker.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("BugId");
+
+                    b.HasIndex("ProjectId")
+                        .IsUnique();
 
                     b.HasIndex("UserId");
 
@@ -114,6 +117,27 @@ namespace BugTracker.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("BugTracker.Models.Contributor", b =>
+                {
+                    b.Property<int>("ContributorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ContributorId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Contributors");
                 });
 
             modelBuilder.Entity("BugTracker.Models.Project", b =>
@@ -181,6 +205,12 @@ namespace BugTracker.Migrations
 
             modelBuilder.Entity("BugTracker.Models.Bug", b =>
                 {
+                    b.HasOne("BugTracker.Models.Project", "Project")
+                        .WithOne("Bugs")
+                        .HasForeignKey("BugTracker.Models.Bug", "ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("BugTracker.Models.User", "Creator")
                         .WithMany("Created")
                         .HasForeignKey("UserId")
@@ -198,6 +228,21 @@ namespace BugTracker.Migrations
 
                     b.HasOne("BugTracker.Models.User", "User")
                         .WithMany("Comments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BugTracker.Models.Contributor", b =>
+                {
+                    b.HasOne("BugTracker.Models.Project", "Project")
+                        .WithMany("Contributors")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BugTracker.Models.User", "User")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

@@ -49,17 +49,49 @@ namespace BugTracker.Migrations
                     Description = table.Column<string>(nullable: false),
                     Priority = table.Column<string>(nullable: false),
                     Status = table.Column<string>(nullable: false),
-                    DueDate = table.Column<DateTime>(nullable: true),
+                    DueDate = table.Column<DateTime>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),
-                    Confirm = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: false)
+                    UserId = table.Column<int>(nullable: false),
+                    ProjectId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Bugs", x => x.BugId);
                     table.ForeignKey(
+                        name: "FK_Bugs_Projects_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "Projects",
+                        principalColumn: "ProjectId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Bugs_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Contributors",
+                columns: table => new
+                {
+                    ContributorId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    ProjectId = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Contributors", x => x.ContributorId);
+                    table.ForeignKey(
+                        name: "FK_Contributors_Projects_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "Projects",
+                        principalColumn: "ProjectId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Contributors_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
@@ -132,6 +164,12 @@ namespace BugTracker.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Bugs_ProjectId",
+                table: "Bugs",
+                column: "ProjectId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Bugs_UserId",
                 table: "Bugs",
                 column: "UserId");
@@ -145,6 +183,16 @@ namespace BugTracker.Migrations
                 name: "IX_Comments_UserId",
                 table: "Comments",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Contributors_ProjectId",
+                table: "Contributors",
+                column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Contributors_UserId",
+                table: "Contributors",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -156,10 +204,13 @@ namespace BugTracker.Migrations
                 name: "Comments");
 
             migrationBuilder.DropTable(
-                name: "Projects");
+                name: "Contributors");
 
             migrationBuilder.DropTable(
                 name: "Bugs");
+
+            migrationBuilder.DropTable(
+                name: "Projects");
 
             migrationBuilder.DropTable(
                 name: "Users");

@@ -10,7 +10,8 @@ namespace BugTracker.Models
         public DbSet<Bug> Bugs {get; set;}
         public DbSet<Comment> Comments {get; set;}
         public DbSet<Project> Projects {get; set;}
-        public DbSet<Assign> Assigned {get; set;}
+        public DbSet<Assign> Assigned {get; set;}        
+        public DbSet<Contributor> Contributors {get; set;}
     }
     
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-bugs-home',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bugs-home.component.css']
 })
 export class BugsHomeComponent implements OnInit {
+  public canView = false;
 
-  constructor() { }
+  constructor(  ) { }
 
   ngOnInit() {
+    if (JSON.parse(localStorage.getItem('user')) != null) {
+      this.canView = true;
+    }
   }
 
 }
