@@ -32,6 +32,13 @@ export interface Bug {
 export interface Project {
   ProjectId?: number;
   Name?: string;
+  UserId?: number;
+  Creator?: User;
+  Public?: boolean;
+  CreatedAt?: Date;
+  UpdatedAt?: Date;
+  Contributors: User[];
+  Bugs: Bug[];
 }
 
 export interface Comment {
@@ -42,5 +49,13 @@ export interface Comment {
   UserId?: number;
   CreatedAt?: Date;
   Bug?: Bug;
+  User?: User;
+}
+
+export interface Contributor {
+  ContributorId?: number;
+  ProjectId?: number;
+  Project?: Project;
+  UserId?: number;
   User?: User;
 }
