@@ -12,7 +12,7 @@ export class BugService {
   private bugsSub = new BehaviorSubject<Bug[]>(null);
   private bugSub = new BehaviorSubject<Bug>(null);
   public bugErrors = this.errorSub.asObservable();
-  public bugList = this.bugSub.asObservable();
+  public bugList = this.bugsSub.asObservable();
   public aBug = this.bugSub.asObservable();
 
   constructor(
