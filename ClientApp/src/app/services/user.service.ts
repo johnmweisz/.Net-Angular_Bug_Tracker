@@ -87,7 +87,7 @@ export class UserService {
   }
 
   editUser(editUser: User) {
-    return this._http.post('/User/Edit/', editUser).subscribe(
+    return this._http.put('/User/Edit/', editUser).subscribe(
       (res: User) => {
         this.setUser(res);
         this.getProfile(res.UserId);
@@ -98,7 +98,7 @@ export class UserService {
   }
 
   deleteUser(UserId: number) {
-    return this._http.get(`/User/Delete/${UserId}`).subscribe(
+    return this._http.delete(`/User/Delete/${UserId}`).subscribe(
       res => {
         this.logout();
         this._router.navigate(['/']);

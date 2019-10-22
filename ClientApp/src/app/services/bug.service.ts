@@ -88,7 +88,7 @@ export class BugService {
     }
 
     editBug(editBug: Bug) {
-      return this._http.post('/Bug/Edit/', editBug).subscribe(
+      return this._http.put('/Bug/Edit/', editBug).subscribe(
         (res: Bug) => {
           this.bugSub.next(res);
         },
@@ -96,8 +96,8 @@ export class BugService {
       );
     }
 
-    deleteBug(editBug: Bug) {
-      return this._http.post('/Bug/Edit/', editBug).subscribe(
+    deleteBug(BugId: number) {
+      return this._http.delete(`/User/Delete/${BugId}`).subscribe(
         res => {
           this._router.navigate(['/']);
         },

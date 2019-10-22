@@ -93,7 +93,7 @@ namespace BugTracker.Controllers
             return BadRequest(JsonConvert.SerializeObject(ModelState));
         }
 
-        [HttpPost("[action]")]
+        [HttpPut("[action]")]
         public IActionResult Edit([FromBody] Bug EditBug)
         {
             if (ModelState.IsValid)
@@ -111,7 +111,7 @@ namespace BugTracker.Controllers
             return BadRequest(JsonConvert.SerializeObject(ModelState));
         }
 
-		[HttpGet("[action]/{BugId}")]
+		[HttpDelete("[action]/{BugId}")]
         public IActionResult Delete(int? BugId)
         {
             if (BugId == null) BadRequest();

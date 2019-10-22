@@ -60,7 +60,7 @@ namespace BugTracker.Controllers
         }
 
         [HttpGet("[action]/{UserId}")]
-        public IActionResult GetAssigned(int? UserId)
+        public IActionResult GetContributed(int? UserId)
         {
             List<Project> Projects = context.Projects
             .Include(b => b.Creator)
@@ -97,15 +97,18 @@ namespace BugTracker.Controllers
             return BadRequest(JsonConvert.SerializeObject(ModelState));
         }
 
-        [HttpPost("[action]")]
+        [HttpPut("[action]")]
         public IActionResult Edit([FromBody] Project EditProject)
         {
             if (ModelState.IsValid)
             {
             Project Project = context.Projects.FirstOrDefault(b => b.ProjectId == EditProject.ProjectId);
 				Project.Name = EditProject.Name;
+				Project.Description = EditProject.Description;
 				Project.Public = EditProject.Public;
+				Project.URL = EditProject.URL;
 				Project.Status = EditProject.Status;
+				Project.UserId = EditProject.UserId;
                 Project.UpdatedAt = DateTime.Now;
                 context.SaveChanges();
                 return OkJson(Project);
@@ -113,7 +116,7 @@ namespace BugTracker.Controllers
             return BadRequest(JsonConvert.SerializeObject(ModelState));
         }
 
-		[HttpGet("[action]/{ProjectId}")]
+		[HttpDelete("[action]/{ProjectId}")]
         public IActionResult Delete(int? ProjectId)
         {
             if (ProjectId == null) BadRequest();

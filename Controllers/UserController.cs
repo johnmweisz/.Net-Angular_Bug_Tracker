@@ -86,7 +86,7 @@ namespace BugTracker.Controllers
             return OkJson(User);
         }
 
-        [HttpPost("[action]")]
+        [HttpPut("[action]")]
         public IActionResult Edit([FromBody] EditUser EditUser)
         {
             if (ModelState.IsValid)
@@ -102,7 +102,7 @@ namespace BugTracker.Controllers
             return BadRequest(JsonConvert.SerializeObject(ModelState));
         }
 
-        [HttpGet("[action]/{UserId}")]
+        [HttpDelete("[action]/{UserId}")]
         public IActionResult Delete(int? UserId)
         {
             if (UserId == null) BadRequest();
