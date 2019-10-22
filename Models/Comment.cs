@@ -14,12 +14,14 @@ namespace BugTracker.Models
         public string Status {get;set;}
         [Required]
         public string Message {get; set;}
+        public DateTime CreatedAt {get;set;} = DateTime.Now;
+        // Link & Navigation
         [Required]
         public int BugId {get;set;}
+        public Bug Bug {get;set;}
         [Required]
         public int UserId {get;set;}
-        public DateTime CreatedAt {get;set;} = DateTime.Now;
-        public Bug Bug {get;set;}
+
         public User User {get;set;}
     }
 }

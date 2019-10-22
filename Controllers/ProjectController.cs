@@ -35,87 +35,89 @@ namespace BugTracker.Controllers
         [HttpGet("[action]")]
         public IActionResult GetAll()
         {
-            List<Bug> Bugs = context.Bugs
+            List<Project> Projects = context.Projects
             .Include(b => b.Creator)
-            .Include(b => b.Assigned)
+            .Include(b => b.Bugs)
+            .Include(b => b.Contributors)
                 .ThenInclude(a => a.User)
             .OrderBy(b => b.CreatedAt)
             .ToList();
-            return OkJson(Bugs);
+            return OkJson(Projects);
         }
 
         [HttpGet("[action]/{UserId}")]
         public IActionResult GetAdded(int? UserId)
         {
-            List<Bug> Bugs = context.Bugs
+            List<Project> Projects = context.Projects
             .Include(b => b.Creator)
-            .Include(b => b.Assigned)
+            .Include(b => b.Bugs)
+            .Include(b => b.Contributors)
                 .ThenInclude(a => a.User)
 			.Where(b => b.UserId == UserId)
             .OrderBy(b => b.CreatedAt)
             .ToList();
-            return OkJson(Bugs);
+            return OkJson(Projects);
         }
 
         [HttpGet("[action]/{UserId}")]
         public IActionResult GetAssigned(int? UserId)
         {
-            List<Bug> Bugs = context.Bugs
+            List<Project> Projects = context.Projects
             .Include(b => b.Creator)
-            .Include(b => b.Assigned)
+            .Include(b => b.Bugs)
+            .Include(b => b.Contributors)
                 .ThenInclude(a => a.User)
-			.Where(b => b.Assigned.Any(a => a.UserId == UserId))
+			.Where(b => b.Contributors.Any(a => a.UserId == UserId))
             .OrderBy(b => b.CreatedAt)
             .ToList();
-            return OkJson(Bugs);
+            return OkJson(Projects);
         }
 
-		[HttpGet("[action]/{BugId}")]
-        public IActionResult GetOne(int? BugId)
+		[HttpGet("[action]/{ProjectId}")]
+        public IActionResult GetOne(int? ProjectId)
         {
-            Bug Bug = context.Bugs
+            Project Project = context.Projects
             .Include(b => b.Creator)
-            .Include(b => b.Assigned)
+            .Include(b => b.Bugs)
+            .Include(b => b.Contributors)
                 .ThenInclude(a => a.User)
-			.FirstOrDefault(b => b.BugId == BugId);
-            return OkJson(Bug);
+			.FirstOrDefault(b => b.ProjectId == ProjectId);
+            return OkJson(Project);
         }
 
 		[HttpPost("[action]")]
-        public IActionResult Add([FromBody] Bug NewBug)
+        public IActionResult Add([FromBody] Bug NewProject)
         {
             if(ModelState.IsValid)
             {
-                context.Add(NewBug);
+                context.Add(NewProject);
                 context.SaveChanges();
-                return OkJson(NewBug);
+                return OkJson(NewProject);
             }
             return BadRequest(JsonConvert.SerializeObject(ModelState));
         }
 
         [HttpPost("[action]")]
-        public IActionResult Edit([FromBody] EditBug EditBug)
+        public IActionResult Edit([FromBody] Project EditProject)
         {
             if (ModelState.IsValid)
             {
-                Bug Bug = context.Bugs.FirstOrDefault(b => b.BugId == EditBug.BugId);
-				Bug.Subject = EditBug.Subject;
-				Bug.Description = EditBug.Description;
-				Bug.Priority = EditBug.Priority;
-				Bug.Status = EditBug.Status;
-				Bug.DueDate = EditBug.DueDate;
-                Bug.UpdatedAt = DateTime.Now;
+            Project Project = context.Projects.FirstOrDefault(b => b.ProjectId == EditProject.ProjectId);
+				Project.Name = EditProject.Name;
+				Project.Public = EditProject.Public;
+				Project.Status = EditProject.Status;
+                Project.UpdatedAt = DateTime.Now;
                 context.SaveChanges();
-                return OkJson(Bug);
+                return OkJson(Project);
             }
             return BadRequest(JsonConvert.SerializeObject(ModelState));
         }
 
-		[HttpGet("[action]/{BugId}")]
-        public IActionResult Delete(int? BugId)
+		[HttpGet("[action]/{ProjectId}")]
+        public IActionResult Delete(int? ProjectId)
         {
-            if (BugId == null) BadRequest();
-			Bug Bug = context.Bugs.FirstOrDefault(b => b.BugId == BugId);
+            if (ProjectId == null) BadRequest();
+			Bug Bug = context.Bugs.FirstOrDefault(b => b.ProjectId == ProjectId);
             context.Remove(Bug);
             context.SaveChanges();
             return Ok();

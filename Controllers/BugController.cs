@@ -94,7 +94,7 @@ namespace BugTracker.Controllers
         }
 
         [HttpPost("[action]")]
-        public IActionResult Edit([FromBody] EditBug EditBug)
+        public IActionResult Edit([FromBody] Bug EditBug)
         {
             if (ModelState.IsValid)
             {

@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Subscription } from 'rxjs';
+import { User } from '../models';
 
 @Component({
   selector: 'app-register',
@@ -31,7 +32,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   register() {
-    const newUser = {
+    const newUser: User = {
       FirstName: this.FirstName,
       LastName: this.LastName,
       Email: this.Email,

@@ -13,11 +13,17 @@ namespace BugTracker.Models
         [Required]
         public string Name {get;set;}
         [Required]
-        public int UserId {get;set;}
+        public string Description {get;set;}
+        [Required]
+        public string Status {get;set;}
         [Required]
         public bool Public {get;set;}
+        public string URL {get;set;}
         public DateTime CreatedAt {get;set;} = DateTime.Now;
         public DateTime UpdatedAt {get;set;} = DateTime.Now;
+        // Link & Navigation
+        [Required]
+        public int UserId {get;set;}
         public User Creator {get;set;}
         public ICollection<Contributor> Contributors {get;set;}
         public ICollection<Bug> Bugs {get;set;}

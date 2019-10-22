@@ -1,3 +1,4 @@
+import { Bug } from './../models';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BugService } from '../services/bug.service';
 import { Router } from '@angular/router';
@@ -16,7 +17,7 @@ export class BugsAddComponent implements OnInit, OnDestroy {
   public Description: string;
   public Priority: string;
   public Status: string;
-  public DueDate: string;
+  public DueDate: Date;
   public UserId: number;
   public ProjectId: number;
 
@@ -37,5 +38,17 @@ export class BugsAddComponent implements OnInit, OnDestroy {
     this.errorSub.unsubscribe();
   }
 
+  addBug() {
+    const newBug: Bug = {
+      Subject: this.Subject,
+      Description: this.Description,
+      Priority: this.Priority,
+      Status: this.Status,
+      DueDate: this.DueDate,
+      UserId: this.UserId,
+      ProjectId: this.ProjectId
+    };
+    return this._bugs.addBug(newBug);
+  }
 
 }

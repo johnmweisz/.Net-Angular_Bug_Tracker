@@ -18,7 +18,7 @@ export interface Bug {
   Description?: string;
   Priority?: string;
   Status?: string;
-  DueDate?: string;
+  DueDate?: Date;
   CreatedAt?: Date;
   UpdatedAt?: Date;
   UserId?: number;
@@ -32,11 +32,14 @@ export interface Bug {
 export interface Project {
   ProjectId?: number;
   Name?: string;
-  UserId?: number;
-  Creator?: User;
+  Description?: string;
+  Status?: string;
   Public?: boolean;
+  URL: string;
   CreatedAt?: Date;
   UpdatedAt?: Date;
+  UserId?: number;
+  Creator?: User;
   Contributors: User[];
   Bugs: Bug[];
 }

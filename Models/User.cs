@@ -24,9 +24,9 @@ namespace BugTracker.Models
         public string Password {get;set;}
         public DateTime CreatedAt {get;set;} = DateTime.Now;
         public DateTime UpdatedAt {get;set;} = DateTime.Now;
-        // Not Mapped
         [JsonIgnore]
         [NotMapped]
+        [Required]
         [Compare("Password")]
         [DataType(DataType.Password)]
         public string Confirm {get;set;}

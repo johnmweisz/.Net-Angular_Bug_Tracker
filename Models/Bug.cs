@@ -18,6 +18,7 @@ namespace BugTracker.Models
         public string Priority {get;set;}
         [Required]
         public string Status {get;set;}
+        [Required]
         public DateTime DueDate {get;set;}
         public DateTime CreatedAt {get;set;} = DateTime.Now;
         public DateTime UpdatedAt {get;set;} = DateTime.Now;
