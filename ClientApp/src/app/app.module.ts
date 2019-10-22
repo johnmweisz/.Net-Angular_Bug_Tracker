@@ -19,6 +19,14 @@ import { BugTrackComponent } from './bug-track/bug-track.component';
 import { BugEditComponent } from './bug-edit/bug-edit.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
+import { ProjectsHomeComponent } from './projects-home/projects-home.component';
+import { ProjectsContributedComponent } from './projects-contributed/projects-contributed.component';
+import { ProjectsAddedComponent } from './projects-added/projects-added.component';
+import { ProjectsAddComponent } from './projects-add/projects-add.component';
+import { ProjectHomeComponent } from './project-home/project-home.component';
+import { ProjectEditComponent } from './project-edit/project-edit.component';
+import { ProjectContributorsComponent } from './project-contributors/project-contributors.component';
+import { ProjectDetailComponent } from './project-detail/project-detail.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +44,15 @@ import { UserEditComponent } from './user-edit/user-edit.component';
     BugTrackComponent,
     BugEditComponent,
     UserProfileComponent,
-    UserEditComponent
+    UserEditComponent,
+    ProjectsHomeComponent,
+    ProjectsContributedComponent,
+    ProjectsAddedComponent,
+    ProjectsAddComponent,
+    ProjectHomeComponent,
+    ProjectEditComponent,
+    ProjectContributorsComponent,
+    ProjectDetailComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
