@@ -20,6 +20,7 @@ import { BugEditComponent } from './bug-edit/bug-edit.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { ProjectsHomeComponent } from './projects-home/projects-home.component';
+import { ProjectsListComponent } from './projects-list/projects-list.component';
 import { ProjectsContributedComponent } from './projects-contributed/projects-contributed.component';
 import { ProjectsAddedComponent } from './projects-added/projects-added.component';
 import { ProjectsAddComponent } from './projects-add/projects-add.component';
@@ -46,6 +47,7 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
     UserProfileComponent,
     UserEditComponent,
     ProjectsHomeComponent,
+    ProjectsListComponent,
     ProjectsContributedComponent,
     ProjectsAddedComponent,
     ProjectsAddComponent,
@@ -59,12 +61,29 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', redirectTo: 'bugs', pathMatch: 'full' },
+      { path: '', redirectTo: 'projects', pathMatch: 'full' },
       { path: 'user/:UserId', component: UserHomeComponent,
         children: [
           {path: '', redirectTo: 'profile', pathMatch: 'full' },
           { path: 'profile', component: UserProfileComponent },
           { path: 'edit', component: UserEditComponent }
+        ]
+      },
+      { path: 'projects', component: ProjectsHomeComponent,
+        children: [
+          {path: '', redirectTo: 'list', pathMatch: 'full' },
+          { path: 'list', component: ProjectsListComponent },
+          { path: 'added', component: ProjectsAddedComponent },
+          { path: 'contributed', component: ProjectsContributedComponent },
+          { path: 'add', component: ProjectsAddComponent }
+        ]
+      },
+      { path: 'project', component: BugHomeComponent,
+        children: [
+          {path: '', redirectTo: 'detail', pathMatch: 'full' },
+          { path: 'detail', component: ProjectDetailComponent },
+          { path: 'contributors', component: ProjectContributorsComponent },
+          { path: 'edit', component: ProjectEditComponent }
         ]
       },
       { path: 'bugs', component: BugsHomeComponent,
@@ -85,7 +104,7 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
       },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
-      {path: '**', redirectTo: 'bugs/list' }
+      {path: '**', redirectTo: 'projects/list' }
     ])
   ],
   providers: [],

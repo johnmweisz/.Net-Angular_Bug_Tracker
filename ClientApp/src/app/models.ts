@@ -35,13 +35,13 @@ export interface Project {
   Description?: string;
   Status?: string;
   Public?: boolean;
-  URL: string;
+  URL?: string;
   CreatedAt?: Date;
   UpdatedAt?: Date;
   UserId?: number;
   Creator?: User;
-  Contributors: User[];
-  Bugs: Bug[];
+  Contributors?: User[];
+  Bugs?: Bug[];
 }
 
 export interface Comment {

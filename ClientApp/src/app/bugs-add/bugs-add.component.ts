@@ -12,7 +12,6 @@ import { Subscription } from 'rxjs';
 export class BugsAddComponent implements OnInit, OnDestroy {
   private errorSub: Subscription;
   public errors: object;
-  public BugId: number;
   public Subject: string;
   public Description: string;
   public Priority: string;
@@ -29,6 +28,8 @@ export class BugsAddComponent implements OnInit, OnDestroy {
   ngOnInit() {
     if (JSON.parse(localStorage.getItem('user')) === null) {
       this._router.navigate(['/']);
+    } else {
+      this.UserId = JSON.parse(localStorage.getItem('user'));
     }
     this._bugs.clearErrors();
     this.errorSub = this._bugs.bugErrors.subscribe(e => this.errors = e);

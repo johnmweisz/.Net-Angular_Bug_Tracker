@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./projects-home.component.css']
 })
 export class ProjectsHomeComponent implements OnInit {
+  public canView = false;
 
   constructor() { }
 
   ngOnInit() {
+    if (JSON.parse(localStorage.getItem('user')) != null) {
+      this.canView = true;
+    }
   }
 
 }
