@@ -86,7 +86,7 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
           { path: 'edit', component: ProjectEditComponent }
         ]
       },
-      { path: 'bugs', component: BugsHomeComponent,
+      { path: 'bugs/:BugId', component: BugsHomeComponent,
         children: [
           {path: '', redirectTo: 'list', pathMatch: 'full' },
           { path: 'list', component: BugsListComponent },

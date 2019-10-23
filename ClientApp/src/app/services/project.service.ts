@@ -82,6 +82,7 @@ export class ProjectService {
       return this._http.post('/Project/Add', newProject).subscribe(
         (res: Project) => {
           this.projectSub.next(res);
+          this._router.navigate(['/']);
         },
         err => this.parseErrors(err)
       );

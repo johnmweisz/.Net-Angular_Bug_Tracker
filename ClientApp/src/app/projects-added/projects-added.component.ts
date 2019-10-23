@@ -1,15 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Project } from '../models';
+import { ProjectService } from '../services/project.service';
 
 @Component({
   selector: 'app-projects-added',
   templateUrl: './projects-added.component.html',
   styleUrls: ['./projects-added.component.css']
 })
-export class ProjectsAddedComponent implements OnInit {
+export class ProjectsAddedComponent implements OnInit, OnDestroy {
+  private projectListSub: Subscription;
+  public projects: Project[];
 
-  constructor() { }
+  constructor(
+    private _projects: ProjectService,
+    private _router: Router
+  ) { }
 
   ngOnInit() {
+    if (JSON.parse(localStorage.getItem('user')) != null) {
+      this._projects.getAdded(JSON.parse(localStorage.getItem('user')).UserId);
+      this.projectListSub = this._projects.projectList.subscribe(p => this.projects = p);
+    } else {
+      this._router.navigate(['/']);
+    }
+  }
+
+  ngOnDestroy() {
+    this.projectListSub.unsubscribe();
   }
 
 }

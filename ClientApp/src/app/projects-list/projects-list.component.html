@@ -4,8 +4,8 @@
       <tr>
         <th scope="col">Name</th>
         <th scope="col">Status</th>
-        <th scope="col"># Bugs</th>
-        <th scope="col"># Contributors</th>
+        <th scope="col">Bugs</th>
+        <th scope="col">Contributors</th>
         <th scope="col">Created</th>
       </tr>
     </thead>
@@ -15,7 +15,7 @@
         <td>{{ project['Status'] }}</td>
         <td>{{ project['Bugs'].length }}</td>
         <td>{{ project['Contributors'].length }}</td>
-        <td>{{ project['CreatedAt'] }}</td>
+        <td>{{ project['CreatedAt'] | date}}</td>
       </tr>
     </tbody>
   </table>
