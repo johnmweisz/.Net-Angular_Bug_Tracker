@@ -1,1 +1,22 @@
-<p>project-home works!</p>
+<div>
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['list']">Detail</a>
+    </li>
+    <li class="nav-item">
+      <a *ngIf="canView" class="nav-link" [routerLinkActive]="['active']" [routerLink]="['edit']">Edit</a>
+    </li>
+    <li class="nav-item">
+      <a *ngIf="canView" class="nav-link" [routerLinkActive]="['active']" [routerLink]="['contributors']">Contributors</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['bugs', ProjectId]">Bugs</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/']">Back</a>
+    </li>
+  </ul>
+</div>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

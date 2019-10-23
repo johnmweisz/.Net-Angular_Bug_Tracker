@@ -14,14 +14,14 @@ export class ProjectsContributedComponent implements OnInit, OnDestroy {
   public projects: Project[];
 
   constructor(
-    private _projects: ProjectService,
+    private _project: ProjectService,
     private _router: Router
   ) { }
 
   ngOnInit() {
     if (JSON.parse(localStorage.getItem('user')) != null) {
-      this._projects.getContributed(JSON.parse(localStorage.getItem('user')).UserId);
-      this.projectListSub = this._projects.projectList.subscribe(p => this.projects = p);
+      this._project.getContributed(JSON.parse(localStorage.getItem('user')).UserId);
+      this.projectListSub = this._project.projectList.subscribe(p => this.projects = p);
     } else {
       this._router.navigate(['/']);
     }

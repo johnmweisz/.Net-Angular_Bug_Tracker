@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 })
 export class UserHomeComponent implements OnInit, OnDestroy {
   private paramsSub: Subscription;
-  public canEdit = false;
+  public canView = false;
 
   constructor(
     private _user: UserService,
@@ -22,7 +22,7 @@ export class UserHomeComponent implements OnInit, OnDestroy {
       par => {
         this._user.getProfile(par.UserId);
         if (JSON.parse(localStorage.getItem('user')).UserId === JSON.parse(par.UserId)) {
-          this.canEdit = true;
+          this.canView = true;
         }
       },
       err => console.error(err)

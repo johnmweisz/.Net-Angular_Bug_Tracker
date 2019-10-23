@@ -20,7 +20,7 @@ export class ProjectsAddComponent implements OnInit, OnDestroy {
   public UserId: number;
 
   constructor(
-    private _projects: ProjectService,
+    private _project: ProjectService,
     private _router: Router
   ) { }
 
@@ -30,8 +30,8 @@ export class ProjectsAddComponent implements OnInit, OnDestroy {
     } else {
       this.UserId = JSON.parse(localStorage.getItem('user')).UserId;
     }
-    this._projects.clearErrors();
-    this.errorSub = this._projects.projectErrors.subscribe(e => this.errors = e);
+    this._project.clearErrors();
+    this.errorSub = this._project.projectErrors.subscribe(e => this.errors = e);
   }
 
   ngOnDestroy() {
@@ -47,7 +47,7 @@ export class ProjectsAddComponent implements OnInit, OnDestroy {
       URL: this.URL,
       UserId: this.UserId
     };
-    return this._projects.addProject(newProject);
+    return this._project.addProject(newProject);
   }
 
 }

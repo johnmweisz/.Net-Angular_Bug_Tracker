@@ -64,47 +64,47 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
       { path: '', redirectTo: 'projects', pathMatch: 'full' },
       { path: 'user/:UserId', component: UserHomeComponent,
         children: [
-          {path: '', redirectTo: 'profile', pathMatch: 'full' },
+          { path: '', redirectTo: 'profile', pathMatch: 'full' },
           { path: 'profile', component: UserProfileComponent },
           { path: 'edit', component: UserEditComponent }
         ]
       },
       { path: 'projects', component: ProjectsHomeComponent,
         children: [
-          {path: '', redirectTo: 'list', pathMatch: 'full' },
+          { path: '', redirectTo: 'list', pathMatch: 'full' },
           { path: 'list', component: ProjectsListComponent },
           { path: 'added', component: ProjectsAddedComponent },
           { path: 'contributed', component: ProjectsContributedComponent },
           { path: 'add', component: ProjectsAddComponent }
         ]
       },
-      { path: 'project', component: BugHomeComponent,
+      { path: 'project/:ProjectId', component: ProjectHomeComponent,
         children: [
-          {path: '', redirectTo: 'detail', pathMatch: 'full' },
+          { path: '', redirectTo: 'detail', pathMatch: 'full' },
           { path: 'detail', component: ProjectDetailComponent },
           { path: 'contributors', component: ProjectContributorsComponent },
           { path: 'edit', component: ProjectEditComponent }
         ]
       },
-      { path: 'bugs/:BugId', component: BugsHomeComponent,
+      { path: 'bugs/:ProjectId', component: BugsHomeComponent,
         children: [
-          {path: '', redirectTo: 'list', pathMatch: 'full' },
+          { path: '', redirectTo: 'list', pathMatch: 'full' },
           { path: 'list', component: BugsListComponent },
           { path: 'added', component: BugsAddedComponent },
           { path: 'assigned', component: BugsAssignedComponent },
           { path: 'add', component: BugsAddComponent }
         ]
       },
-      { path: 'bug', component: BugHomeComponent,
+      { path: 'bug/:BugId', component: BugHomeComponent,
         children: [
-          {path: '', redirectTo: 'track', pathMatch: 'full' },
+          { path: '', redirectTo: 'track', pathMatch: 'full' },
           { path: 'track', component: BugTrackComponent },
           { path: 'edit', component: BugEditComponent }
         ]
       },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
-      {path: '**', redirectTo: 'projects/list' }
+      { path: '**', redirectTo: 'projects/list' }
     ])
   ],
   providers: [],
