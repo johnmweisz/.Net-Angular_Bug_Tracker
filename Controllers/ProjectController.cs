@@ -86,7 +86,7 @@ namespace BugTracker.Controllers
         }
 
 		[HttpPost("[action]")]
-        public IActionResult Add([FromBody] Bug NewProject)
+        public IActionResult Add([FromBody] Project NewProject)
         {
             if(ModelState.IsValid)
             {

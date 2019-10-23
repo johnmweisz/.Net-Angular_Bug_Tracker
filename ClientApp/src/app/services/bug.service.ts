@@ -35,7 +35,7 @@ export class BugService {
     }
 
     getAll() {
-      return this._http.get('/Bug/GetAll/').subscribe(
+      return this._http.get('/Bug/GetAll').subscribe(
         (res: Bug[]) => {
           this.bugsSub.next(res);
         },
@@ -79,7 +79,7 @@ export class BugService {
     }
 
     addBug(newBug: Bug) {
-      return this._http.post('/Bug/Add/', newBug).subscribe(
+      return this._http.post('/Bug/Add', newBug).subscribe(
         (res: Bug) => {
           this.bugSub.next(res);
         },
@@ -88,7 +88,7 @@ export class BugService {
     }
 
     editBug(editBug: Bug) {
-      return this._http.put('/Bug/Edit/', editBug).subscribe(
+      return this._http.put('/Bug/Edit', editBug).subscribe(
         (res: Bug) => {
           this.bugSub.next(res);
         },

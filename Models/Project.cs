@@ -17,7 +17,7 @@ namespace BugTracker.Models
         [Required]
         public string Status {get;set;}
         [Required]
-        public bool Public {get;set;}
+        public int Public {get;set;}
         public string URL {get;set;}
         public DateTime CreatedAt {get;set;} = DateTime.Now;
         public DateTime UpdatedAt {get;set;} = DateTime.Now;

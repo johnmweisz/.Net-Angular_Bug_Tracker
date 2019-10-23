@@ -35,7 +35,7 @@ export class ProjectService {
     }
 
     getAll() {
-      return this._http.get('/Project/GetAll/').subscribe(
+      return this._http.get('/Project/GetAll').subscribe(
         (res: Project[]) => {
           this.projectsSub.next(res);
         },
@@ -79,7 +79,7 @@ export class ProjectService {
     }
 
     addProject(newProject: Project) {
-      return this._http.post('/Project/Add/', newProject).subscribe(
+      return this._http.post('/Project/Add', newProject).subscribe(
         (res: Project) => {
           this.projectSub.next(res);
         },
@@ -88,7 +88,7 @@ export class ProjectService {
     }
 
     editProject(editProject: Project) {
-      return this._http.put('/Project/Edit/', editProject).subscribe(
+      return this._http.put('/Project/Edit', editProject).subscribe(
         (res: Project) => {
           this.projectSub.next(res);
         },

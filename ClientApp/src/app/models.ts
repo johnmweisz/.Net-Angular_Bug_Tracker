@@ -34,7 +34,7 @@ export interface Project {
   Name?: string;
   Description?: string;
   Status?: string;
-  Public?: boolean;
+  Public?: number;
   URL?: string;
   CreatedAt?: Date;
   UpdatedAt?: Date;

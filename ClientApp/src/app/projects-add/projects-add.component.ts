@@ -15,7 +15,7 @@ export class ProjectsAddComponent implements OnInit, OnDestroy {
   public Name: string;
   public Description: string;
   public Status: string;
-  public Public: boolean;
+  public Public: number;
   public URL: string;
   public UserId: number;
 
@@ -28,7 +28,7 @@ export class ProjectsAddComponent implements OnInit, OnDestroy {
     if (JSON.parse(localStorage.getItem('user')) === null) {
       this._router.navigate(['/']);
     } else {
-      this.UserId = JSON.parse(localStorage.getItem('user'));
+      this.UserId = JSON.parse(localStorage.getItem('user')).UserId;
     }
     this._projects.clearErrors();
     this.errorSub = this._projects.projectErrors.subscribe(e => this.errors = e);
@@ -38,12 +38,12 @@ export class ProjectsAddComponent implements OnInit, OnDestroy {
     this.errorSub.unsubscribe();
   }
 
-  addBug() {
+  addProject() {
     const newProject: Project = {
       Name: this.Name,
       Description: this.Description,
       Status: this.Status,
-      Public: this.Public,
+      Public: Number(this.Public),
       URL: this.URL,
       UserId: this.UserId
     };
