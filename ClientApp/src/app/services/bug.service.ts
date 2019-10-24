@@ -68,54 +68,44 @@ export class BugService {
       }
     }
 
-    getAssigned(UserId: number) {
-      return this._http.get(`/Bug/GetAssigned/${UserId}`).subscribe(
-        (res: Bug[]) => {
-          this.bugsSub.next(res);
-        },
-        err => {
-          console.log(err);
-        }
-      );
+    getAssigned(UserId: number, ProjectId?: number) {
+      if (ProjectId == null) {
+        return this._http.get(`/Bug/GetAssigned/${UserId}`).subscribe(
+          (res: Bug[]) => this.bugsSub.next(res),
+          err => console.log(err));
+      } else {
+        return this._http.get(`/Bug/GetAssigned/${UserId}/${ProjectId}`).subscribe(
+          (res: Bug[]) => this.bugsSub.next(res),
+          err => console.log(err));
+      }
+
     }
 
     getOne(BugId: number) {
       return this._http.get(`/Bug/GetOne/${BugId}`).subscribe(
-        (res: Bug) => {
-          this.bugSub.next(res);
-        },
-        err => {
-          console.log(err);
-        }
+        (res: Bug) => this.bugSub.next(res),
+        err => console.log(err)
       );
     }
 
     addBug(newBug: Bug) {
       return this._http.post('/Bug/Add', newBug).subscribe(
-        (res: Bug) => {
-          this.bugSub.next(res);
-        },
+        (res: Bug) => this.bugSub.next(res),
         err => this.parseErrors(err)
       );
     }
 
     editBug(editBug: Bug) {
       return this._http.put('/Bug/Edit', editBug).subscribe(
-        (res: Bug) => {
-          this.bugSub.next(res);
-        },
+        (res: Bug) => this.bugSub.next(res),
         err => this.parseErrors(err)
       );
     }
 
     deleteBug(BugId: number) {
       return this._http.delete(`/User/Delete/${BugId}`).subscribe(
-        res => {
-          this._router.navigate(['/']);
-        },
-        err => {
-          console.log(err);
-        }
+        res => this._router.navigate(['/']),
+        err => console.log(err)
       );
     }
 

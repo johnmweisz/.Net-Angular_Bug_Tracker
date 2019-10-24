@@ -75,9 +75,8 @@ namespace BugTracker.Controllers
         }
 
         [HttpGet("[action]/{UserId}")]
-        public IActionResult Profile(int? UserId)
+        public IActionResult Profile(int UserId)
         {
-            if (UserId == null) BadRequest();
             User User = context.Users
             .Include(u => u.Created)
             .Include(u => u.Assigned)
@@ -103,9 +102,8 @@ namespace BugTracker.Controllers
         }
 
         [HttpDelete("[action]/{UserId}")]
-        public IActionResult Delete(int? UserId)
+        public IActionResult Delete(int UserId)
         {
-            if (UserId == null) BadRequest();
             User User = context.Users.FirstOrDefault(u => u.UserId == UserId);
             context.Remove(User);
             context.SaveChanges();

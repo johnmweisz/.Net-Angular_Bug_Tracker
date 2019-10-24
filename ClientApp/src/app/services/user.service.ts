@@ -34,10 +34,33 @@ export class UserService {
     this.errorSub.next(null);
   }
 
+  clearLog() {
+    this.userSub.next(null);
+  }
+
+  clearProfile() {
+    this.profileSub.next(null);
+  }
+
   setUser(res: User) {
     this.clearErrors();
     this.userSub.next(res);
     localStorage.setItem('user', JSON.stringify(res));
+  }
+
+  logout() {
+    localStorage.removeItem('user');
+    this.clearLog();
+    this.clearProfile();
+  }
+
+  checkLog(shouldRedirect: boolean) {
+    if (localStorage.getItem('user') != null) {
+      this.userSub.next(JSON.parse(localStorage.getItem('user')));
+      if (shouldRedirect) {
+        this._router.navigate(['/']);
+      }
+    }
   }
 
   register(newUser: User) {
@@ -60,29 +83,12 @@ export class UserService {
     );
   }
 
-  logout() {
-    localStorage.removeItem('user');
-    this.userSub.next(null);
-    this.profileSub.next(null);
-  }
-
-  checkLog(shouldRedirect: boolean) {
-    if (localStorage.getItem('user') != null) {
-      this.userSub.next(JSON.parse(localStorage.getItem('user')));
-      if (shouldRedirect) {
-        this._router.navigate(['/']);
-      }
-    }
-  }
-
   getProfile(UserId: number) {
     return this._http.get(`/User/Profile/${UserId}`).subscribe(
       (res: User) => {
         this.profileSub.next(res);
       },
-      err => {
-        console.log(err);
-      }
+      err => console.log(err)
     );
   }
 
@@ -103,9 +109,7 @@ export class UserService {
         this.logout();
         this._router.navigate(['/']);
       },
-      err => {
-        console.log(err);
-      }
+      err => console.log(err)
     );
   }
 

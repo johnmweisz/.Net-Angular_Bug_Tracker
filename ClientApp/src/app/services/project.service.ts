@@ -44,45 +44,29 @@ export class ProjectService {
 
     getAll() {
       return this._http.get('/Project/GetAll').subscribe(
-        (res: Project[]) => {
-          this.projectsSub.next(res);
-        },
-        err => {
-          console.log(err);
-        }
+        (res: Project[]) => this.projectsSub.next(res),
+        err => console.log(err)
       );
     }
 
     getAdded(UserId: number) {
       return this._http.get(`/Project/GetAdded/${UserId}`).subscribe(
-        (res: Project[]) => {
-          this.projectsSub.next(res);
-        },
-        err => {
-          console.log(err);
-        }
+        (res: Project[]) => this.projectsSub.next(res),
+        err => console.log(err)
       );
     }
 
     getContributed(UserId: number) {
       return this._http.get(`/Project/GetContributed/${UserId}`).subscribe(
-        (res: Project[]) => {
-          this.projectsSub.next(res);
-        },
-        err => {
-          console.log(err);
-        }
+        (res: Project[]) => this.projectsSub.next(res),
+        err => console.log(err)
       );
     }
 
     getOne(ProjectId: number) {
       return this._http.get(`/Project/GetOne/${ProjectId}`).subscribe(
-        (res: Project) => {
-          this.projectSub.next(res);
-        },
-        err => {
-          console.log(err);
-        }
+        (res: Project) => this.projectSub.next(res),
+        err => console.log(err)
       );
     }
 
@@ -98,21 +82,15 @@ export class ProjectService {
 
     editProject(editProject: Project) {
       return this._http.put('/Project/Edit', editProject).subscribe(
-        (res: Project) => {
-          this.projectSub.next(res);
-        },
+        (res: Project) => this.projectSub.next(res),
         err => this.parseErrors(err)
       );
     }
 
     deleteProject(ProjectId: number) {
       return this._http.delete(`/User/Delete/${ProjectId}`).subscribe(
-        res => {
-          this._router.navigate(['/']);
-        },
-        err => {
-          console.log(err);
-        }
+        res => this._router.navigate(['/']),
+        err => console.log(err)
       );
     }
 

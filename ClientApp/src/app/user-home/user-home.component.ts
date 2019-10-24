@@ -30,6 +30,7 @@ export class UserHomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this._user.clearProfile();
     this.paramsSub.unsubscribe();
   }
 
