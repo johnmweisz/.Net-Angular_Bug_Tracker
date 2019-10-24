@@ -25,11 +25,10 @@ export class ProjectsAddComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    if (JSON.parse(localStorage.getItem('user')) === null) {
-      this._router.navigate(['/']);
-    } else {
-      this.UserId = JSON.parse(localStorage.getItem('user')).UserId;
+    if (JSON.parse(localStorage.getItem('user')) == null) {
+      return this._router.navigate(['/']);
     }
+    this.UserId = JSON.parse(localStorage.getItem('user')).UserId;
     this._project.clearErrors();
     this.errorSub = this._project.projectErrors.subscribe(e => this.errors = e);
   }

@@ -1,1 +1,72 @@
-<p>project-edit works!</p>
+<div *ngIf="!project" class="d-flex justify-content-center m-5">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+<div *ngIf="project">
+    <form #valForm='ngForm' (ngSubmit)="editProject()">
+      <div class="form-group">
+        <label for="Name">Name</label>
+        <input class="form-control" type="text" name="Name" required #valName='ngModel' [(ngModel)]="Name" placeholder="Name">
+        <div class="alert alert-danger" *ngIf="errors?.Name">
+            <p>{{ errors.Name }}</p>
+        </div>
+        <div class="alert alert-danger" *ngIf="valName.errors?.required && (valName.dirty || valName.touched)">
+          <p>Required</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="Description">Description</label>
+        <input class="form-control" type="text" name="Description" required #valDescription='ngModel' [(ngModel)]="Description" placeholder="Description">
+        <div class="alert alert-danger" *ngIf="errors?.Description">
+            <p>{{ errors.Description }}</p>
+        </div>
+        <div class="alert alert-danger" *ngIf="valDescription.errors?.required && (valDescription.dirty || valDescription.touched)">
+          <p>Required</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="Status">Status</label>
+        <select class="form-control" type="text" name="Status" required #valStatus='ngModel' [(ngModel)]="Status" placeholder="Status">
+          <option value="Alpha">Alpha</option>
+          <option value="Beta">Beta</option>
+          <option value="Production">Production</option>
+          <option value="Depreciated">Depreciated</option>
+        </select>
+        <div class="alert alert-danger" *ngIf="errors?.Status">
+            <p>{{ errors.Status }}</p>
+        </div>
+        <div class="alert alert-danger" *ngIf="valStatus.errors?.required && (valStatus.dirty || valStatus.touched)">
+          <p>Required</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="URL">URL</label>
+        <input class="form-control" type="text" name="URL" required #valURL='ngModel' [(ngModel)]="URL" placeholder="URL">
+        <div class="alert alert-danger" *ngIf="errors?.URL">
+            <p>{{ errors.URL }}</p>
+        </div>
+        <div class="alert alert-danger" *ngIf="valURL.errors?.required && (valURL.dirty || valURL.touched)">
+          <p>Required</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="Public">Public</label>
+        <select class="form-control" type="number" name="Public" required #valPublic='ngModel' [(ngModel)]="Public" placeholder="Public">
+          <option value="1">Public</option>
+          <option value="0">Private</option>
+        </select>
+        <div class="alert alert-danger" *ngIf="errors?.Public">
+            <p>{{ errors.Public }}</p>
+        </div>
+        <div class="alert alert-danger" *ngIf="valPublic.errors?.required && (valPublic.dirty || valPublic.touched)">
+          <p>Required</p>
+        </div>
+      </div>
+      <div>
+          <button class="btn btn-warning" *ngIf="!valForm.valid" type="button">Submit</button>
+          <button class="btn btn-primary" *ngIf="valForm.valid" type="submit">Submit</button>
+          <button class="btn btn-danger float-right" (click)="deleteProject()" type="button">Delete</button>
+      </div>
+  </form>
+</div>

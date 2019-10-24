@@ -36,11 +36,11 @@ namespace BugTracker.Controllers
         public IActionResult GetAll()
         {
             List<Project> Projects = context.Projects
-            .Include(b => b.Creator)
-            .Include(b => b.Bugs)
-            .Include(b => b.Contributors)
-                .ThenInclude(a => a.User)
-            .OrderBy(b => b.CreatedAt)
+            .Include(p => p.Creator)
+            .Include(p => p.Bugs)
+            .Include(p => p.Contributors)
+                .ThenInclude(c => c.User)
+            .OrderBy(p => p.CreatedAt)
             .ToList();
             return OkJson(Projects);
         }
@@ -49,12 +49,12 @@ namespace BugTracker.Controllers
         public IActionResult GetAdded(int UserId)
         {
             List<Project> Projects = context.Projects
-            .Include(b => b.Creator)
-            .Include(b => b.Bugs)
-            .Include(b => b.Contributors)
-                .ThenInclude(a => a.User)
-			.Where(b => b.UserId == UserId)
-            .OrderBy(b => b.CreatedAt)
+            .Include(p => p.Creator)
+            .Include(p => p.Bugs)
+            .Include(p => p.Contributors)
+                .ThenInclude(c => c.User)
+			.Where(p => p.UserId == UserId)
+            .OrderBy(p => p.CreatedAt)
             .ToList();
             return OkJson(Projects);
         }
@@ -63,12 +63,12 @@ namespace BugTracker.Controllers
         public IActionResult GetContributed(int UserId)
         {
             List<Project> Projects = context.Projects
-            .Include(b => b.Creator)
-            .Include(b => b.Bugs)
-            .Include(b => b.Contributors)
-                .ThenInclude(a => a.User)
-			.Where(b => b.Contributors.Any(a => a.UserId == UserId))
-            .OrderBy(b => b.CreatedAt)
+            .Include(p => p.Creator)
+            .Include(p => p.Bugs)
+            .Include(p => p.Contributors)
+                .ThenInclude(c => c.User)
+			.Where(p => p.Contributors.Any(c => c.UserId == UserId))
+            .OrderBy(p => p.CreatedAt)
             .ToList();
             return OkJson(Projects);
         }
@@ -77,11 +77,11 @@ namespace BugTracker.Controllers
         public IActionResult GetOne(int ProjectId)
         {
             Project Project = context.Projects
-            .Include(b => b.Creator)
-            .Include(b => b.Bugs)
-            .Include(b => b.Contributors)
-                .ThenInclude(a => a.User)
-			.FirstOrDefault(b => b.ProjectId == ProjectId);
+            .Include(p => p.Creator)
+            .Include(p => p.Bugs)
+            .Include(p => p.Contributors)
+                .ThenInclude(c => c.User)
+			.FirstOrDefault(p => p.ProjectId == ProjectId);
             return OkJson(Project);
         }
 
@@ -102,13 +102,12 @@ namespace BugTracker.Controllers
         {
             if (ModelState.IsValid)
             {
-            Project Project = context.Projects.FirstOrDefault(b => b.ProjectId == EditProject.ProjectId);
+            Project Project = context.Projects.FirstOrDefault(p => p.ProjectId == EditProject.ProjectId);
 				Project.Name = EditProject.Name;
 				Project.Description = EditProject.Description;
+				Project.Status = EditProject.Status;
 				Project.Public = EditProject.Public;
 				Project.URL = EditProject.URL;
-				Project.Status = EditProject.Status;
-				Project.UserId = EditProject.UserId;
                 Project.UpdatedAt = DateTime.Now;
                 context.SaveChanges();
                 return OkJson(Project);
@@ -119,8 +118,8 @@ namespace BugTracker.Controllers
 		[HttpDelete("[action]/{ProjectId}")]
         public IActionResult Delete(int ProjectId)
         {
-			Bug Bug = context.Bugs.FirstOrDefault(b => b.ProjectId == ProjectId);
-            context.Remove(Bug);
+            Project Project = context.Projects.FirstOrDefault(p => p.ProjectId == ProjectId);
+            context.Remove(Project);
             context.SaveChanges();
             return Ok();
         }

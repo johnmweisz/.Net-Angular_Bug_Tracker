@@ -29,10 +29,12 @@ export class UserEditComponent implements OnInit, OnDestroy {
         return this._router.navigate(['/']);
       }
       this.user = u;
-      this.UserId = u.UserId;
-      this.FirstName = u.FirstName;
-      this.LastName = u.LastName;
-      this.Email = u.Email;
+      if (this.user) {
+        this.UserId = u.UserId;
+        this.FirstName = u.FirstName;
+        this.LastName = u.LastName;
+        this.Email = u.Email;
+      }
     });
   }
 

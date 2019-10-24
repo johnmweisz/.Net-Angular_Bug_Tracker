@@ -82,13 +82,16 @@ export class ProjectService {
 
     editProject(editProject: Project) {
       return this._http.put('/Project/Edit', editProject).subscribe(
-        (res: Project) => this.projectSub.next(res),
+        (res: Project) => {
+          this.getOne(res.ProjectId);
+          this._router.navigate([`/project/${res.ProjectId}`]);
+        },
         err => this.parseErrors(err)
       );
     }
 
     deleteProject(ProjectId: number) {
-      return this._http.delete(`/User/Delete/${ProjectId}`).subscribe(
+      return this._http.delete(`/Project/Delete/${ProjectId}`).subscribe(
         res => this._router.navigate(['/']),
         err => console.log(err)
       );
