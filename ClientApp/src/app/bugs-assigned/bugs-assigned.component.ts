@@ -23,11 +23,11 @@ export class BugsAssignedComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    if (JSON.parse(localStorage.getItem('user')) != null) {
+    if (JSON.parse(localStorage.getItem('user'))) {
       const UserId = JSON.parse(localStorage.getItem('user')).UserId;
       this.projectSub = this._project.aProject.subscribe(p => {
         this.project = p;
-        if (this.project != null) {
+        if (this.project) {
           this._bug.getAssigned(UserId, p.ProjectId);
         } else {
           this._bug.getAssigned(UserId);

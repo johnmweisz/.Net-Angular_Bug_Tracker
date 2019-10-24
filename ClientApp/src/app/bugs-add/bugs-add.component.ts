@@ -3,6 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BugService } from '../services/bug.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ProjectService } from '../services/project.service';
 
 @Component({
   selector: 'app-bugs-add',
@@ -10,6 +11,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./bugs-add.component.css']
 })
 export class BugsAddComponent implements OnInit, OnDestroy {
+  private projectSub: Subscription;
   private errorSub: Subscription;
   public errors: object;
   public Subject: string;
@@ -21,22 +23,25 @@ export class BugsAddComponent implements OnInit, OnDestroy {
   public ProjectId: number;
 
   constructor(
-    private _bugs: BugService,
+    private _bug: BugService,
+    private _project: ProjectService,
     private _router: Router
   ) { }
 
   ngOnInit() {
-    if (JSON.parse(localStorage.getItem('user')) === null) {
-      this._router.navigate(['/']);
-    } else {
+    if (JSON.parse(localStorage.getItem('user'))) {
       this.UserId = JSON.parse(localStorage.getItem('user')).UserId;
+      this._bug.clearErrors();
+      this.errorSub = this._bug.bugErrors.subscribe(e => this.errors = e);
+      this.errorSub = this._project.aProject.subscribe(p => this.ProjectId = p.ProjectId);
+    } else {
+      this._router.navigate(['/']);
     }
-    this._bugs.clearErrors();
-    this.errorSub = this._bugs.bugErrors.subscribe(e => this.errors = e);
   }
 
   ngOnDestroy() {
     this.errorSub.unsubscribe();
+    this.projectSub.unsubscribe();
   }
 
   addBug() {
@@ -49,7 +54,7 @@ export class BugsAddComponent implements OnInit, OnDestroy {
       UserId: this.UserId,
       ProjectId: this.ProjectId
     };
-    return this._bugs.addBug(newBug);
+    return this._bug.addBug(newBug);
   }
 
 }

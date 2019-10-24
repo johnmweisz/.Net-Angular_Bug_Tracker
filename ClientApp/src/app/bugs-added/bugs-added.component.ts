@@ -17,22 +17,23 @@ export class BugsAddedComponent implements OnInit, OnDestroy {
   public bugs: Bug[];
 
   constructor(
-    private _bugs: BugService,
+    private _bug: BugService,
     private _project: ProjectService,
     private _router: Router
   ) { }
 
   ngOnInit() {
-    if (JSON.parse(localStorage.getItem('user')) != null) {
+    if (JSON.parse(localStorage.getItem('user'))) {
+      const UserId = JSON.parse(localStorage.getItem('user')).UserId;
       this.projectSub = this._project.aProject.subscribe(p => {
         this.project = p;
         if (this.project) {
-          this._bugs.getAdded(JSON.parse(localStorage.getItem('user')).UserId, this.project.ProjectId);
+          this._bug.getAdded(UserId, p.ProjectId);
         } else {
-          this._bugs.getAdded(JSON.parse(localStorage.getItem('user')).UserId);
+          this._bug.getAdded(UserId);
         }
       });
-      this.bugListSub = this._bugs.bugList.subscribe(b => this.bugs = b);
+      this.bugListSub = this._bug.bugList.subscribe(b => this.bugs = b);
     } else {
       this._router.navigate(['/']);
     }
