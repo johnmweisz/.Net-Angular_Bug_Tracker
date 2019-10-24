@@ -1,7 +1,7 @@
 <div>
   <ul class="nav nav-tabs">
     <li class="nav-item">
-      <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['list']">Detail</a>
+      <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['detail']">Detail</a>
     </li>
     <li class="nav-item">
       <a *ngIf="canView" class="nav-link" [routerLinkActive]="['active']" [routerLink]="['edit']">Edit</a>
@@ -10,7 +10,7 @@
       <a *ngIf="canView" class="nav-link" [routerLinkActive]="['active']" [routerLink]="['contributors']">Contributors</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['bugs', ProjectId]">Bugs</a>
+      <a class="nav-link" *ngIf="project" [routerLinkActive]="['active']" [routerLink]="['/bugs', project.ProjectId]">Bugs</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" [routerLink]="['/']">Back</a>

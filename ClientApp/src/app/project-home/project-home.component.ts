@@ -21,23 +21,19 @@ export class ProjectHomeComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.paramsSub = this._route.params.subscribe(
-      par => this._project.getOne(par.ProfileId),
-      err => console.error(err)
-    );
+    this.paramsSub = this._route.params.subscribe(par => this._project.getOne(par.ProjectId));
     this.projectSub = this._project.aProject.subscribe(
-      (res: Project) => {
-        this.project = res;
-        //console.log(res);
-        if (JSON.parse(localStorage.getItem('user')).UserId === res.UserId) {
+      p => {
+        this.project = p;
+        if (this.project != null && JSON.parse(localStorage.getItem('user')).UserId === this.project.UserId) {
           this.canView = true;
         }
-      },
-      err => console.error(err)
+      }
     );
   }
 
   ngOnDestroy() {
+    this._project.clearProject();
     this.paramsSub.unsubscribe();
     this.projectSub.unsubscribe();
   }

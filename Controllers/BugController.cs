@@ -32,46 +32,55 @@ namespace BugTracker.Controllers
 			));
 		}
 
-        [HttpGet("[action]")]
-        public IActionResult GetAll()
-        {
-            List<Bug> Bugs = context.Bugs
-            .Include(b => b.Creator)
-            .Include(b => b.Assigned)
-                .ThenInclude(a => a.User)
-            .OrderBy(b => b.CreatedAt)
-            .ToList();
-            return OkJson(Bugs);
-        }
+		[HttpGet("[action]/{ProjectId?}")]
+		public IActionResult GetAll(int? ProjectId = null)
+		{
+			IQueryable<Bug> Bugs = context.Bugs
+			.Include(b => b.Creator)
+			.Include(b => b.Assigned)
+				.ThenInclude(a => a.User)
+			.OrderBy(b => b.CreatedAt);
+			if (ProjectId != null)
+			{
+				Bugs.Where(b => b.ProjectId == ProjectId);
+			}
+			return OkJson(Bugs.ToList());
+		}
 
-        [HttpGet("[action]/{UserId}")]
-        public IActionResult GetAdded(int? UserId)
+        [HttpGet("[action]/{UserId}/{ProjectId?}")]
+        public IActionResult GetAdded(int UserId, int? ProjectId = null)
         {
-            List<Bug> Bugs = context.Bugs
+            IQueryable<Bug> Bugs = context.Bugs
             .Include(b => b.Creator)
             .Include(b => b.Assigned)
                 .ThenInclude(a => a.User)
 			.Where(b => b.UserId == UserId)
-            .OrderBy(b => b.CreatedAt)
-            .ToList();
-            return OkJson(Bugs);
+            .OrderBy(b => b.CreatedAt);
+			if (ProjectId != null)
+			{
+				Bugs.Where(b => b.ProjectId == ProjectId);
+			}
+            return OkJson(Bugs.ToList());
         }
 
-        [HttpGet("[action]/{UserId}")]
-        public IActionResult GetAssigned(int? UserId)
+        [HttpGet("[action]/{UserId}/{ProjectId?}")]
+        public IActionResult GetAssigned(int UserId, int? ProjectId = null)
         {
-            List<Bug> Bugs = context.Bugs
+            IQueryable<Bug> Bugs = context.Bugs
             .Include(b => b.Creator)
             .Include(b => b.Assigned)
                 .ThenInclude(a => a.User)
 			.Where(b => b.Assigned.Any(a => a.UserId == UserId))
-            .OrderBy(b => b.CreatedAt)
-            .ToList();
-            return OkJson(Bugs);
+            .OrderBy(b => b.CreatedAt);
+			if (ProjectId != null)
+			{
+				Bugs.Where(b => b.ProjectId == ProjectId);
+			}
+            return OkJson(Bugs.ToList());
         }
 
 		[HttpGet("[action]/{BugId}")]
-        public IActionResult GetOne(int? BugId)
+        public IActionResult GetOne(int BugId)
         {
             Bug Bug = context.Bugs
             .Include(b => b.Creator)

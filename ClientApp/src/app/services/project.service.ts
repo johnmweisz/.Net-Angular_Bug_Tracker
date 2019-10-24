@@ -34,6 +34,14 @@ export class ProjectService {
       this.errorSub.next(null);
     }
 
+    clearProjects() {
+      this.projectsSub.next(null);
+    }
+
+    clearProject() {
+      this.projectSub.next(null);
+    }
+
     getAll() {
       return this._http.get('/Project/GetAll').subscribe(
         (res: Project[]) => {

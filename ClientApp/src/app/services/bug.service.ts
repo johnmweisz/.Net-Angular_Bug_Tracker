@@ -34,26 +34,38 @@ export class BugService {
       this.errorSub.next(null);
     }
 
-    getAll() {
-      return this._http.get('/Bug/GetAll').subscribe(
-        (res: Bug[]) => {
-          this.bugsSub.next(res);
-        },
-        err => {
-          console.log(err);
-        }
-      );
+    clearBugs() {
+      this.bugsSub.next(null);
     }
 
-    getAdded(UserId: number) {
-      return this._http.get(`/Bug/GetAdded/${UserId}`).subscribe(
-        (res: Bug[]) => {
-          this.bugsSub.next(res);
-        },
-        err => {
-          console.log(err);
-        }
-      );
+    clearBug() {
+      this.bugSub.next(null);
+    }
+
+    getAll(ProjectId?: number) {
+      if (ProjectId == null) {
+        return this._http.get('/Bug/GetAll').subscribe(
+          (res: Bug[]) => this.bugsSub.next(res),
+          err => console.log(err)
+        );
+      } else {
+        return this._http.get(`/Bug/GetAll/${ProjectId}`).subscribe(
+          (res: Bug[]) => this.bugsSub.next(res),
+          err => console.log(err)
+        );
+      }
+    }
+
+    getAdded(UserId: number, ProjectId?: number) {
+      if (ProjectId == null) {
+        return this._http.get(`/Bug/GetAdded/${UserId}`).subscribe(
+          (res: Bug[]) => this.bugsSub.next(res),
+          err => console.log(err));
+      } else {
+        return this._http.get(`/Bug/GetAdded/${UserId}/${ProjectId}`).subscribe(
+          (res: Bug[]) => this.bugsSub.next(res),
+          err => console.log(err));
+      }
     }
 
     getAssigned(UserId: number) {

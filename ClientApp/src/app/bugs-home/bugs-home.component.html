@@ -13,7 +13,7 @@
       <a *ngIf="canView" class="nav-link" [routerLinkActive]="['active']" [routerLink]="['add']">Add</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" [routerLink]="['/']">Back</a>
+      <a *ngIf="project" class="nav-link" [routerLink]="['/project', project.ProjectId]">Back</a>
     </li>
   </ul>
 </div>

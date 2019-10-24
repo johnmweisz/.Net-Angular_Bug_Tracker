@@ -46,7 +46,7 @@ namespace BugTracker.Controllers
         }
 
         [HttpGet("[action]/{UserId}")]
-        public IActionResult GetAdded(int? UserId)
+        public IActionResult GetAdded(int UserId)
         {
             List<Project> Projects = context.Projects
             .Include(b => b.Creator)
@@ -60,7 +60,7 @@ namespace BugTracker.Controllers
         }
 
         [HttpGet("[action]/{UserId}")]
-        public IActionResult GetContributed(int? UserId)
+        public IActionResult GetContributed(int UserId)
         {
             List<Project> Projects = context.Projects
             .Include(b => b.Creator)
@@ -74,7 +74,7 @@ namespace BugTracker.Controllers
         }
 
 		[HttpGet("[action]/{ProjectId}")]
-        public IActionResult GetOne(int? ProjectId)
+        public IActionResult GetOne(int ProjectId)
         {
             Project Project = context.Projects
             .Include(b => b.Creator)
@@ -117,9 +117,8 @@ namespace BugTracker.Controllers
         }
 
 		[HttpDelete("[action]/{ProjectId}")]
-        public IActionResult Delete(int? ProjectId)
+        public IActionResult Delete(int ProjectId)
         {
-            if (ProjectId == null) BadRequest();
 			Bug Bug = context.Bugs.FirstOrDefault(b => b.ProjectId == ProjectId);
             context.Remove(Bug);
             context.SaveChanges();
