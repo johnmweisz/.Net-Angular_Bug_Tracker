@@ -4,5 +4,20 @@
   </div>
 </div>
 <div *ngIf="project">
-
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Joined</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of project.Contributors">
+        <th scope="row"><a [routerLink]="['/user', user.UserId]">{{ user['FirstName'] }} {{ user['LastName'] }}</a></th>
+        <td>{{ user['Email'] }}</td>
+        <td>{{ user['CreatedAt'] }}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
