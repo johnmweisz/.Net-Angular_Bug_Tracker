@@ -33,7 +33,7 @@ export class BugsAddComponent implements OnInit, OnDestroy {
       this.UserId = JSON.parse(localStorage.getItem('user')).UserId;
       this._bug.clearErrors();
       this.errorSub = this._bug.bugErrors.subscribe(e => this.errors = e);
-      this.errorSub = this._project.aProject.subscribe(p => this.ProjectId = p.ProjectId);
+      this.projectSub = this._project.aProject.subscribe(p => this.ProjectId = p.ProjectId);
     } else {
       this._router.navigate(['/']);
     }
