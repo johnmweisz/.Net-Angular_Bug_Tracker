@@ -24,18 +24,24 @@ export class UserEditComponent implements OnInit, OnDestroy {
     ) { }
 
   ngOnInit() {
-    this.userProfileSub = this._user.userProfile.subscribe(u => {
-      if (u === null || JSON.parse(localStorage.getItem('user')).UserId !== u.UserId) {
-        return this._router.navigate(['/']);
-      }
-      this.user = u;
-      if (this.user) {
-        this.UserId = u.UserId;
-        this.FirstName = u.FirstName;
-        this.LastName = u.LastName;
-        this.Email = u.Email;
-      }
-    });
+    if (JSON.parse(localStorage.getItem('user'))) {
+      this.userProfileSub = this._user.userProfile.subscribe(u => {
+        this.user = u;
+        if (this.user) {
+          if (JSON.parse(localStorage.getItem('user')).UserId !== u.UserId) {
+            this.UserId = u.UserId;
+            this.FirstName = u.FirstName;
+            this.LastName = u.LastName;
+            this.Email = u.Email;
+          } else {
+            return this._router.navigate(['/']);
+          }
+        }
+      });
+    } else {
+      return this._router.navigate(['/']);
+    }
+
   }
 
   ngOnDestroy() {

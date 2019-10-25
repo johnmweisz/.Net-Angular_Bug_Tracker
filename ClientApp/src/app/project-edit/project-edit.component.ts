@@ -28,21 +28,26 @@ export class ProjectEditComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    if (JSON.parse(localStorage.getItem('user')) == null) {
+    if (JSON.parse(localStorage.getItem('user'))) {
+      this.projectSub = this._project.aProject.subscribe(p => {
+        this.project = p;
+        if (this.project) {
+          if (JSON.parse(localStorage.getItem('user')).UserId === p.UserId) {
+            this.Name = p.Name;
+            this.Description = p.Description;
+            this.Status = p.Status;
+            this.Public = p.Public;
+            this.URL = p.URL;
+            this.UserId = p.UserId;
+            this.ProjectId = p.ProjectId;
+          } else {
+            return this._router.navigate(['/']);
+          }
+        }
+      });
+    } else {
       return this._router.navigate(['/']);
     }
-    this.projectSub = this._project.aProject.subscribe(p => {
-      this.project = p;
-      if (this.project) {
-        this.Name = p.Name;
-        this.Description = p.Description;
-        this.Status = p.Status;
-        this.Public = p.Public;
-        this.URL = p.URL;
-        this.UserId = p.UserId;
-        this.ProjectId = p.ProjectId;
-      }
-    });
   }
 
   ngOnDestroy() {

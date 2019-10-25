@@ -25,7 +25,7 @@ export class ProjectHomeComponent implements OnInit, OnDestroy {
     this.projectSub = this._project.aProject.subscribe(
       p => {
         this.project = p;
-        if (this.project != null && JSON.parse(localStorage.getItem('user')).UserId === this.project.UserId) {
+        if (this.project && JSON.parse(localStorage.getItem('user')).UserId === this.project.UserId) {
           this.canView = true;
         }
       }
