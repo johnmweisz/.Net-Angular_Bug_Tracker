@@ -12,11 +12,8 @@ import { Project, Bug } from '../models';
 })
 export class BugsHomeComponent implements OnInit, OnDestroy {
   private paramsSub: Subscription;
-  private projectSub: Subscription;
-  private bugListSub: Subscription;
   public canView = false;
-  public project: Project;
-  public bugs: Bug[];
+  public ProjectId: Project;
 
   constructor(
     private _project: ProjectService,
@@ -26,12 +23,10 @@ export class BugsHomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.paramsSub = this._route.params.subscribe(par => {
+      this.ProjectId = par.ProjectId;
       this._project.getOne(par.ProjectId);
-      this._bug.getAll(par.ProjectId);
       }
     );
-    this.projectSub = this._project.aProject.subscribe(p => this.project = p);
-    this.bugListSub = this._bug.bugList.subscribe(b => this.bugs = b);
     if (JSON.parse(localStorage.getItem('user')) != null) {
       this.canView = true;
     }
@@ -40,8 +35,6 @@ export class BugsHomeComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this._bug.clearBugs();
     this.paramsSub.unsubscribe();
-    this.projectSub.unsubscribe();
-    this.bugListSub.unsubscribe();
   }
 
 }
