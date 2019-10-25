@@ -64,6 +64,7 @@ export class BugEditComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.errorSub.unsubscribe();
     this.projectSub.unsubscribe();
+    this.bugSub.unsubscribe();
   }
 
   editBug() {
