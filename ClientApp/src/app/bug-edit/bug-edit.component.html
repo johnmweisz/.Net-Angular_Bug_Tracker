@@ -70,6 +70,7 @@
       <div>
           <button class="btn btn-warning" *ngIf="!valForm.valid" type="button">Submit</button>
           <button class="btn btn-primary" *ngIf="valForm.valid" type="submit">Submit</button>
+          <button class="btn btn-danger float-right" (click)="deleteBug()" type="button">Delete</button>
       </div>
   </form>
 </div>

@@ -91,7 +91,7 @@ export class BugService {
     addBug(newBug: Bug) {
       return this._http.post('/Bug/Add', newBug).subscribe(
         (res: Bug) => {
-          // this.bugSub.next(res);
+          this.getOne(res.BugId);
           this._router.navigate(['/bug', res.BugId]);
         },
         err => this.parseErrors(err)
@@ -100,7 +100,10 @@ export class BugService {
 
     editBug(editBug: Bug) {
       return this._http.put('/Bug/Edit', editBug).subscribe(
-        (res: Bug) => this.bugSub.next(res),
+        (res: Bug) => {
+          this.getOne(res.BugId);
+          this._router.navigate(['/bug', res.BugId]);
+        },
         err => this.parseErrors(err)
       );
     }

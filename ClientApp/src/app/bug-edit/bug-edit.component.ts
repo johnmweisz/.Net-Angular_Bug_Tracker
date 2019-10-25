@@ -81,4 +81,8 @@ export class BugEditComponent implements OnInit, OnDestroy {
     return this._bug.editBug(editBug);
   }
 
+  deleteBug() {
+    this._bug.deleteBug(this.BugId);
+  }
+
 }
