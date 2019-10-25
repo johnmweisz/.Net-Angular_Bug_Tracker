@@ -42,7 +42,7 @@ namespace BugTracker.Controllers
 			.OrderBy(b => b.CreatedAt);
 			if (ProjectId != null)
 			{
-				Bugs.Where(b => b.ProjectId == ProjectId);
+				Bugs = Bugs.Where(b => b.ProjectId == ProjectId);
 			}
 			return OkJson(Bugs.ToList());
 		}
@@ -58,7 +58,7 @@ namespace BugTracker.Controllers
             .OrderBy(b => b.CreatedAt);
 			if (ProjectId != null)
 			{
-				Bugs.Where(b => b.ProjectId == ProjectId);
+				Bugs = Bugs.Where(b => b.ProjectId == ProjectId);
 			}
             return OkJson(Bugs.ToList());
         }
@@ -74,7 +74,7 @@ namespace BugTracker.Controllers
             .OrderBy(b => b.CreatedAt);
 			if (ProjectId != null)
 			{
-				Bugs.Where(b => b.ProjectId == ProjectId);
+				Bugs = Bugs.Where(b => b.ProjectId == ProjectId);
 			}
             return OkJson(Bugs.ToList());
         }

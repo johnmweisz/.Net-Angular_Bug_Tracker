@@ -1,4 +1,4 @@
-import { Bug } from './../models';
+import { Bug, Project } from './../models';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BugService } from '../services/bug.service';
 import { Router } from '@angular/router';
@@ -20,7 +20,7 @@ export class BugsAddComponent implements OnInit, OnDestroy {
   public Status: string;
   public DueDate: Date;
   public UserId: number;
-  public ProjectId: number;
+  public project: Project;
 
   constructor(
     private _bug: BugService,
@@ -33,7 +33,12 @@ export class BugsAddComponent implements OnInit, OnDestroy {
       this.UserId = JSON.parse(localStorage.getItem('user')).UserId;
       this._bug.clearErrors();
       this.errorSub = this._bug.bugErrors.subscribe(e => this.errors = e);
-      this.projectSub = this._project.aProject.subscribe(p => this.ProjectId = p.ProjectId);
+      this.projectSub = this._project.aProject.subscribe(p => {
+        this.project = p;
+        if (!this.project) {
+          this._router.navigate(['/']);
+        }
+      });
     } else {
       this._router.navigate(['/']);
     }
@@ -52,7 +57,7 @@ export class BugsAddComponent implements OnInit, OnDestroy {
       Status: this.Status,
       DueDate: this.DueDate,
       UserId: this.UserId,
-      ProjectId: this.ProjectId
+      ProjectId: this.project.ProjectId
     };
     return this._bug.addBug(newBug);
   }

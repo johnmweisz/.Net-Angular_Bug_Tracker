@@ -1,1 +1,75 @@
-<p>bugs-add works!</p>
+<div *ngIf="!project" class="d-flex justify-content-center m-5">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+<div *ngIf="project">
+  <form #valForm='ngForm' (ngSubmit)="addBug()">
+      <div class="form-group">
+        <label for="Subject">Subject</label>
+        <input class="form-control" type="text" name="Subject" required #valSubject='ngModel' [(ngModel)]="Subject" placeholder="Subject">
+        <div class="alert alert-danger" *ngIf="errors?.Subject">
+            <p>{{ errors.Subject }}</p>
+        </div>
+        <div class="alert alert-danger" *ngIf="valSubject.errors?.required && (valSubject.dirty || valSubject.touched)">
+          <p>Required</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="Description">Description</label>
+        <input class="form-control" type="text" name="Description" required #valDescription='ngModel' [(ngModel)]="Description" placeholder="Description">
+        <div class="alert alert-danger" *ngIf="errors?.Description">
+            <p>{{ errors.Description }}</p>
+        </div>
+        <div class="alert alert-danger" *ngIf="valDescription.errors?.required && (valDescription.dirty || valDescription.touched)">
+          <p>Required</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="Priority">Priority</label>
+        <select class="form-control" type="text" name="Priority" required #valPriority='ngModel' [(ngModel)]="Priority" placeholder="Priority">
+          <option value="Urgent">Urgent</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+        </select>
+        <div class="alert alert-danger" *ngIf="errors?.Priority">
+            <p>{{ errors.Priority }}</p>
+        </div>
+        <div class="alert alert-danger" *ngIf="valPriority.errors?.required && (valPriority.dirty || valPriority.touched)">
+          <p>Required</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="Status">Status</label>
+        <select class="form-control" type="text" name="Status" required #valStatus='ngModel' [(ngModel)]="Status" placeholder="Status">
+          <option value="New">New</option>
+          <option value="Open">Open</option>
+          <option value="Assigned">Assigned</option>
+          <option value="Testing">Testing</option>
+          <option value="Verified">Verified</option>
+          <option value="Closed">Closed</option>
+        </select>
+        <div class="alert alert-danger" *ngIf="errors?.Status">
+            <p>{{ errors.Status }}</p>
+        </div>
+        <div class="alert alert-danger" *ngIf="valStatus.errors?.required && (valStatus.dirty || valStatus.touched)">
+          <p>Required</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="DueDate">Due Date</label>
+        <input class="form-control" type="date" name="DueDate" required #valDueDate='ngModel' [(ngModel)]="DueDate" placeholder="DueDate">
+        <div class="alert alert-danger" *ngIf="errors?.DueDate">
+            <p>{{ errors.DueDate }}</p>
+        </div>
+        <div class="alert alert-danger" *ngIf="valDueDate.errors?.required && (valDueDate.dirty || valDueDate.touched)">
+          <p>Required</p>
+        </div>
+      </div>
+      <div>
+          <button class="btn btn-warning" *ngIf="!valForm.valid" type="button">Submit</button>
+          <button class="btn btn-primary" *ngIf="valForm.valid" type="submit">Submit</button>
+      </div>
+  </form>
+</div>

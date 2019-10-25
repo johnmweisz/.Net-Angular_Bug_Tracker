@@ -90,7 +90,10 @@ export class BugService {
 
     addBug(newBug: Bug) {
       return this._http.post('/Bug/Add', newBug).subscribe(
-        (res: Bug) => this.bugSub.next(res),
+        (res: Bug) => {
+          // this.bugSub.next(res);
+          this._router.navigate(['/bug', res.BugId]);
+        },
         err => this.parseErrors(err)
       );
     }
