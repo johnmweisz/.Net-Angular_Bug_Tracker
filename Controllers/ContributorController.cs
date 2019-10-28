@@ -91,8 +91,8 @@ namespace BugTracker.Controllers
 			foreach (Contributor c in Contributors)
 			{
 				c.Authorized = 1;
-				context.SaveChanges(); // Skeptical this will work but action is needed when project is switched from public to private with contributors.
 			}
+			context.SaveChanges(); // Skeptical this will work but action is needed when project is switched from public to private with contributors.
 			return OkJson(Contributors);
 		}
 
