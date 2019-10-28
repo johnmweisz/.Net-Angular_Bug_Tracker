@@ -46,13 +46,6 @@ export class ContributorService {
       );
     }
 
-    authorizeAll(ProjectId: number) {
-      return this._http.get(`/Contributor/AuthorizeAll/${ProjectId}`).subscribe(
-        (res: Contributor[]) => this.contributorsSub.next(res),
-        err => console.log(err)
-      );
-    }
-
     delete(ContributorId: number) {
       return this._http.get(`/Contributor/DeleteContibutor/${ContributorId}`).subscribe(
         (res: Contributor) => this.contributorSub.next(res),

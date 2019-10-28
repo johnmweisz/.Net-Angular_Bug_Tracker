@@ -1,3 +1,4 @@
+import { ContributorService } from './../services/contributor.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Project, Contributor } from '../models';
@@ -13,9 +14,14 @@ export class ProjectContributorsComponent implements OnInit, OnDestroy {
   public project: Project;
   public isContributor = false;
   public isPrivate = true;
+  public ProjectId: number;
+  public UserId: number;
+  public Authorized = 0;
+  public ContributorId: number;
 
   constructor(
-    private _project: ProjectService
+    private _project: ProjectService,
+    private _contributor: ContributorService
   ) { }
 
   ngOnInit() {
@@ -25,6 +31,7 @@ export class ProjectContributorsComponent implements OnInit, OnDestroy {
         this.checkContributor();
         if (this.project.Public === 0) {
           this.isPrivate = false;
+          this.Authorized = 1;
         }
       }
     });
@@ -40,6 +47,15 @@ export class ProjectContributorsComponent implements OnInit, OnDestroy {
         this.isContributor = true;
       }
     }
+  }
+
+  addContributor() {
+    const newContributor: Contributor = {
+      UserId: this.UserId,
+      ProjectId: this.ProjectId,
+      Authorized: this.Authorized
+    };
+    return this._contributor.add(newContributor);
   }
 
 }

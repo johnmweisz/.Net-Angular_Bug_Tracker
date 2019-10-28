@@ -83,18 +83,5 @@ namespace BugTracker.Controllers
 			return Ok();
 		}
 
-		[HttpGet("[action]/{ProjectId}")]
-		public IActionResult AuthorizeAll(int ProjectId) {
-			List<Contributor> Contributors = context.Contributors
-			.Where(p => p.ProjectId == ProjectId)
-			.ToList();
-			foreach (Contributor c in Contributors)
-			{
-				c.Authorized = 1;
-			}
-			context.SaveChanges(); // Skeptical this will work but action is needed when project is switched from public to private with contributors.
-			return OkJson(Contributors);
-		}
-
     }
 }

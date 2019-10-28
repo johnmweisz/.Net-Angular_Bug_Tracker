@@ -61,4 +61,5 @@ export interface Contributor {
   Project?: Project;
   UserId?: number;
   User?: User;
+  Authorized?: number;
 }
