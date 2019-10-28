@@ -25,21 +25,21 @@ export class ContributorService {
       );
     }
 
-    addContributor(newContributor: Contributor) {
+    add(newContributor: Contributor) {
       return this._http.post(`/Contributor/AddContributor`, newContributor).subscribe(
         (res: Contributor) => this.contributorSub.next(res),
         err => console.log(err)
       );
     }
 
-    authorizeContributor(ContributorId: number) {
+    authorize(ContributorId: number) {
       return this._http.get(`/Contributor/AuthorizeContributor/${ContributorId}`).subscribe(
         (res: Contributor) => this.contributorSub.next(res),
         err => console.log(err)
       );
     }
 
-    deauthorizeContributor(ContributorId: number) {
+    deauthorize(ContributorId: number) {
       return this._http.get(`/Contributor/DeauthorizeContributor/${ContributorId}`).subscribe(
         (res: Contributor) => this.contributorSub.next(res),
         err => console.log(err)
@@ -53,7 +53,7 @@ export class ContributorService {
       );
     }
 
-    deleteContibutor(ContributorId: number) {
+    delete(ContributorId: number) {
       return this._http.get(`/Contributor/DeleteContibutor/${ContributorId}`).subscribe(
         (res: Contributor) => this.contributorSub.next(res),
         err => console.log(err)
