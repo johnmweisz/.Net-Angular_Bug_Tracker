@@ -4,6 +4,9 @@
   </div>
 </div>
 <div *ngIf="project">
+  <div>
+    <button *ngIf="!isContributor" (click)="addContributor()">Contribute</button>
+  </div>
   <table class="table">
     <thead>
       <tr>

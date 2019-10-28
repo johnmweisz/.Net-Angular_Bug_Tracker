@@ -11,13 +11,12 @@ import { ProjectService } from '../services/project.service';
 })
 export class ProjectContributorsComponent implements OnInit, OnDestroy {
   private projectSub: Subscription;
+  private ProjectId: number;
+  private UserId: number;
+  private Authorized = 0;
   public project: Project;
   public isContributor = false;
   public isPrivate = true;
-  public ProjectId: number;
-  public UserId: number;
-  public Authorized = 0;
-  public ContributorId: number;
 
   constructor(
     private _project: ProjectService,
@@ -25,10 +24,18 @@ export class ProjectContributorsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    if (JSON.parse(localStorage.getItem('user'))) {
+      this.UserId = JSON.parse(localStorage.getItem('user')).UserId;
+    }
     this.projectSub = this._project.aProject.subscribe(p => {
       this.project = p;
       if (this.project) {
-        this.checkContributor();
+        this.ProjectId = p.ProjectId;
+        for (const c of this.project.Contributors) {
+          if (c.UserId === this.UserId) {
+            this.isContributor = true;
+          }
+        }
         if (this.project.Public === 0) {
           this.isPrivate = false;
           this.Authorized = 1;
@@ -41,14 +48,6 @@ export class ProjectContributorsComponent implements OnInit, OnDestroy {
     this.projectSub.unsubscribe();
   }
 
-  checkContributor() {
-    for (const c of this.project.Contributors) {
-      if (c.UserId === JSON.parse(localStorage.getItem('user')).UserId) {
-        this.isContributor = true;
-      }
-    }
-  }
-
   addContributor() {
     const newContributor: Contributor = {
       UserId: this.UserId,
@@ -56,6 +55,18 @@ export class ProjectContributorsComponent implements OnInit, OnDestroy {
       Authorized: this.Authorized
     };
     return this._contributor.add(newContributor);
+  }
+
+  authorize(ContributorId: number) {
+    return this._contributor.authorize(ContributorId);
+  }
+
+  deauthorize(ContributorId: number) {
+    return this._contributor.deauthorize(ContributorId);
+  }
+
+  delete(ContributorId: number) {
+    return this._contributor.delete(ContributorId);
   }
 
 }
