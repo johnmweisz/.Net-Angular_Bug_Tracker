@@ -14,7 +14,11 @@ namespace BugTracker.Models
         public int ProjectId {get;set;}
         [Required]
         public int UserId {get;set;}
+        [Required]
+        public int Authorized {get;set;}
         public Project Project {get;set;}
         public User User {get;set;}
+        public DateTime CreatedAt {get;set;} = DateTime.Now;
+        public DateTime UpdatedAt {get;set;} = DateTime.Now;
     }
 }
