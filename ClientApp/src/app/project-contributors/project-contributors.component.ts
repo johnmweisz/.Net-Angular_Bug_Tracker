@@ -13,6 +13,7 @@ export class ProjectContributorsComponent implements OnInit, OnDestroy {
   private projectSub: Subscription;
   private ProjectId: number;
   private UserId: number;
+  private ContributorId: number;
   private Authorized = 0;
   public project: Project;
   public isContributor = false;
@@ -33,6 +34,7 @@ export class ProjectContributorsComponent implements OnInit, OnDestroy {
         this.ProjectId = p.ProjectId;
         for (const c of this.project.Contributors) {
           if (c.UserId === this.UserId) {
+            this.ContributorId = c.ContributorId;
             this.isContributor = true;
           }
         }
@@ -65,8 +67,8 @@ export class ProjectContributorsComponent implements OnInit, OnDestroy {
     return this._contributor.deauthorize(ContributorId);
   }
 
-  delete(ContributorId: number) {
-    return this._contributor.delete(ContributorId);
+  delete() {
+    return this._contributor.delete(this.ContributorId);
   }
 
 }

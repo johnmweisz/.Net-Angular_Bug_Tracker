@@ -40,7 +40,7 @@ export interface Project {
   UpdatedAt?: Date;
   UserId?: number;
   Creator?: User;
-  Contributors?: User[];
+  Contributors?: Contributor[];
   Bugs?: Bug[];
 }
 

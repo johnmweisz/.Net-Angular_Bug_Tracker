@@ -43,7 +43,7 @@ namespace BugTracker.Controllers
 		}
 
 		[HttpPost("[action]")]
-		public IActionResult AddContibutor([FromBody] Contributor NewContributor) {
+		public IActionResult AddContributor([FromBody] Contributor NewContributor) {
             if(ModelState.IsValid)
             {
                 context.Add(NewContributor);
