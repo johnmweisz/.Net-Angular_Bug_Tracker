@@ -18,6 +18,7 @@ export class ProjectContributorsComponent implements OnInit, OnDestroy {
   public project: Project;
   public isContributor = false;
   public isPrivate = true;
+  public isAuthorized = false;
 
   constructor(
     private _project: ProjectService,
@@ -32,13 +33,8 @@ export class ProjectContributorsComponent implements OnInit, OnDestroy {
       this.project = p;
       if (this.project) {
         this.ProjectId = p.ProjectId;
-        for (const c of this.project.Contributors) {
-          if (c.UserId === this.UserId) {
-            this.ContributorId = c.ContributorId;
-            this.isContributor = true;
-          }
-        }
-        if (this.project.Public === 0) {
+        this.checkAccess(p);
+        if (p.Public === 0) {
           this.isPrivate = false;
           this.Authorized = 1;
         }
@@ -69,6 +65,18 @@ export class ProjectContributorsComponent implements OnInit, OnDestroy {
 
   delete() {
     return this._contributor.delete(this.ContributorId);
+  }
+
+  checkAccess(project: Project) {
+    for (const c of project.Contributors) {
+      if (c.UserId === this.UserId) {
+        this.ContributorId = c.ContributorId;
+        this.isContributor = true;
+        if (c.Authorized === 1) {
+          this.isAuthorized = true;
+        }
+      }
+    }
   }
 
 }
