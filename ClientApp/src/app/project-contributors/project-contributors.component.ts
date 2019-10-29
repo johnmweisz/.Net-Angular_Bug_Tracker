@@ -33,7 +33,6 @@ export class ProjectContributorsComponent implements OnInit, OnDestroy {
     this.projectSub = this._project.aProject.subscribe(p => {
       this.project = p;
       if (this.project) {
-        console.log(this.project);
         this.ProjectId = p.ProjectId;
         this.checkAccess(p);
         if (p.Public === 1) {
@@ -46,10 +45,6 @@ export class ProjectContributorsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.projectSub.unsubscribe();
-  }
-
-  updateProject() {
-      this._project.getOne(this.ProjectId);
   }
 
   addContributor() {
@@ -83,9 +78,15 @@ export class ProjectContributorsComponent implements OnInit, OnDestroy {
         this.isContributor = true;
         if (c.Authorized === 1) {
           this.isAuthorized = true;
+        } else {
+          this.isAuthorized = false;
         }
+        return;
       }
     }
+    this.isContributor = false;
+    this.isAuthorized = false;
+    this.ContributorId = null;
   }
 
 }

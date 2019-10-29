@@ -80,7 +80,7 @@ namespace BugTracker.Controllers
 			Contributor Contributor = context.Contributors.FirstOrDefault(c => c.ContributorId == ContributorId);
 			context.Remove(Contributor);
 			context.SaveChanges();
-			return Ok();
+			return OkJson(Contributor);
 		}
 
     }
