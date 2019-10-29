@@ -6,7 +6,7 @@
 <div *ngIf="project">
   <div>
       <button *ngIf="!isContributor" (click)="addContributor()">Contribute</button>
-      <button *ngIf="isContributor" (click)="delete()">Contribute</button>
+      <button *ngIf="isContributor" (click)="delete()">Leave Project</button>
   </div>
   <table class="table">
     <thead>
@@ -14,6 +14,7 @@
         <th scope="col">Name</th>
         <th scope="col">Email</th>
         <th scope="col">Joined</th>
+        <th *ngIf="isAdmin" scope="col">Admin</th>
       </tr>
     </thead>
     <tbody>
@@ -21,6 +22,10 @@
         <th scope="row"><a [routerLink]="['/user', contributor.UserId]">{{ contributor.User['FirstName'] }} {{ contributor.User['LastName'] }}</a></th>
         <td>{{ contributor.User['Email'] }}</td>
         <td>{{ contributor['CreatedAt'] | date }}</td>
+        <td *ngIf="isAdmin">
+          <button *ngIf="contributor.Authorized === 1" (click)="deauthorize(contributor.ContributorId)">Deauthorize</button>
+          <button *ngIf="contributor.Authorized === 0" (click)="authorize(contributor.ContributorId)">Authorize</button>
+        </td>
       </tr>
     </tbody>
   </table>

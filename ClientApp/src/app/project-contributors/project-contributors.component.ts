@@ -19,6 +19,7 @@ export class ProjectContributorsComponent implements OnInit, OnDestroy {
   public isContributor = false;
   public isPrivate = true;
   public isAuthorized = false;
+  public isAdmin = false;
 
   constructor(
     private _project: ProjectService,
@@ -32,9 +33,10 @@ export class ProjectContributorsComponent implements OnInit, OnDestroy {
     this.projectSub = this._project.aProject.subscribe(p => {
       this.project = p;
       if (this.project) {
+        console.log(this.project);
         this.ProjectId = p.ProjectId;
         this.checkAccess(p);
-        if (p.Public === 0) {
+        if (p.Public === 1) {
           this.isPrivate = false;
           this.Authorized = 1;
         }
@@ -44,6 +46,10 @@ export class ProjectContributorsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.projectSub.unsubscribe();
+  }
+
+  updateProject() {
+      this._project.getOne(this.ProjectId);
   }
 
   addContributor() {
@@ -68,6 +74,9 @@ export class ProjectContributorsComponent implements OnInit, OnDestroy {
   }
 
   checkAccess(project: Project) {
+    if (project.UserId === this.UserId) {
+      this.isAdmin = true;
+    }
     for (const c of project.Contributors) {
       if (c.UserId === this.UserId) {
         this.ContributorId = c.ContributorId;

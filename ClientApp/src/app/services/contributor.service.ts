@@ -47,7 +47,7 @@ export class ContributorService {
     }
 
     delete(ContributorId: number) {
-      return this._http.get(`/Contributor/DeleteContibutor/${ContributorId}`).subscribe(
+      return this._http.delete(`/Contributor/DeleteContibutor/${ContributorId}`).subscribe(
         (res: Contributor) => this.contributorSub.next(res),
         err => console.log(err)
       );
