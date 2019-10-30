@@ -42,7 +42,7 @@ export interface Project {
   Bugs?: Bug[];
 }
 
-export interface Comment {
+export interface Update {
   CommentId?: number;
   Status?: string;
   Message?: string;

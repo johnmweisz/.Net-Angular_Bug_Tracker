@@ -88,7 +88,7 @@ export class BugService {
     );
   }
 
-  addBug(newBug: Bug) {
+  add(newBug: Bug) {
     return this._http.post('/Bug/Add', newBug).subscribe(
       (res: Bug) => {
         this._router.navigate(['/bug', res.BugId]);
@@ -97,7 +97,7 @@ export class BugService {
     );
   }
 
-  editBug(editBug: Bug) {
+  edit(editBug: Bug) {
     return this._http.put('/Bug/Edit', editBug).subscribe(
       (res: Bug) => {
         this._router.navigate(['/bug', res.BugId]);
@@ -106,7 +106,7 @@ export class BugService {
     );
   }
 
-  deleteBug(BugId: number) {
+  delete(BugId: number) {
     return this._http.delete(`/User/Delete/${BugId}`).subscribe(
       res => this._router.navigate(['/']),
       err => console.log(err)

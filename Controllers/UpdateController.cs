@@ -68,10 +68,17 @@ namespace BugTracker.Controllers
 
 		[HttpDelete("[action]/{UpdateId}")]
 		public IActionResult Delete(int UpdateId) {
-			Update Update = context.Updates.FirstOrDefault(c => c.UpdateId == UpdateId);
-			context.Remove(Update);
+			Update DeleteUpdate = context.Updates.FirstOrDefault(c => c.UpdateId == UpdateId);
+			context.Remove(DeleteUpdate);
 			context.SaveChanges();
-			return OkJson(Update);
+			Update LastUpdate = context.Updates
+			.Where(u => u.BugId == DeleteUpdate.BugId)
+			.OrderByDescending(c => c.CreatedAt)
+			.First();
+			Bug Bug = context.Bugs.FirstOrDefault(b => b.BugId == LastUpdate.BugId);
+			Bug.Status = LastUpdate.Status;
+			context.SaveChanges();
+			return OkJson(LastUpdate);
 		}
 
     }

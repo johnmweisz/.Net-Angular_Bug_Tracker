@@ -20,6 +20,14 @@ export class ContributorService {
     private _router: Router
     ) { }
 
+    clearContributors() {
+      this.contributorsSub.next(null);
+    }
+
+    clearContributor() {
+      this.contributorSub.next(null);
+    }
+
   getAll(ContributorId: number) {
     return this._http.get(`/Contributor/GetAll/${ContributorId}`).subscribe(
       (res: Contributor[]) => this.contributorsSub.next(res),

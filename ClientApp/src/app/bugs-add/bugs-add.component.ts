@@ -59,7 +59,7 @@ export class BugsAddComponent implements OnInit, OnDestroy {
       UserId: this.UserId,
       ProjectId: this.project.ProjectId
     };
-    return this._bug.addBug(newBug);
+    return this._bug.add(newBug);
   }
 
 }
