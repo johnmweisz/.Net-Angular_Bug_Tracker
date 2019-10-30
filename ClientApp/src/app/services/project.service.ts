@@ -20,7 +20,7 @@ export class ProjectService {
     private _router: Router
     ) { }
 
-  parseErrors(err: object) {
+  private parseErrors(err: object) {
     const errors = {};
     for (const key in err['error']) {
       if (err['error'].hasOwnProperty(key)) {

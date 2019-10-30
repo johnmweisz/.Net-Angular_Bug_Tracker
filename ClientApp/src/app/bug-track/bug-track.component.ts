@@ -1,9 +1,10 @@
+import { UpdateService } from './../services/update.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { BugService } from '../services/bug.service';
 import { ProjectService } from '../services/project.service';
 import { Subscription } from 'rxjs';
-import { Project, Bug } from '../models';
+import { Project, Bug, Update } from '../models';
 
 @Component({
   selector: 'app-bug-track',
@@ -15,21 +16,23 @@ export class BugTrackComponent implements OnInit, OnDestroy {
   private updateSub: Subscription;
   private errorSub: Subscription;
   private bugSub: Subscription;
-  private updateSub: Subscription;
   private updatesSub: Subscription;
   public project: Project;
   public errors: object;
   public bug: Bug;
+  public updates: Update[];
   public Status: string;
   public Message: string;
   public BugId: number;
   public UserId: number;
   public isAuthorized = false;
   public isAdmin = false;
+  public isCreator = false;
 
   constructor(
     private _bug: BugService,
     private _project: ProjectService,
+    private _update: UpdateService,
     private _router: Router
   ) { }
 
@@ -43,22 +46,22 @@ export class BugTrackComponent implements OnInit, OnDestroy {
       this.project = p;
       if (this.project) {
         this.checkAccess(p);
+        if (this.isAuthorized || this.isAdmin) {
+          this.updatesSub = this._update.updateList.subscribe(b => {
+            this.updates = b;
+            if (this.bug) {
+            }
+          });
+        }
       }
     });
     this.bugSub = this._bug.aBug.subscribe(b => {
       this.bug = b;
       if (this.bug) {
         if (JSON.parse(localStorage.getItem('user')).UserId === b.UserId) {
-          this.Subject = b.Subject;
-          this.Description = b.Description;
-          this.Priority = b.Priority;
-          this.Status = b.Status;
-          this.DueDate = b.DueDate;
-          this.BugId = b.BugId;
-          this.ProjectId = b.ProjectId;
-          this.UserId = b.UserId;
+          this.isCreator = true;
         } else {
-          return this._router.navigate(['/']);
+          this.isCreator = false;
         }
       }
     });
@@ -66,6 +69,10 @@ export class BugTrackComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.projectSub.unsubscribe();
+    this.updatesSub.unsubscribe();
+    this.updateSub.unsubscribe();
+    this.bugSub.unsubscribe();
+    this.errorSub.unsubscribe();
   }
 
   checkAccess(project: Project) {
