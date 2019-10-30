@@ -71,6 +71,8 @@ export class ProjectContributorsComponent implements OnInit, OnDestroy {
   checkAccess(project: Project) {
     if (project.UserId === this.UserId) {
       this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
     }
     for (const c of project.Contributors) {
       if (c.UserId === this.UserId) {

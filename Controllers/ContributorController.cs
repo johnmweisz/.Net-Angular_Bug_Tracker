@@ -43,7 +43,7 @@ namespace BugTracker.Controllers
 		}
 
 		[HttpPost("[action]")]
-		public IActionResult AddContributor([FromBody] Contributor NewContributor) {
+		public IActionResult Add([FromBody] Contributor NewContributor) {
             if(ModelState.IsValid)
             {
                 context.Add(NewContributor);
@@ -54,7 +54,7 @@ namespace BugTracker.Controllers
 		}
 
 		[HttpGet("[action]/{ContributorId}")]
-		public IActionResult AuthorizeContributor(int ContributorId) {
+		public IActionResult Authorize(int ContributorId) {
 			Contributor Contributor = context.Contributors.FirstOrDefault(c => c.ContributorId == ContributorId);
 			if (Contributor.Authorized == 1) {
 				return BadRequest();
@@ -65,7 +65,7 @@ namespace BugTracker.Controllers
 		}
 
 		[HttpGet("[action]/{ContributorId}")]
-		public IActionResult DeauthorizeContributor(int ContributorId) {
+		public IActionResult Deauthorize(int ContributorId) {
 			Contributor Contributor = context.Contributors.FirstOrDefault(c => c.ContributorId == ContributorId);
 			if (Contributor.Authorized == 0) {
 				return BadRequest();
@@ -76,7 +76,7 @@ namespace BugTracker.Controllers
 		}
 
 		[HttpDelete("[action]/{ContributorId}")]
-		public IActionResult DeleteContibutor(int ContributorId) {
+		public IActionResult Delete(int ContributorId) {
 			Contributor Contributor = context.Contributors.FirstOrDefault(c => c.ContributorId == ContributorId);
 			context.Remove(Contributor);
 			context.SaveChanges();

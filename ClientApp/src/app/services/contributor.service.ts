@@ -28,28 +28,28 @@ export class ContributorService {
   }
 
   add(newContributor: Contributor) {
-    return this._http.post(`/Contributor/AddContributor`, newContributor).subscribe(
+    return this._http.post(`/Contributor/Add`, newContributor).subscribe(
       (res: Contributor) => this._project.getOne(res.ProjectId),
       err => console.log(err)
     );
   }
 
   authorize(ContributorId: number) {
-    return this._http.get(`/Contributor/AuthorizeContributor/${ContributorId}`).subscribe(
+    return this._http.get(`/Contributor/Authorize/${ContributorId}`).subscribe(
       (res: Contributor) => this._project.getOne(res.ProjectId),
       err => console.log(err)
     );
   }
 
   deauthorize(ContributorId: number) {
-    return this._http.get(`/Contributor/DeauthorizeContributor/${ContributorId}`).subscribe(
+    return this._http.get(`/Contributor/Deauthorize/${ContributorId}`).subscribe(
       (res: Contributor) => this._project.getOne(res.ProjectId),
       err => console.log(err)
     );
   }
 
   delete(ContributorId: number) {
-    return this._http.delete(`/Contributor/DeleteContibutor/${ContributorId}`).subscribe(
+    return this._http.delete(`/Contributor/Delete/${ContributorId}`).subscribe(
       (res: Contributor) => this._project.getOne(res.ProjectId),
       err => console.log(err)
     );
