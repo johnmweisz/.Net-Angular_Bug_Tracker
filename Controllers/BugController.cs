@@ -37,7 +37,7 @@ namespace BugTracker.Controllers
 		{
 			IQueryable<Bug> Bugs = context.Bugs
 			.Include(b => b.Creator)
-			.Include(b => b.Contributors)
+			.Include(b => b.Comments)
 				.ThenInclude(a => a.User)
 			.OrderBy(b => b.CreatedAt);
 			if (ProjectId != null)
@@ -52,7 +52,7 @@ namespace BugTracker.Controllers
         {
             IQueryable<Bug> Bugs = context.Bugs
             .Include(b => b.Creator)
-            .Include(b => b.Contributors)
+            .Include(b => b.Comments)
                 .ThenInclude(a => a.User)
 			.Where(b => b.UserId == UserId)
             .OrderBy(b => b.CreatedAt);
@@ -64,13 +64,13 @@ namespace BugTracker.Controllers
         }
 
         [HttpGet("[action]/{UserId}/{ProjectId?}")]
-        public IActionResult GetContributors(int UserId, int? ProjectId = null)
+        public IActionResult GetAssigned(int UserId, int? ProjectId = null)
         {
             IQueryable<Bug> Bugs = context.Bugs
             .Include(b => b.Creator)
-            .Include(b => b.Contributors)
+            .Include(b => b.Comments)
                 .ThenInclude(a => a.User)
-			.Where(b => b.Contributors.Any(a => a.UserId == UserId))
+			.Where(b => b.Comments.Any(a => a.UserId == UserId))
             .OrderBy(b => b.CreatedAt);
 			if (ProjectId != null)
 			{
@@ -84,7 +84,7 @@ namespace BugTracker.Controllers
         {
             Bug Bug = context.Bugs
             .Include(b => b.Creator)
-            .Include(b => b.Contributors)
+            .Include(b => b.Comments)
                 .ThenInclude(a => a.User)
 			.FirstOrDefault(b => b.BugId == BugId);
             return OkJson(Bug);

@@ -7,7 +7,6 @@ export interface User {
   Confirm?: string;
   CreatedAt?: Date;
   UpdatedAt?: Date;
-  Assigned?: Bug[];
   Created?: Bug[];
   Comments?: Comment[];
 }
@@ -25,7 +24,6 @@ export interface Bug {
   Creator?: User;
   ProjectId?: number;
   Project?: Project;
-  Assigned?: User[];
   Comments?: Comment[];
 }
 
