@@ -52,8 +52,12 @@ export class BugsAddedComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.bugListSub.unsubscribe();
-    this.projectSub.unsubscribe();
+    if (this.projectSub) {
+      this.projectSub.unsubscribe();
+    }
+    if (this.bugListSub) {
+      this.bugListSub.unsubscribe();
+    }
   }
 
   checkAccess(project: Project) {

@@ -13,7 +13,6 @@ import { Project, Bug, Update } from '../models';
 })
 export class BugTrackComponent implements OnInit, OnDestroy {
   private projectSub: Subscription;
-  private updateSub: Subscription;
   private errorSub: Subscription;
   private bugSub: Subscription;
   private updatesSub: Subscription;
@@ -27,7 +26,7 @@ export class BugTrackComponent implements OnInit, OnDestroy {
   public UserId: number;
   public isAuthorized = false;
   public isAdmin = false;
-  public isCreator = false;
+  public isPublic = false;
 
   constructor(
     private _bug: BugService,
@@ -41,36 +40,43 @@ export class BugTrackComponent implements OnInit, OnDestroy {
       this.UserId = JSON.parse(localStorage.getItem('user')).UserId;
     }
     this._update.clearErrors();
-    this.errorSub = this._update.updateErrors.subscribe(e => this.errors = e);
     this.projectSub = this._project.aProject.subscribe(p => {
       this.project = p;
       if (this.project) {
-        this.checkAccess(p);
-        if (this.isAuthorized || this.isAdmin || this.isCreator) {
-          this.updatesSub = this._update.updateList.subscribe(u => {
-            this.updates = u;
-          });
-        }
-      }
-    });
-    this.bugSub = this._bug.aBug.subscribe(b => {
-      this.bug = b;
-      if (this.bug) {
-        if (JSON.parse(localStorage.getItem('user')).UserId === b.UserId) {
-          this.isCreator = true;
+        if (p.Public === 1) {
+          this.isPublic = true;
         } else {
-          this.isCreator = false;
+          this.isPublic = false;
+        }
+        this.checkAccess(p);
+        if (this.isPublic || this.isAuthorized || this.isAdmin) {
+          this.updatesSub = this._update.updateList.subscribe(u => this.updates = u);
+          this.errorSub = this._update.updateErrors.subscribe(e => this.errors = e);
+          this.bugSub = this._bug.aBug.subscribe(b => {
+            this.bug = b;
+            if (this.bug) {
+              this.BugId = b.BugId;
+              this._update.getAll(b.BugId);
+            }
+          });
         }
       }
     });
   }
 
   ngOnDestroy() {
-    this.projectSub.unsubscribe();
-    this.updatesSub.unsubscribe();
-    this.updateSub.unsubscribe();
-    this.bugSub.unsubscribe();
-    this.errorSub.unsubscribe();
+    if (this.projectSub) {
+      this.projectSub.unsubscribe();
+    }
+    if (this.updatesSub) {
+      this.updatesSub.unsubscribe();
+    }
+    if (this.errorSub) {
+      this.errorSub.unsubscribe();
+    }
+    if (this.bugSub) {
+      this.bugSub.unsubscribe();
+    }
   }
 
   checkAccess(project: Project) {

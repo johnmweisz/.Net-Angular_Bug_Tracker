@@ -51,8 +51,12 @@ export class BugsAddComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.errorSub.unsubscribe();
-    this.projectSub.unsubscribe();
+    if (this.projectSub) {
+      this.projectSub.unsubscribe();
+    }
+    if (this.errorSub) {
+      this.errorSub.unsubscribe();
+    }
   }
 
   addBug() {

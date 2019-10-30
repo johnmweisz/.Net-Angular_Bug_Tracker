@@ -14,7 +14,6 @@ export class BugsHomeComponent implements OnInit, OnDestroy {
   private paramsSub: Subscription;
   private projectSub: Subscription;
   public project: Project;
-  public canView = false;
   public ProjectId: Project;
   public UserId: number;
   public isAuthorized = false;
@@ -44,9 +43,6 @@ export class BugsHomeComponent implements OnInit, OnDestroy {
             this.isPublic = false;
           }
           this.checkAccess(p);
-          if (this.isPublic || this.isAuthorized || this.isAdmin) {
-            this.canView = true;
-          }
         }
       });
     }
@@ -55,7 +51,9 @@ export class BugsHomeComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this._bug.clearBugs();
     this.paramsSub.unsubscribe();
-    this.projectSub.unsubscribe();
+    if (this.projectSub) {
+      this.projectSub.unsubscribe();
+    }
   }
 
   checkAccess(project: Project) {
