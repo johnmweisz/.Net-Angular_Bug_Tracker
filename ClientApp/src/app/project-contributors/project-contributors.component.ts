@@ -17,7 +17,6 @@ export class ProjectContributorsComponent implements OnInit, OnDestroy {
   private Authorized = 0;
   public project: Project;
   public isContributor = false;
-  public isPrivate = true;
   public isAuthorized = false;
   public isAdmin = false;
 
@@ -36,8 +35,9 @@ export class ProjectContributorsComponent implements OnInit, OnDestroy {
         this.ProjectId = p.ProjectId;
         this.checkAccess(p);
         if (p.Public === 1) {
-          this.isPrivate = false;
           this.Authorized = 1;
+        } else {
+          this.Authorized = 0;
         }
       }
     });

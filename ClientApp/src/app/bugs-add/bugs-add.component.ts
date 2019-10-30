@@ -21,6 +21,8 @@ export class BugsAddComponent implements OnInit, OnDestroy {
   public DueDate: Date;
   public UserId: number;
   public project: Project;
+  public isAuthorized = false;
+  public isAdmin = false;
 
   constructor(
     private _bug: BugService,
@@ -31,12 +33,16 @@ export class BugsAddComponent implements OnInit, OnDestroy {
   ngOnInit() {
     if (JSON.parse(localStorage.getItem('user'))) {
       this.UserId = JSON.parse(localStorage.getItem('user')).UserId;
-      this._bug.clearErrors();
-      this.errorSub = this._bug.bugErrors.subscribe(e => this.errors = e);
       this.projectSub = this._project.aProject.subscribe(p => {
         this.project = p;
-        if (!this.project) {
-          this._router.navigate(['/']);
+        if (this.project) {
+          this.checkAccess(p);
+          if (this.isAuthorized || this.isAdmin) {
+            this._bug.clearErrors();
+            this.errorSub = this._bug.bugErrors.subscribe(e => this.errors = e);
+          } else {
+            this._router.navigate(['/']);
+          }
         }
       });
     } else {
@@ -60,6 +66,25 @@ export class BugsAddComponent implements OnInit, OnDestroy {
       ProjectId: this.project.ProjectId
     };
     return this._bug.add(newBug);
+  }
+
+  checkAccess(project: Project) {
+    if (project.UserId === this.UserId) {
+      this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
+    }
+    for (const c of project.Contributors) {
+      if (c.UserId === this.UserId) {
+        if (c.Authorized === 1) {
+          this.isAuthorized = true;
+        } else {
+          this.isAuthorized = false;
+        }
+        return;
+      }
+    }
+    this.isAuthorized = false;
   }
 
 }

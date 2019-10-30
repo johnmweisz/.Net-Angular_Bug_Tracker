@@ -12,8 +12,14 @@ import { Project, Bug } from '../models';
 })
 export class BugsHomeComponent implements OnInit, OnDestroy {
   private paramsSub: Subscription;
+  private projectSub: Subscription;
+  public project: Project;
   public canView = false;
   public ProjectId: Project;
+  public UserId: number;
+  public isAuthorized = false;
+  public isAdmin = false;
+  public isPublic = false;
 
   constructor(
     private _project: ProjectService,
@@ -27,14 +33,48 @@ export class BugsHomeComponent implements OnInit, OnDestroy {
       this._project.getOne(par.ProjectId);
       }
     );
-    if (JSON.parse(localStorage.getItem('user')) != null) {
-      this.canView = true;
+    if (JSON.parse(localStorage.getItem('user'))) {
+      this.UserId = JSON.parse(localStorage.getItem('user')).UserId;
+      this.projectSub = this._project.aProject.subscribe(p => {
+        this.project = p;
+        if (this.project) {
+          if (p.Public === 1) {
+            this.isPublic = true;
+          } else {
+            this.isPublic = false;
+          }
+          this.checkAccess(p);
+          if (this.isPublic || this.isAuthorized || this.isAdmin) {
+            this.canView = true;
+          }
+        }
+      });
     }
   }
 
   ngOnDestroy() {
     this._bug.clearBugs();
     this.paramsSub.unsubscribe();
+    this.projectSub.unsubscribe();
+  }
+
+  checkAccess(project: Project) {
+    if (project.UserId === this.UserId) {
+      this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
+    }
+    for (const c of project.Contributors) {
+      if (c.UserId === this.UserId) {
+        if (c.Authorized === 1) {
+          this.isAuthorized = true;
+        } else {
+          this.isAuthorized = false;
+        }
+        return;
+      }
+    }
+    this.isAuthorized = false;
   }
 
 }

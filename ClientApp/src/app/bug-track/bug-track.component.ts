@@ -46,11 +46,9 @@ export class BugTrackComponent implements OnInit, OnDestroy {
       this.project = p;
       if (this.project) {
         this.checkAccess(p);
-        if (this.isAuthorized || this.isAdmin) {
-          this.updatesSub = this._update.updateList.subscribe(b => {
-            this.updates = b;
-            if (this.bug) {
-            }
+        if (this.isAuthorized || this.isAdmin || this.isCreator) {
+          this.updatesSub = this._update.updateList.subscribe(u => {
+            this.updates = u;
           });
         }
       }
