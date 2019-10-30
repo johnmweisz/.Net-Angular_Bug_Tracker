@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BugTracker.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20191029235313_first")]
+    [Migration("20191030171253_first")]
     partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,38 +65,6 @@ namespace BugTracker.Migrations
                     b.ToTable("Bugs");
                 });
 
-            modelBuilder.Entity("BugTracker.Models.Comment", b =>
-                {
-                    b.Property<int>("CommentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("BugId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Message")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CommentId");
-
-                    b.HasIndex("BugId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Comments");
-                });
-
             modelBuilder.Entity("BugTracker.Models.Contributor", b =>
                 {
                     b.Property<int>("ContributorId")
@@ -104,9 +72,6 @@ namespace BugTracker.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Authorized")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("BugId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
@@ -122,8 +87,6 @@ namespace BugTracker.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ContributorId");
-
-                    b.HasIndex("BugId");
 
                     b.HasIndex("ProjectId");
 
@@ -170,6 +133,38 @@ namespace BugTracker.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("BugTracker.Models.Update", b =>
+                {
+                    b.Property<int>("UpdateId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("BugId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UpdateId");
+
+                    b.HasIndex("BugId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Updates");
                 });
 
             modelBuilder.Entity("BugTracker.Models.User", b =>
@@ -220,27 +215,8 @@ namespace BugTracker.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BugTracker.Models.Comment", b =>
-                {
-                    b.HasOne("BugTracker.Models.Bug", "Bug")
-                        .WithMany("Comments")
-                        .HasForeignKey("BugId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BugTracker.Models.User", "User")
-                        .WithMany("Comments")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("BugTracker.Models.Contributor", b =>
                 {
-                    b.HasOne("BugTracker.Models.Bug", null)
-                        .WithMany("Contributors")
-                        .HasForeignKey("BugId");
-
                     b.HasOne("BugTracker.Models.Project", "Project")
                         .WithMany("Contributors")
                         .HasForeignKey("ProjectId")
@@ -258,6 +234,21 @@ namespace BugTracker.Migrations
                 {
                     b.HasOne("BugTracker.Models.User", "Creator")
                         .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BugTracker.Models.Update", b =>
+                {
+                    b.HasOne("BugTracker.Models.Bug", "Bug")
+                        .WithMany("Updates")
+                        .HasForeignKey("BugId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BugTracker.Models.User", "User")
+                        .WithMany("Updates")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

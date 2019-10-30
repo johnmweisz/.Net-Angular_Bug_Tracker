@@ -6,10 +6,10 @@ using Newtonsoft.Json;
 
 namespace BugTracker.Models
 {
-    public class Comment
+    public class Update
     {
         [Key]
-        public int CommentId {get;set;}
+        public int UpdateId {get;set;}
         [Required]
         public string Status {get;set;}
         [Required]

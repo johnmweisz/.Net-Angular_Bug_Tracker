@@ -33,6 +33,6 @@ namespace BugTracker.Models
         // Link & Navigation
         public ICollection<Contributor> Contributors {get;set;}
         public ICollection<Bug> Created {get;set;}
-        public ICollection<Comment> Comments {get;set;}
+        public ICollection<Update> Updates {get;set;}
     }
 }

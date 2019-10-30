@@ -8,7 +8,7 @@ namespace BugTracker.Models
         public Context(DbContextOptions options) : base(options) { }
         public DbSet<User> Users {get; set;}
         public DbSet<Bug> Bugs {get; set;}
-        public DbSet<Comment> Comments {get; set;}
+        public DbSet<Update> Updates {get; set;}
         public DbSet<Project> Projects {get; set;}
         public DbSet<Contributor> Contributors {get; set;}
     }

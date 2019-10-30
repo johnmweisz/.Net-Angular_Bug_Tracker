@@ -19,7 +19,7 @@ namespace BugTracker.Models
         [Required]
         public string Status {get;set;}
         [Required]
-        [CheckFuture(7)]
+        [CheckFuture(1)]
         public DateTime DueDate {get;set;}
         public DateTime CreatedAt {get;set;} = DateTime.Now;
         public DateTime UpdatedAt {get;set;} = DateTime.Now;
@@ -30,7 +30,7 @@ namespace BugTracker.Models
         [Required]
         public int ProjectId {get;set;}
         public Project Project {get;set;}
-        public ICollection<Comment> Comments {get;set;}
+        public ICollection<Update> Updates {get;set;}
     }
 
     public class CheckFutureAttribute : ValidationAttribute
@@ -44,7 +44,7 @@ namespace BugTracker.Models
         {
             if(DateTime.Now.AddDays(_days) > (DateTime) value)
             {
-                return new ValidationResult($"You must set a due date at least {_days} days in the future.");
+                return new ValidationResult($"You must set a due date at least {_days} day(s) in the future.");
             }
             return ValidationResult.Success;
         }
