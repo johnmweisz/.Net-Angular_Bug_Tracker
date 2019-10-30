@@ -31,7 +31,7 @@ namespace BugTracker.Models
         [DataType(DataType.Password)]
         public string Confirm {get;set;}
         // Link & Navigation
-        public ICollection<Assign> Assigned {get;set;}
+        public ICollection<Contributor> Contributors {get;set;}
         public ICollection<Bug> Created {get;set;}
         public ICollection<Comment> Comments {get;set;}
     }

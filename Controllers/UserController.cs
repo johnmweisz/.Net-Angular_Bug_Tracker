@@ -79,8 +79,11 @@ namespace BugTracker.Controllers
         {
             User User = context.Users
             .Include(u => u.Created)
-            .Include(u => u.Assigned)
-                .ThenInclude(a => a.Bug)
+                .ThenInclude(b => b.Project)
+                    .ThenInclude(b => b.Bugs)
+            .Include(u => u.Contributors)
+                .ThenInclude(a => a.Project)
+                    .ThenInclude(b => b.Bugs)
             .FirstOrDefault(u => u.UserId == UserId);
             return OkJson(User);
         }

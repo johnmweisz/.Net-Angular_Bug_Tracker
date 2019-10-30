@@ -30,7 +30,7 @@ namespace BugTracker.Models
         [Required]
         public int ProjectId {get;set;}
         public Project Project {get;set;}
-        public ICollection<Assign> Assigned {get;set;}
+        public ICollection<Contributor> Contributors {get;set;}
         public ICollection<Comment> Comments {get;set;}
     }
 

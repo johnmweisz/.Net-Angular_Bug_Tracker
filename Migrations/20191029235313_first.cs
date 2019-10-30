@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BugTracker.Migrations
 {
-    public partial class First : Migration
+    public partial class first : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -86,58 +86,6 @@ namespace BugTracker.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Contributors",
-                columns: table => new
-                {
-                    ContributorId = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    ProjectId = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Contributors", x => x.ContributorId);
-                    table.ForeignKey(
-                        name: "FK_Contributors_Projects_ProjectId",
-                        column: x => x.ProjectId,
-                        principalTable: "Projects",
-                        principalColumn: "ProjectId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Contributors_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Assigned",
-                columns: table => new
-                {
-                    AssignId = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    BugId = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Assigned", x => x.AssignId);
-                    table.ForeignKey(
-                        name: "FK_Assigned_Bugs_BugId",
-                        column: x => x.BugId,
-                        principalTable: "Bugs",
-                        principalColumn: "BugId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Assigned_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Comments",
                 columns: table => new
                 {
@@ -166,15 +114,41 @@ namespace BugTracker.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Assigned_BugId",
-                table: "Assigned",
-                column: "BugId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Assigned_UserId",
-                table: "Assigned",
-                column: "UserId");
+            migrationBuilder.CreateTable(
+                name: "Contributors",
+                columns: table => new
+                {
+                    ContributorId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    ProjectId = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: false),
+                    Authorized = table.Column<int>(nullable: false),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    UpdatedAt = table.Column<DateTime>(nullable: false),
+                    BugId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Contributors", x => x.ContributorId);
+                    table.ForeignKey(
+                        name: "FK_Contributors_Bugs_BugId",
+                        column: x => x.BugId,
+                        principalTable: "Bugs",
+                        principalColumn: "BugId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Contributors_Projects_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "Projects",
+                        principalColumn: "ProjectId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Contributors_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Bugs_ProjectId",
@@ -197,6 +171,11 @@ namespace BugTracker.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Contributors_BugId",
+                table: "Contributors",
+                column: "BugId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Contributors_ProjectId",
                 table: "Contributors",
                 column: "ProjectId");
@@ -214,9 +193,6 @@ namespace BugTracker.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Assigned");
-
             migrationBuilder.DropTable(
                 name: "Comments");
 

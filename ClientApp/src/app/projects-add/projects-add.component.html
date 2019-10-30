@@ -37,12 +37,9 @@
       </div>
       <div class="form-group">
         <label for="URL">URL</label>
-        <input class="form-control" type="text" name="URL" required #valURL='ngModel' [(ngModel)]="URL" placeholder="URL">
+        <input class="form-control" type="text" name="URL" #valURL='ngModel' [(ngModel)]="URL" placeholder="URL">
         <div class="alert alert-danger" *ngIf="errors?.URL">
             <p>{{ errors.URL }}</p>
-        </div>
-        <div class="alert alert-danger" *ngIf="valURL.errors?.required && (valURL.dirty || valURL.touched)">
-          <p>Required</p>
         </div>
       </div>
       <div class="form-group">

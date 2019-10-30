@@ -13,13 +13,13 @@
       </div>
       <div class="card-footer">
           <p class="m-2 badge badge-dark">Bugs Added: {{ user['Created'].length }}</p>
-          <p class="m-2 badge badge-dark">Bugs Assigned: {{ user['Assigned'].length }}</p>
+          <p class="m-2 badge badge-dark">Projects Contributed: {{ user['Contributors'].length }}</p>
       </div>
     </div>
   </div>
   <div class="col-8">
     <div class="card m-1">
-      <h5 class="card-header">Added</h5>
+      <h5 class="card-header">Bugs Added</h5>
       <table class="table card-body">
         <thead>
           <tr>
@@ -35,7 +35,7 @@
             <td>N/A</td>
           </tr>
           <tr *ngFor="let bug of user['Created']">
-            <td scope="row">{{ bug['Project'] }}</td>
+            <td scope="row">{{ bug.Project['Name'] }}</td>
             <td>{{ bug['Subject'] }}</td>
             <td>{{ bug['Status'] }}</td>
           </tr>
@@ -43,25 +43,25 @@
       </table>
     </div>
     <div class="card m-1">
-      <h5 class="card-header">Assigned</h5>
+      <h5 class="card-header">Projects Contributed</h5>
       <table class="table card-body">
         <thead>
           <tr>
             <th scope="col">Project</th>
-            <th scope="col">Subject</th>
+            <th scope="col">Access</th>
             <th scope="col">Status</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngIf="user['Assigned'].length == 0">
+          <tr *ngIf="user['Contributors'].length == 0">
             <td scope="row">N/A</td>
             <td>N/A</td>
             <td>N/A</td>
           </tr>
-          <tr *ngFor="let bug of user['Assigned']">
-            <td scope="row">{{ bug['Project'] }}</td>
-            <td>{{ bug['Subject'] }}</td>
-            <td>{{ bug['Status'] }}</td>
+          <tr *ngFor="let contribution of user['Contributors']">
+            <td scope="row">{{ contribution.Project['Name'] }}</td>
+            <td *ngIf="contribution.Project['Public'] == 1">Public</td><td *ngIf="contribution.Project['Public'] == 0">Private</td>
+            <td>{{ contribution.Project['Status'] }}</td>
           </tr>
         </tbody>
       </table>

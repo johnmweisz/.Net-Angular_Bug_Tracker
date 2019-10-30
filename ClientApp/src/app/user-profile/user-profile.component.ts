@@ -17,7 +17,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     ) { }
 
   ngOnInit() {
-    this.userProfileSub = this._user.userProfile.subscribe(u => this.user = u);
+    this.userProfileSub = this._user.userProfile.subscribe(u => {
+      this.user = u;
+    });
   }
 
   ngOnDestroy() {
