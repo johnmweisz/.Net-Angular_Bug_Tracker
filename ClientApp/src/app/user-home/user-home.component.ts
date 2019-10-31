@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 export class UserHomeComponent implements OnInit, OnDestroy {
   private paramsSub: Subscription;
   public canView = false;
+  private UserId: number;
 
   constructor(
     private _user: UserService,
@@ -18,10 +19,13 @@ export class UserHomeComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    if (JSON.parse(localStorage.getItem('user'))) {
+      this.UserId = JSON.parse(localStorage.getItem('user')).UserId;
+    }
     this.paramsSub = this._route.params.subscribe(
       par => {
         this._user.getProfile(par.UserId);
-        if (JSON.parse(localStorage.getItem('user')).UserId === JSON.parse(par.UserId)) {
+        if (JSON.parse(par.UserId) === this.UserId) {
           this.canView = true;
         }
       },

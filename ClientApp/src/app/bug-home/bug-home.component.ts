@@ -16,8 +16,8 @@ export class BugHomeComponent implements OnInit, OnDestroy {
   private bugSub: Subscription;
   private projectSub: Subscription;
   public project: Project;
+  private UserId: number;
   public bug: Bug;
-  public UserId: number;
   public isAuthorized = false;
   public isAdmin = false;
   public isPublic = false;

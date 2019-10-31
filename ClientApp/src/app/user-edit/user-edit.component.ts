@@ -25,11 +25,11 @@ export class UserEditComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (JSON.parse(localStorage.getItem('user'))) {
+      this.UserId = JSON.parse(localStorage.getItem('user')).UserId;
       this.userProfileSub = this._user.userProfile.subscribe(u => {
         this.user = u;
         if (this.user) {
-          if (JSON.parse(localStorage.getItem('user')).UserId === u.UserId) {
-            this.UserId = u.UserId;
+          if (this.UserId === u.UserId) {
             this.FirstName = u.FirstName;
             this.LastName = u.LastName;
             this.Email = u.Email;
