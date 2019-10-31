@@ -16,10 +16,12 @@ export class BugTrackComponent implements OnInit, OnDestroy {
   private errorSub: Subscription;
   private bugSub: Subscription;
   private updatesSub: Subscription;
+  private updateSub: Subscription;
   public project: Project;
   public errors: object;
   public bug: Bug;
   public updates: Update[];
+  public update: Update;
   public Status: string;
   public Message: string;
   public BugId: number;
@@ -51,6 +53,7 @@ export class BugTrackComponent implements OnInit, OnDestroy {
         this.checkAccess(p);
         if (this.isPublic || this.isAuthorized || this.isAdmin) {
           this.updatesSub = this._update.updateList.subscribe(u => this.updates = u);
+          this.updateSub = this._update.aUpdate.subscribe(u => this.update = u);
           this.errorSub = this._update.updateErrors.subscribe(e => this.errors = e);
           this.bugSub = this._bug.aBug.subscribe(b => {
             this.bug = b;
@@ -96,6 +99,25 @@ export class BugTrackComponent implements OnInit, OnDestroy {
       }
     }
     this.isAuthorized = false;
+  }
+
+  add() {
+    const newUpdate: Update = {
+      Status: this.Status,
+      Message: this.Message,
+      UserId: this.UserId,
+      BugId: this.BugId
+    };
+    if (this.isAdmin || this.isAuthorized) {
+      return this._update.add(newUpdate);
+    }
+  }
+
+  delete(UpdateId: number) {
+    this._update.getOne(UpdateId);
+    if (this.isAdmin || this.isAuthorized && this.update && this.update.UserId === this.UserId) {
+      return this._update.delete(UpdateId);
+    }
   }
 
 }
