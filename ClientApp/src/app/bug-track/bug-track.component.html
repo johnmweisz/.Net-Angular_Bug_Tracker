@@ -3,7 +3,7 @@
     <span class="sr-only">Loading...</span>
   </div>
 </div>
-<div *ngIf="project && !isAuthorized && !isAdmin">
+<div *ngIf="project && !isAuthorized && !isAdmin && !isPublic">
   <p>This project is set to private and you are not a contributor or admin.</p>
 </div>
 <div *ngIf="bug && isAuthorized || bug && isAdmin  || bug && isPublic">
@@ -20,6 +20,7 @@
           <th scope="col">Status</th>
           <th scope="col">Message</th>
           <th scope="col">Updated</th>
+          <th *ngIf="isAuthorized || isAdmin" scope="col">Admin</th>
         </tr>
       </thead>
       <tbody>
@@ -27,10 +28,11 @@
           <th scope="row">{{ update['Status'] }}</th>
           <td>{{ update['Message'] }}</td>
           <td>{{ update['CreatedAt'] | date }}</td>
+          <td *ngIf="update.UserId == UserId || isAdmin"><button (click)="delete(update.UpdateId)">Delete</button></td>
         </tr>
       </tbody>
     </table>
-    <form #valForm='ngForm' (ngSubmit)="add()">
+    <form *ngIf="isAuthorized || isAdmin" #valForm='ngForm' (ngSubmit)="add()">
       <div class="form-group">
         <label for="Status">Status</label>
         <select class="form-control" type="text" name="Status" required #valStatus='ngModel' [(ngModel)]="Status" placeholder="Status">

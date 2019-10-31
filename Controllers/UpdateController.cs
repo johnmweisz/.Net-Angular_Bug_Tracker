@@ -85,11 +85,18 @@ namespace BugTracker.Controllers
 			Update LastUpdate = context.Updates
 			.Where(u => u.BugId == DeleteUpdate.BugId)
 			.OrderByDescending(c => c.CreatedAt)
-			.First();
-			Bug Bug = context.Bugs.FirstOrDefault(b => b.BugId == LastUpdate.BugId);
-			Bug.Status = LastUpdate.Status;
+			.FirstOrDefault();
+			Bug Bug = context.Bugs.FirstOrDefault(b => b.BugId == DeleteUpdate.BugId);
+			if (LastUpdate != null)
+			{
+				Bug.Status = LastUpdate.Status;
+			}
+			else
+			{
+				Bug.Status = "New";
+			}
 			context.SaveChanges();
-			return OkJson(LastUpdate);
+			return OkJson(Bug);
 		}
 
     }

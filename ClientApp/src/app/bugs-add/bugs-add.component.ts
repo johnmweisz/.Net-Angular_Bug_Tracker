@@ -17,7 +17,6 @@ export class BugsAddComponent implements OnInit, OnDestroy {
   public Subject: string;
   public Description: string;
   public Priority: string;
-  public Status: string;
   public DueDate: Date;
   public UserId: number;
   public project: Project;
@@ -64,7 +63,6 @@ export class BugsAddComponent implements OnInit, OnDestroy {
       Subject: this.Subject,
       Description: this.Description,
       Priority: this.Priority,
-      Status: this.Status,
       DueDate: this.DueDate,
       UserId: this.UserId,
       ProjectId: this.project.ProjectId

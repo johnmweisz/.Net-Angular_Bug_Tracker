@@ -16,8 +16,7 @@ namespace BugTracker.Models
         public string Description {get;set;}
         [Required]
         public string Priority {get;set;}
-        [Required]
-        public string Status {get;set;}
+        public string Status {get;set;} = "New";
         [Required]
         [CheckFuture(1)]
         public DateTime DueDate {get;set;}

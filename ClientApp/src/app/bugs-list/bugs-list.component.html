@@ -1,4 +1,4 @@
-<div *ngIf="!bugs && isPublic || isAuthorized || isAdmin" class="d-flex justify-content-center m-5">
+<div *ngIf="!bugs && isPublic || !bugs && isAuthorized || !bugs && isAdmin" class="d-flex justify-content-center m-5">
   <div class="spinner-border" role="status">
     <span class="sr-only">Loading...</span>
   </div>
@@ -6,7 +6,7 @@
 <div *ngIf="project && !isPublic && !isAuthorized && !isAdmin">
   <p>This project is set to private and you are not a contributor or admin.</p>
 </div>
-<div *ngIf="bugs && isPublic || isAuthorized || isAdmin">
+<div *ngIf="bugs && isPublic || bugs && isAuthorized || bugs && isAdmin">
   <table class="table">
     <thead>
       <tr>

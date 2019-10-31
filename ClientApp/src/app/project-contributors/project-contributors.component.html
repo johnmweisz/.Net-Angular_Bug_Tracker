@@ -5,7 +5,7 @@
 </div>
 <div *ngIf="project">
   <div>
-      <button *ngIf="!isContributor" (click)="addContributor()">Contribute</button>
+      <button *ngIf="!isContributor && UserId" (click)="addContributor()">Contribute</button>
       <button *ngIf="isContributor" (click)="delete()">Leave Project</button>
   </div>
   <table class="table">

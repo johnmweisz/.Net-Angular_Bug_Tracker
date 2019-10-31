@@ -12,9 +12,9 @@ import { ProjectService } from '../services/project.service';
 export class ProjectContributorsComponent implements OnInit, OnDestroy {
   private projectSub: Subscription;
   private ProjectId: number;
-  private UserId: number;
   private ContributorId: number;
   private Authorized = 0;
+  public UserId: number;
   public project: Project;
   public isContributor = false;
   public isAuthorized = false;
@@ -53,7 +53,7 @@ export class ProjectContributorsComponent implements OnInit, OnDestroy {
       ProjectId: this.ProjectId,
       Authorized: this.Authorized
     };
-    if (!this.isContributor) {
+    if (!this.isContributor && this.UserId) {
       return this._contributor.add(newContributor);
     }
   }
