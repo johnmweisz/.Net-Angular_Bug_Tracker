@@ -52,9 +52,6 @@ export class BugTrackComponent implements OnInit, OnDestroy {
         }
         this.checkAccess(p);
         if (this.isPublic || this.isAuthorized || this.isAdmin) {
-          this.updatesSub = this._update.updateList.subscribe(u => this.updates = u);
-          this.updateSub = this._update.aUpdate.subscribe(u => this.update = u);
-          this.errorSub = this._update.updateErrors.subscribe(e => this.errors = e);
           this.bugSub = this._bug.aBug.subscribe(b => {
             this.bug = b;
             if (this.bug) {
@@ -62,6 +59,12 @@ export class BugTrackComponent implements OnInit, OnDestroy {
               this._update.getAll(b.BugId);
             }
           });
+          this.updatesSub = this._update.updateList.subscribe(u => {
+            this.updates = u;
+            this._bug.getOne(this.BugId);
+          });
+          this.updateSub = this._update.aUpdate.subscribe(u => this.update = u);
+          this.errorSub = this._update.updateErrors.subscribe(e => this.errors = e);
         }
       }
     });
@@ -73,6 +76,9 @@ export class BugTrackComponent implements OnInit, OnDestroy {
     }
     if (this.updatesSub) {
       this.updatesSub.unsubscribe();
+    }
+    if (this.updateSub) {
+      this.updateSub.unsubscribe();
     }
     if (this.errorSub) {
       this.errorSub.unsubscribe();
