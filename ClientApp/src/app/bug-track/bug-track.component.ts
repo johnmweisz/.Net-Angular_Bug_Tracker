@@ -39,7 +39,6 @@ export class BugTrackComponent implements OnInit, OnDestroy {
     if (JSON.parse(localStorage.getItem('user'))) {
       this.UserId = JSON.parse(localStorage.getItem('user')).UserId;
     }
-    this._update.clearErrors();
     this.projectSub = this._project.aProject.subscribe(p => {
       this.project = p;
       if (this.project) {
@@ -64,17 +63,16 @@ export class BugTrackComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.projectSub) {
-      this.projectSub.unsubscribe();
+    this._update.clearErrors();
+    this.projectSub.unsubscribe();
+    if (this.bugSub) {
+      this.bugSub.unsubscribe();
     }
     if (this.updateSub) {
       this.updateSub.unsubscribe();
     }
     if (this.errorSub) {
       this.errorSub.unsubscribe();
-    }
-    if (this.bugSub) {
-      this.bugSub.unsubscribe();
     }
   }
 
@@ -111,7 +109,7 @@ export class BugTrackComponent implements OnInit, OnDestroy {
 
   delete(UpdateId: number) {
     this._update.getOne(UpdateId);
-    if (this.isAdmin || this.isAuthorized && this.update && this.update.UserId === this.UserId) {
+    if (this.isAdmin || this.isAuthorized && this.UserId === this.update.UserId) {
       return this._update.delete(UpdateId);
     }
   }

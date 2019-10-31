@@ -25,6 +25,7 @@
         <td *ngIf="isAdmin">
           <button *ngIf="contributor.Authorized === 1" (click)="deauthorize(contributor.ContributorId)">Deauthorize</button>
           <button *ngIf="contributor.Authorized === 0" (click)="authorize(contributor.ContributorId)">Authorize</button>
+          <button (click)="delete(contributor.ContributorId)">Remove Request</button>
         </td>
       </tr>
     </tbody>

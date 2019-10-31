@@ -53,19 +53,27 @@ export class ProjectContributorsComponent implements OnInit, OnDestroy {
       ProjectId: this.ProjectId,
       Authorized: this.Authorized
     };
-    return this._contributor.add(newContributor);
+    if (!this.isContributor) {
+      return this._contributor.add(newContributor);
+    }
   }
 
   authorize(ContributorId: number) {
-    return this._contributor.authorize(ContributorId);
+    if (this.isAdmin) {
+      return this._contributor.authorize(ContributorId);
+    }
   }
 
   deauthorize(ContributorId: number) {
-    return this._contributor.deauthorize(ContributorId);
+    if (this.isAdmin) {
+      return this._contributor.deauthorize(ContributorId);
+    }
   }
 
-  delete() {
-    return this._contributor.delete(this.ContributorId);
+  delete(ContributorId: number = this.ContributorId) {
+    if (this.isContributor || this.isAdmin) {
+      return this._contributor.delete(ContributorId);
+    }
   }
 
   checkAccess(project: Project) {

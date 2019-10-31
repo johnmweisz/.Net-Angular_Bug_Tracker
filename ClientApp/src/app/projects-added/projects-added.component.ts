@@ -12,6 +12,7 @@ import { ProjectService } from '../services/project.service';
 export class ProjectsAddedComponent implements OnInit, OnDestroy {
   private projectListSub: Subscription;
   public projects: Project[];
+  private UserId: number;
 
   constructor(
     private _project: ProjectService,
@@ -19,15 +20,19 @@ export class ProjectsAddedComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    if (JSON.parse(localStorage.getItem('user')) == null) {
+    if (JSON.parse(localStorage.getItem('user'))) {
+      this.UserId = JSON.parse(localStorage.getItem('user')).UserId;
+      this._project.getAdded(this.UserId);
+      this.projectListSub = this._project.projectList.subscribe(p => this.projects = p);
+    } else {
       return this._router.navigate(['/']);
     }
-    this._project.getAdded(JSON.parse(localStorage.getItem('user')).UserId);
-    this.projectListSub = this._project.projectList.subscribe(p => this.projects = p);
   }
 
   ngOnDestroy() {
-    this.projectListSub.unsubscribe();
+    if (this.projectListSub) {
+      this.projectListSub.unsubscribe();
+    }
   }
 
 }

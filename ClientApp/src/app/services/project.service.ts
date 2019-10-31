@@ -70,7 +70,7 @@ export class ProjectService {
     );
   }
 
-  addProject(newProject: Project) {
+  add(newProject: Project) {
     return this._http.post('/Project/Add', newProject).subscribe(
       (res: Project) => {
         this._router.navigate(['/project', res.ProjectId]);
@@ -79,7 +79,7 @@ export class ProjectService {
     );
   }
 
-  editProject(editProject: Project) {
+  edit(editProject: Project) {
     return this._http.put('/Project/Edit', editProject).subscribe(
       (res: Project) => {
         this.getOne(res.ProjectId);
@@ -89,7 +89,7 @@ export class ProjectService {
     );
   }
 
-  deleteProject(ProjectId: number) {
+  delete(ProjectId: number) {
     return this._http.delete(`/Project/Delete/${ProjectId}`).subscribe(
       res => this._router.navigate(['/']),
       err => console.log(err)

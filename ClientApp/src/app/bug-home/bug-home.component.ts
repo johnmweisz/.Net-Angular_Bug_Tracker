@@ -38,7 +38,7 @@ export class BugHomeComponent implements OnInit, OnDestroy {
     this.bugSub = this._bug.aBug.subscribe(b => {
       this.bug = b;
       if (this.bug) {
-        if (this.UserId && this.UserId === b.UserId) {
+        if (b.UserId === this.UserId) {
           this.isCreator = true;
         } else {
           this.isCreator = false;
@@ -60,6 +60,7 @@ export class BugHomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this._update.clearUpdate();
     this._bug.clearBug();
     this.paramsSub.unsubscribe();
     this.bugSub.unsubscribe();

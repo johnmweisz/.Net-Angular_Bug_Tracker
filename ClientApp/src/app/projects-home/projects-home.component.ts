@@ -11,7 +11,7 @@ export class ProjectsHomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    if (JSON.parse(localStorage.getItem('user')) != null) {
+    if (JSON.parse(localStorage.getItem('user'))) {
       this.canView = true;
     }
   }

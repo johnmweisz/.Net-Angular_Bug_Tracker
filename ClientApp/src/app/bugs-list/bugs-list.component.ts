@@ -27,22 +27,22 @@ export class BugsListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     if (JSON.parse(localStorage.getItem('user'))) {
       this.UserId = JSON.parse(localStorage.getItem('user')).UserId;
-      this.projectSub = this._project.aProject.subscribe(p => {
-        this.project = p;
-        if (this.project) {
-          if (p.Public === 1) {
-            this.isPublic = true;
-          } else {
-            this.isPublic = false;
-          }
-          this.checkAccess(p);
-          if (this.isPublic || this.isAuthorized || this.isAdmin) {
-            this._bug.getAll(p.ProjectId);
-            this.bugListSub = this._bug.bugList.subscribe(b => this.bugs = b);
-          }
-        }
-      });
     }
+    this.projectSub = this._project.aProject.subscribe(p => {
+      this.project = p;
+      if (this.project) {
+        if (p.Public === 1) {
+          this.isPublic = true;
+        } else {
+          this.isPublic = false;
+        }
+        this.checkAccess(p);
+        if (this.isPublic || this.isAuthorized || this.isAdmin) {
+          this._bug.getAll(p.ProjectId);
+          this.bugListSub = this._bug.bugList.subscribe(b => this.bugs = b);
+        }
+      }
+    });
   }
 
   ngOnDestroy() {

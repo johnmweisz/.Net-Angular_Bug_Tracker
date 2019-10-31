@@ -12,8 +12,11 @@ import { Project } from '../models';
 export class ProjectHomeComponent implements OnInit, OnDestroy {
   private paramsSub: Subscription;
   private projectSub: Subscription;
-  public canView = false;
   public project: Project;
+  private UserId: number;
+  public isAuthorized = false;
+  public isAdmin = false;
+  public isPublic = false;
 
   constructor(
     private _project: ProjectService,
@@ -21,12 +24,19 @@ export class ProjectHomeComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    if (JSON.parse(localStorage.getItem('user'))) {
+      this.UserId = JSON.parse(localStorage.getItem('user')).UserId;
+    }
     this.paramsSub = this._route.params.subscribe(par => this._project.getOne(par.ProjectId));
-    this.projectSub = this._project.aProject.subscribe(
-      p => {
+    this.projectSub = this._project.aProject.subscribe(p => {
         this.project = p;
-        if (this.project && JSON.parse(localStorage.getItem('user')).UserId === this.project.UserId) {
-          this.canView = true;
+        if (this.project) {
+          if (p.Public === 1) {
+            this.isPublic = true;
+          } else {
+            this.isPublic = false;
+          }
+          this.checkAccess(p);
         }
       }
     );
@@ -36,6 +46,25 @@ export class ProjectHomeComponent implements OnInit, OnDestroy {
     this._project.clearProject();
     this.paramsSub.unsubscribe();
     this.projectSub.unsubscribe();
+  }
+
+  checkAccess(project: Project) {
+    if (project.UserId === this.UserId) {
+      this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
+    }
+    for (const c of project.Contributors) {
+      if (c.UserId === this.UserId) {
+        if (c.Authorized === 1) {
+          this.isAuthorized = true;
+        } else {
+          this.isAuthorized = false;
+        }
+        return;
+      }
+    }
+    this.isAuthorized = false;
   }
 
 }

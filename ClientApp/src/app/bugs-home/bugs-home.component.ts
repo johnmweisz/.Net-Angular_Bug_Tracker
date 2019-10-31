@@ -27,33 +27,31 @@ export class BugsHomeComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    if (JSON.parse(localStorage.getItem('user'))) {
+      this.UserId = JSON.parse(localStorage.getItem('user')).UserId;
+    }
     this.paramsSub = this._route.params.subscribe(par => {
       this.ProjectId = par.ProjectId;
       this._project.getOne(par.ProjectId);
       }
     );
-    if (JSON.parse(localStorage.getItem('user'))) {
-      this.UserId = JSON.parse(localStorage.getItem('user')).UserId;
-      this.projectSub = this._project.aProject.subscribe(p => {
-        this.project = p;
-        if (this.project) {
-          if (p.Public === 1) {
-            this.isPublic = true;
-          } else {
-            this.isPublic = false;
-          }
-          this.checkAccess(p);
+    this.projectSub = this._project.aProject.subscribe(p => {
+      this.project = p;
+      if (this.project) {
+        if (p.Public === 1) {
+          this.isPublic = true;
+        } else {
+          this.isPublic = false;
         }
-      });
-    }
+        this.checkAccess(p);
+      }
+    });
   }
 
   ngOnDestroy() {
     this._bug.clearBugs();
     this.paramsSub.unsubscribe();
-    if (this.projectSub) {
-      this.projectSub.unsubscribe();
-    }
+    this.projectSub.unsubscribe();
   }
 
   checkAccess(project: Project) {

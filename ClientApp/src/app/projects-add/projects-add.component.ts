@@ -25,16 +25,19 @@ export class ProjectsAddComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    if (JSON.parse(localStorage.getItem('user')) == null) {
+    if (JSON.parse(localStorage.getItem('user'))) {
+      this.UserId = JSON.parse(localStorage.getItem('user')).UserId;
+      this.errorSub = this._project.projectErrors.subscribe(e => this.errors = e);
+    } else {
       return this._router.navigate(['/']);
     }
-    this.UserId = JSON.parse(localStorage.getItem('user')).UserId;
-    this._project.clearErrors();
-    this.errorSub = this._project.projectErrors.subscribe(e => this.errors = e);
   }
 
   ngOnDestroy() {
-    this.errorSub.unsubscribe();
+    this._project.clearErrors();
+    if (this.errors) {
+      this.errorSub.unsubscribe();
+    }
   }
 
   addProject() {
@@ -46,7 +49,7 @@ export class ProjectsAddComponent implements OnInit, OnDestroy {
       URL: this.URL,
       UserId: this.UserId
     };
-    return this._project.addProject(newProject);
+    return this._project.add(newProject);
   }
 
 }

@@ -41,13 +41,9 @@ export class BugsAssignedComponent implements OnInit, OnDestroy {
           if (this.isPublic || this.isAuthorized || this.isAdmin) {
             this._bug.getAssigned(this.UserId, p.ProjectId);
             this.bugListSub = this._bug.bugList.subscribe(b => this.bugs = b);
-          } else {
-            this._router.navigate(['/']);
           }
         }
       });
-    } else {
-      this._router.navigate(['/']);
     }
   }
 

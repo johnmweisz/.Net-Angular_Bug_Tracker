@@ -38,7 +38,6 @@ export class BugsAddComponent implements OnInit, OnDestroy {
         if (this.project) {
           this.checkAccess(p);
           if (this.isAuthorized || this.isAdmin) {
-            this._bug.clearErrors();
             this.errorSub = this._bug.bugErrors.subscribe(e => this.errors = e);
           } else {
             this._router.navigate(['/']);
@@ -51,6 +50,7 @@ export class BugsAddComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this._bug.clearErrors();
     if (this.projectSub) {
       this.projectSub.unsubscribe();
     }
@@ -69,7 +69,9 @@ export class BugsAddComponent implements OnInit, OnDestroy {
       UserId: this.UserId,
       ProjectId: this.project.ProjectId
     };
-    return this._bug.add(newBug);
+    if (this.isAuthorized || this.isAdmin) {
+      return this._bug.add(newBug);
+    }
   }
 
   checkAccess(project: Project) {
