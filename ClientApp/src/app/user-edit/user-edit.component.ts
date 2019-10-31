@@ -16,7 +16,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
   public FirstName: string;
   public LastName: string;
   public Email: string;
-  public errors: object;
+  public errors: User;
 
   constructor(
     private _user: UserService,

@@ -15,7 +15,7 @@ export class BugEditComponent implements OnInit, OnDestroy {
   private errorSub: Subscription;
   private bugSub: Subscription;
   public project: Project;
-  public errors: object;
+  public errors: Bug;
   public bug: Bug;
   public Subject: string;
   public Description: string;

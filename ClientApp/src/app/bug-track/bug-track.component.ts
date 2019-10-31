@@ -17,7 +17,7 @@ export class BugTrackComponent implements OnInit, OnDestroy {
   private bugSub: Subscription;
   private updateSub: Subscription;
   public project: Project;
-  public errors: object;
+  public errors: Update;
   public bug: Bug;
   public update: Update;
   public Status: string;

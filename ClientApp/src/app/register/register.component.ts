@@ -10,7 +10,7 @@ import { User } from '../models';
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   private errorSub: Subscription;
-  public errors: object;
+  public errors: User;
   public FirstName: string;
   public LastName: string;
   public Email: string;

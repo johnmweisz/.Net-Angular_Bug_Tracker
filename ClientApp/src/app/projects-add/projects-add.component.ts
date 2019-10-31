@@ -10,7 +10,7 @@ import { ProjectService } from '../services/project.service';
 })
 export class ProjectsAddComponent implements OnInit, OnDestroy {
   private errorSub: Subscription;
-  public errors: object;
+  public errors: Project;
   public Name: string;
   public Description: string;
   public Status: string;

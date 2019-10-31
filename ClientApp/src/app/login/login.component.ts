@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Subscription } from 'rxjs';
+import { User } from '../models';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   private errorSub: Subscription;
   public Email: string;
   public Password: string;
-  public errors: object;
+  public errors: User;
 
   constructor(
     private _user: UserService

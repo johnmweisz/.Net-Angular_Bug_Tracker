@@ -13,7 +13,7 @@ export class ProjectEditComponent implements OnInit, OnDestroy {
   private errorSub: Subscription;
   private projectSub: Subscription;
   public project: Project;
-  public errors: object;
+  public errors: Project;
   public Name: string;
   public Description: string;
   public Status: string;

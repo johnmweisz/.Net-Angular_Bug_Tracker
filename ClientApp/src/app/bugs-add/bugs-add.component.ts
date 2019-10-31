@@ -13,7 +13,7 @@ import { ProjectService } from '../services/project.service';
 export class BugsAddComponent implements OnInit, OnDestroy {
   private projectSub: Subscription;
   private errorSub: Subscription;
-  public errors: object;
+  public errors: Bug;
   public Subject: string;
   public Description: string;
   public Priority: string;
