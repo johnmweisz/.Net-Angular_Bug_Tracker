@@ -15,12 +15,10 @@ export class BugTrackComponent implements OnInit, OnDestroy {
   private projectSub: Subscription;
   private errorSub: Subscription;
   private bugSub: Subscription;
-  private updatesSub: Subscription;
   private updateSub: Subscription;
   public project: Project;
   public errors: object;
   public bug: Bug;
-  public updates: Update[];
   public update: Update;
   public Status: string;
   public Message: string;
@@ -56,12 +54,7 @@ export class BugTrackComponent implements OnInit, OnDestroy {
             this.bug = b;
             if (this.bug) {
               this.BugId = b.BugId;
-              this._update.getAll(b.BugId);
             }
-          });
-          this.updatesSub = this._update.updateList.subscribe(u => {
-            this.updates = u;
-            this._bug.getOne(this.BugId);
           });
           this.updateSub = this._update.aUpdate.subscribe(u => this.update = u);
           this.errorSub = this._update.updateErrors.subscribe(e => this.errors = e);
@@ -73,9 +66,6 @@ export class BugTrackComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.projectSub) {
       this.projectSub.unsubscribe();
-    }
-    if (this.updatesSub) {
-      this.updatesSub.unsubscribe();
     }
     if (this.updateSub) {
       this.updateSub.unsubscribe();

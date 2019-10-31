@@ -6,14 +6,14 @@
 <div *ngIf="project && !isAuthorized && !isAdmin">
   <p>This project is set to private and you are not a contributor or admin.</p>
 </div>
-<div *ngIf="bug">
+<div *ngIf="bug && isAuthorized || bug && isAdmin  || bug && isPublic">
   <h2>{{ bug['Subject'] }}</h2>
   <p>{{ bug.Creator['FirstName'] }} {{ bug.Creator['LastName'] }}</p>
   <p>{{ bug['Message'] }}</p>
   <p>{{ bug['Priority'] }}</p>
   <p>{{ bug['Status'] }}</p>
   <p>{{ bug['DueDate'] | date}}</p>
-  <div *ngIf="updates">
+  <div *ngIf="bug ">
     <table class="table">
       <thead>
         <tr>
@@ -23,7 +23,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let update of updates">
+        <tr *ngFor="let update of bug.Updates">
           <th scope="row">{{ update['Status'] }}</th>
           <td>{{ update['Message'] }}</td>
           <td>{{ update['CreatedAt'] | date }}</td>

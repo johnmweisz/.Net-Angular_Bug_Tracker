@@ -33,11 +33,22 @@ namespace BugTracker.Controllers
 		}
 
 		[HttpGet("[action]/{BugId}")]
-		public IActionResult GetAll(int BugId)
+		public IActionResult GetAllBug(int BugId)
 		{
 			List<Update> Updates = context.Updates
 			.Where(u => u.BugId == BugId)
 			.Include(c => c.User)
+			.OrderBy(b => b.CreatedAt)
+			.ToList();
+			return OkJson(Updates);
+		}
+
+		[HttpGet("[action]/{UserId}")]
+		public IActionResult GetAllUser(int UserId)
+		{
+			List<Update> Updates = context.Updates
+			.Where(u => u.UserId == UserId)
+			.Include(c => c.Bug)
 			.OrderBy(b => b.CreatedAt)
 			.ToList();
 			return OkJson(Updates);

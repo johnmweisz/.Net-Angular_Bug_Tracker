@@ -8,7 +8,7 @@ export interface User {
   CreatedAt?: Date;
   UpdatedAt?: Date;
   Created?: Bug[];
-  Comments?: Comment[];
+  Updates?: Update[];
 }
 
 export interface Bug {
@@ -24,7 +24,7 @@ export interface Bug {
   Creator?: User;
   ProjectId?: number;
   Project?: Project;
-  Comments?: Comment[];
+  Updates?: Update[];
 }
 
 export interface Project {
@@ -43,7 +43,7 @@ export interface Project {
 }
 
 export interface Update {
-  CommentId?: number;
+  UpdateId?: number;
   Status?: string;
   Message?: string;
   BugId?: number;

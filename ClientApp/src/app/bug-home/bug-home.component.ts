@@ -1,3 +1,4 @@
+import { UpdateService } from './../services/update.service';
 import { ProjectService } from './../services/project.service';
 import { BugService } from './../services/bug.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -25,6 +26,7 @@ export class BugHomeComponent implements OnInit, OnDestroy {
   constructor(
     private _bug: BugService,
     private _project: ProjectService,
+    private _update: UpdateService,
     private _route: ActivatedRoute
   ) { }
 
@@ -36,7 +38,7 @@ export class BugHomeComponent implements OnInit, OnDestroy {
     this.bugSub = this._bug.aBug.subscribe(b => {
       this.bug = b;
       if (this.bug) {
-        if (this.UserId === b.UserId) {
+        if (this.UserId && this.UserId === b.UserId) {
           this.isCreator = true;
         } else {
           this.isCreator = false;
@@ -61,6 +63,7 @@ export class BugHomeComponent implements OnInit, OnDestroy {
     this._bug.clearBug();
     this.paramsSub.unsubscribe();
     this.bugSub.unsubscribe();
+    this.projectSub.unsubscribe();
   }
 
   checkAccess(project: Project) {

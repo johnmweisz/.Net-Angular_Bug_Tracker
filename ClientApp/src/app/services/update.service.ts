@@ -1,3 +1,4 @@
+import { BugService } from './bug.service';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Update } from '../models';
@@ -17,6 +18,7 @@ export class UpdateService {
 
   constructor(
     private _http: HttpClient,
+    private _bugs: BugService,
     private _router: Router
     ) { }
 
@@ -42,8 +44,15 @@ export class UpdateService {
       this.updateSub.next(null);
     }
 
-    getAll(BugId: number) {
-      return this._http.get(`/Update/GetAll/${BugId}`).subscribe(
+    getAllBug(BugId: number) {
+      return this._http.get(`/Update/GetAllBug/${BugId}`).subscribe(
+        (res: Update[]) => this.updatesSub.next(res),
+        err => console.log(err)
+      );
+    }
+
+    getAllUser(UserId: number) {
+      return this._http.get(`/Update/GetAllUser/${UserId}`).subscribe(
         (res: Update[]) => this.updatesSub.next(res),
         err => console.log(err)
       );
@@ -58,14 +67,14 @@ export class UpdateService {
 
     add(newUpdate: Update) {
       return this._http.post(`/Update/Add`, newUpdate).subscribe(
-        (res: Update) => this.getAll(res.BugId),
+        (res: Update) => this._bugs.getOne(res.BugId),
         err => this.parseErrors(err)
       );
     }
 
     delete(UpdateId: number) {
       return this._http.delete(`/Update/Delete/${UpdateId}`).subscribe(
-        (res: Update) => this.getAll(res.BugId),
+        (res: Update) => this._bugs.getOne(res.BugId),
         err => console.log(err)
       );
     }
