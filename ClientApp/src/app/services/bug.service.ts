@@ -108,7 +108,7 @@ export class BugService {
   }
 
   delete(BugId: number) {
-    return this._http.delete(`/User/Delete/${BugId}`).subscribe(
+    return this._http.delete(`/Bug/Delete/${BugId}`).subscribe(
       res => this._router.navigate(['/']),
       err => console.log(err)
     );
