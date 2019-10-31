@@ -59,7 +59,7 @@ export class UpdateService {
     }
 
     getOne(UpdateId: number) {
-      return this._http.get(`/Update/GetAll/${UpdateId}`).subscribe(
+      return this._http.get(`/Update/GetOne/${UpdateId}`).subscribe(
         (res: Update) => this.updateSub.next(res),
         err => console.log(err)
       );

@@ -1,4 +1,7 @@
-<div>
+<div *ngIf="!UserId">
+  <p>Please log in to add a project.</p>
+</div>
+<div *ngIf="UserId">
   <form #valForm='ngForm' (ngSubmit)="addProject()">
       <div class="form-group">
         <label for="Name">Name</label>

@@ -100,6 +100,7 @@ export class BugService {
   edit(editBug: Bug) {
     return this._http.put('/Bug/Edit', editBug).subscribe(
       (res: Bug) => {
+        this.getOne(res.BugId);
         this._router.navigate(['/bug', res.BugId]);
       },
       err => this.parseErrors(err)

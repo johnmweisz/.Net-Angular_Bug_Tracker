@@ -2,7 +2,6 @@ import { Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Project } from '../models';
 import { ProjectService } from '../services/project.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-projects-add',
@@ -20,16 +19,13 @@ export class ProjectsAddComponent implements OnInit, OnDestroy {
   public UserId: number;
 
   constructor(
-    private _project: ProjectService,
-    private _router: Router
+    private _project: ProjectService
   ) { }
 
   ngOnInit() {
     if (JSON.parse(localStorage.getItem('user'))) {
       this.UserId = JSON.parse(localStorage.getItem('user')).UserId;
       this.errorSub = this._project.projectErrors.subscribe(e => this.errors = e);
-    } else {
-      return this._router.navigate(['/']);
     }
   }
 
