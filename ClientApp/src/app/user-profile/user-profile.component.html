@@ -3,68 +3,79 @@
     <span class="sr-only">Loading...</span>
   </div>
 </div>
-<div class="row text-center" *ngIf="user">
-  <div class="col-4">
-    <div class="card m-1">
-      <h3 class="card-header">{{ user['FirstName'] }} {{ user['LastName'] }}</h3>
-      <div class="card-body">
-          <p class="card-subtitle">Joined: {{ user['CreatedAt'] | date}}</p>
-          <p class="card-subtitle">{{ user['Email'] }}</p>
+<div class="row" *ngIf="user">
+  <div class="col-sm-5">
+    <div class="card text-center m-1">
+      <div class="card-header text-center">
+        <h5 class="card-title m-0">{{ user['FirstName'] }} {{ user['LastName'] }}</h5>
       </div>
-      <div class="card-footer">
-          <p class="m-2 badge badge-dark">Bugs Added: {{ user['Created'].length }}</p>
-          <p class="m-2 badge badge-dark">Projects Contributed: {{ user['Contributors'].length }}</p>
+      <div class="card-body p-0">
+        <p class="card-subtitle m-1">Joined: {{ user['CreatedAt'] | date}}</p>
+        <p class="card-subtitle m-1">{{ user['Email'] }}</p>
+        <p class="badge badge-dark m-1">Bugs Added: {{ user['Created'].length }}</p>
+        <p class="badge badge-dark m-1">Projects Contributed: {{ user['Contributors'].length }}</p>
       </div>
+      <!-- <div class="card-footer"></div> -->
     </div>
   </div>
-  <div class="col-8">
-    <div class="card m-1">
-      <h5 class="card-header">Bugs Added</h5>
-      <table class="table card-body">
-        <thead>
-          <tr>
-            <th scope="col">Project</th>
-            <th scope="col">Subject</th>
-            <th scope="col">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngIf="user['Created'].length == 0">
-            <td scope="row">N/A</td>
-            <td>N/A</td>
-            <td>N/A</td>
-          </tr>
-          <tr *ngFor="let bug of user['Created']">
-            <td scope="row">{{ bug.Project['Name'] }}</td>
-            <td>{{ bug['Subject'] }}</td>
-            <td>{{ bug['Status'] }}</td>
-          </tr>
-        </tbody>
-      </table>
+  <div class="col-sm-7">
+    <div class="card text-center m-1">
+      <div class="card-header">
+        <h5 class="card-title m-0">Bugs Added</h5>
+      </div>
+      <div class="card-body p-0">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Project</th>
+              <th scope="col">Subject</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="user['Created'].length == 0">
+              <td scope="row">N/A</td>
+              <td>N/A</td>
+              <td>N/A</td>
+            </tr>
+            <tr *ngFor="let bug of user['Created']">
+              <td scope="row">{{ bug.Project['Name'] }}</td>
+              <td>{{ bug['Subject'] }}</td>
+              <td>{{ bug['Status'] }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- <div class="card-footer"></div> -->
     </div>
-    <div class="card m-1">
-      <h5 class="card-header">Projects Contributed</h5>
-      <table class="table card-body">
-        <thead>
-          <tr>
-            <th scope="col">Project</th>
-            <th scope="col">Access</th>
-            <th scope="col">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngIf="user['Contributors'].length == 0">
-            <td scope="row">N/A</td>
-            <td>N/A</td>
-            <td>N/A</td>
-          </tr>
-          <tr *ngFor="let contribution of user['Contributors']">
-            <td scope="row">{{ contribution.Project['Name'] }}</td>
-            <td *ngIf="contribution.Project['Public'] == 1">Public</td><td *ngIf="contribution.Project['Public'] == 0">Private</td>
-            <td>{{ contribution.Project['Status'] }}</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="card text-center m-1">
+      <div class="card-header">
+        <h5 class="card-title m-0">Projects Contributed</h5>
+      </div>
+      <div class="card-body p-0">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Project</th>
+              <th scope="col">Access</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="user['Contributors'].length == 0">
+              <td scope="row">N/A</td>
+              <td>N/A</td>
+              <td>N/A</td>
+            </tr>
+            <tr *ngFor="let contribution of user['Contributors']">
+              <td scope="row">{{ contribution.Project['Name'] }}</td>
+              <td *ngIf="contribution.Project['Public'] == 1">Public</td><td *ngIf="contribution.Project['Public'] == 0">Private</td>
+              <td>{{ contribution.Project['Status'] }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- <div class="card-footer"></div> -->
     </div>
   </div>
 </div>
