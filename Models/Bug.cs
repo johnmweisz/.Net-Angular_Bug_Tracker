@@ -41,7 +41,7 @@ namespace BugTracker.Models
         }
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            if(DateTime.Now.AddDays(_days) > (DateTime) value)
+            if(DateTime.Now.Date.AddDays(_days).AddTicks(-1) > (DateTime) value)
             {
                 return new ValidationResult($"You must set a due date at least {_days} day(s) in the future.");
             }
