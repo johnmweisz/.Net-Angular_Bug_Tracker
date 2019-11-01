@@ -13,7 +13,7 @@
       <a *ngIf="isPublic && isAuthorized || isAdmin" class="nav-link" [routerLinkActive]="['active']" [routerLink]="['add']">Add</a>
     </li>
     <li class="nav-item">
-      <a *ngIf="ProjectId" class="nav-link" [routerLink]="['/project', ProjectId]">Back</a>
+      <a class="nav-link" [routerLink] (click)="goBack()">Back</a>
     </li>
   </ul>
 </div>

@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProjectService } from '../services/project.service';
 import { Subscription } from 'rxjs';
 import { Project, Bug } from '../models';
+import { RouterService } from '../services/router.service';
 
 @Component({
   selector: 'app-bugs-home',
@@ -14,7 +15,6 @@ export class BugsHomeComponent implements OnInit, OnDestroy {
   private paramsSub: Subscription;
   private projectSub: Subscription;
   public project: Project;
-  public ProjectId: Project;
   public UserId: number;
   public isAuthorized = false;
   public isAdmin = false;
@@ -23,7 +23,8 @@ export class BugsHomeComponent implements OnInit, OnDestroy {
   constructor(
     private _project: ProjectService,
     private _bug: BugService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _router: RouterService
   ) { }
 
   ngOnInit() {
@@ -31,7 +32,7 @@ export class BugsHomeComponent implements OnInit, OnDestroy {
       this.UserId = JSON.parse(localStorage.getItem('user')).UserId;
     }
     this.paramsSub = this._route.params.subscribe(par => {
-      this.ProjectId = par.ProjectId;
+      this._router.setRoute(`/bugs/${par.ProjectId}`);
       this._project.getOne(par.ProjectId);
       }
     );
@@ -71,6 +72,10 @@ export class BugsHomeComponent implements OnInit, OnDestroy {
       }
     }
     this.isAuthorized = false;
+  }
+
+  goBack() {
+    this._router.goBack();
   }
 
 }

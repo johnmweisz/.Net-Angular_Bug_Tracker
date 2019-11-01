@@ -13,7 +13,7 @@
       <a class="nav-link" *ngIf="project" [routerLinkActive]="['active']" [routerLink]="['/bugs', project.ProjectId]">Bugs</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" [routerLink]="['/projects']">Back</a>
+      <a class="nav-link" [routerLink] (click)="goBack()">Back</a>
     </li>
   </ul>
 </div>

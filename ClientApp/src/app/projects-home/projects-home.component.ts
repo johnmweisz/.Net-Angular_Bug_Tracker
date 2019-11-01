@@ -1,3 +1,4 @@
+import { RouterService } from './../services/router.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,12 +9,15 @@ import { Component, OnInit } from '@angular/core';
 export class ProjectsHomeComponent implements OnInit {
   public canView = false;
 
-  constructor() { }
+  constructor(
+    private _router: RouterService
+  ) { }
 
   ngOnInit() {
     if (JSON.parse(localStorage.getItem('user'))) {
       this.canView = true;
     }
+    this._router.setRoute(`/projects/list`);
   }
 
 }

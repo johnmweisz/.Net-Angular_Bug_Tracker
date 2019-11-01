@@ -5,6 +5,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Bug, Project } from '../models';
 import { ActivatedRoute } from '@angular/router';
+import { RouterService } from '../services/router.service';
 
 @Component({
   selector: 'app-bug-home',
@@ -27,14 +28,18 @@ export class BugHomeComponent implements OnInit, OnDestroy {
     private _bug: BugService,
     private _project: ProjectService,
     private _update: UpdateService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _router: RouterService
   ) { }
 
   ngOnInit() {
     if (JSON.parse(localStorage.getItem('user'))) {
       this.UserId = JSON.parse(localStorage.getItem('user')).UserId;
     }
-    this.paramsSub = this._route.params.subscribe(par => this._bug.getOne(par.BugId));
+    this.paramsSub = this._route.params.subscribe(par => {
+      this._router.setRoute(`/bug/${par.BugId}`);
+      this._bug.getOne(par.BugId);
+    });
     this.bugSub = this._bug.aBug.subscribe(b => {
       this.bug = b;
       if (this.bug) {
@@ -84,6 +89,10 @@ export class BugHomeComponent implements OnInit, OnDestroy {
       }
     }
     this.isAuthorized = false;
+  }
+
+  goBack() {
+    this._router.goBack();
   }
 
 }

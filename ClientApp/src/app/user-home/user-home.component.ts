@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { Subscription } from 'rxjs';
+import { RouterService } from '../services/router.service';
 
 @Component({
   selector: 'app-user-home',
@@ -15,7 +16,8 @@ export class UserHomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private _user: UserService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _router: RouterService
   ) { }
 
   ngOnInit() {
@@ -25,6 +27,7 @@ export class UserHomeComponent implements OnInit, OnDestroy {
     this.paramsSub = this._route.params.subscribe(
       par => {
         this._user.getProfile(par.UserId);
+        this._router.setRoute(`/user/${par.UserId}`);
         if (JSON.parse(par.UserId) === this.UserId) {
           this.canView = true;
         }
@@ -36,6 +39,10 @@ export class UserHomeComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this._user.clearProfile();
     this.paramsSub.unsubscribe();
+  }
+
+  goBack() {
+    this._router.goBack();
   }
 
 }
