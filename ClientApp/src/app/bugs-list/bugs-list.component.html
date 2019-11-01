@@ -7,24 +7,33 @@
   <p>This project is set to private and you are not a contributor or admin.</p>
 </div>
 <div *ngIf="bugs && isPublic || bugs && isAuthorized || bugs && isAdmin">
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Subject</th>
-        <th scope="col">Priority</th>
-        <th scope="col">Status</th>
-        <th scope="col">Due Date</th>
-        <th scope="col">Updated</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let bug of bugs">
-        <th scope="row"><a [routerLink]="['/bug', bug.BugId]">{{ bug['Subject'] }}</a></th>
-        <td>{{ bug['Priority'] }}</td>
-        <td>{{ bug['Status'] }}</td>
-        <td>{{ bug['DueDate'] | date }}</td>
-        <td>{{ bug['UpdatedAt'] | date }}</td>
-      </tr>
-    </tbody>
-  </table>
+    <div class="card text-center border-dark m-1">
+        <table class="table">
+          <thead class="thead-dark">
+        <tr>
+          <th scope="col">Subject</th>
+          <th scope="col">Priority</th>
+          <th scope="col">Status</th>
+          <th scope="col">Due Date</th>
+          <th scope="col">Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="bugs.length == 0">
+          <td>N/A</td>
+          <td>N/A</td>
+          <td>N/A</td>
+          <td>N/A</td>
+          <td>N/A</td>
+        </tr>
+        <tr *ngFor="let bug of bugs" [routerLink]="['/bug', bug.BugId]">
+          <td>{{ bug['Subject'] }}</td>
+          <td>{{ bug['Priority'] }}</td>
+          <td>{{ bug['Status'] }}</td>
+          <td>{{ bug['DueDate'] | date }}</td>
+          <td>{{ bug['UpdatedAt'] | date }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

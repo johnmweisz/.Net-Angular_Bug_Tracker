@@ -1,7 +1,5 @@
 <header>
-  <nav
-    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
-  >
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
     <div class="container">
       <a class="navbar-brand" [routerLink]="['/']">BugTracker</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
@@ -10,16 +8,16 @@
       <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngClass]="{ show: isExpanded }">
         <ul class="navbar-nav flex-grow">
           <li *ngIf="!user" class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
-            <a class="nav-link text-dark" [routerLink]="['/login']">Login</a>
+            <a class="nav-link text-white" [routerLink]="['/login']">Login</a>
           </li>
           <li *ngIf="!user" class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/register']">Register</a>
+            <a class="nav-link text-white" [routerLink]="['/register']">Register</a>
           </li>
           <li *ngIf="user" class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/user', user['UserId']]">{{ user['FirstName'] }} {{ user['LastName'] }}</a>
+            <a class="nav-link text-white" [routerLink]="['/user', user['UserId']]">{{ user['FirstName'] }} {{ user['LastName'] }}</a>
           </li>
           <li *ngIf="user" class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" (click)="logout()" [routerLink]="['/login']">Logout</a>
+            <a class="nav-link text-white" (click)="logout()" [routerLink]="['/login']">Logout</a>
           </li>
         </ul>
       </div>

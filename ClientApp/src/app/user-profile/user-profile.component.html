@@ -5,27 +5,27 @@
 </div>
 <div class="row" *ngIf="user">
   <div class="col-sm-5">
-    <div class="card text-center m-1">
-      <div class="card-header text-center">
+    <div class="card text-center border-dark m-1">
+      <div class="card-header text-white bg-dark">
         <h5 class="card-title m-0">{{ user['FirstName'] }} {{ user['LastName'] }}</h5>
       </div>
       <div class="card-body p-0">
         <p class="card-subtitle m-1">Joined: {{ user['CreatedAt'] | date}}</p>
         <p class="card-subtitle m-1">{{ user['Email'] }}</p>
-        <p class="badge badge-dark m-1">Bugs Added: {{ user['Created'].length }}</p>
-        <p class="badge badge-dark m-1">Projects Contributed: {{ user['Contributors'].length }}</p>
+        <p class="badge badge-primary m-1">Bugs Added: {{ user['Created'].length }}</p>
+        <p class="badge badge-primary m-1">Projects Contributed: {{ user['Contributors'].length }}</p>
       </div>
       <!-- <div class="card-footer"></div> -->
     </div>
   </div>
   <div class="col-sm-7">
-    <div class="card text-center m-1">
-      <div class="card-header">
+    <div class="card text-center border-dark m-1">
+      <div class="card-header text-white bg-dark">
         <h5 class="card-title m-0">Bugs Added</h5>
       </div>
       <div class="card-body p-0">
         <table class="table">
-          <thead class="thead-dark">
+          <thead>
             <tr>
               <th scope="col">Project</th>
               <th scope="col">Subject</th>
@@ -34,12 +34,12 @@
           </thead>
           <tbody>
             <tr *ngIf="user['Created'].length == 0">
-              <td scope="row">N/A</td>
+              <td>N/A</td>
               <td>N/A</td>
               <td>N/A</td>
             </tr>
             <tr *ngFor="let bug of user['Created']">
-              <td scope="row">{{ bug.Project['Name'] }}</td>
+              <td>{{ bug.Project['Name'] }}</td>
               <td>{{ bug['Subject'] }}</td>
               <td>{{ bug['Status'] }}</td>
             </tr>
@@ -48,8 +48,8 @@
       </div>
       <!-- <div class="card-footer"></div> -->
     </div>
-    <div class="card text-center m-1">
-      <div class="card-header">
+    <div class="card text-center border-dark m-1">
+      <div class="card-header text-white bg-dark">
         <h5 class="card-title m-0">Projects Contributed</h5>
       </div>
       <div class="card-body p-0">
@@ -63,12 +63,12 @@
           </thead>
           <tbody>
             <tr *ngIf="user['Contributors'].length == 0">
-              <td scope="row">N/A</td>
+              <td>N/A</td>
               <td>N/A</td>
               <td>N/A</td>
             </tr>
             <tr *ngFor="let contribution of user['Contributors']">
-              <td scope="row">{{ contribution.Project['Name'] }}</td>
+              <td>{{ contribution.Project['Name'] }}</td>
               <td *ngIf="contribution.Project['Public'] == 1">Public</td><td *ngIf="contribution.Project['Public'] == 0">Private</td>
               <td>{{ contribution.Project['Status'] }}</td>
             </tr>
