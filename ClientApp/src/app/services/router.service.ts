@@ -18,7 +18,7 @@ export class RouterService {
     }
 
     goBack() {
-      if (this.routes.length !== 0) {
+      if (this.routes.length > 1) {
         this.routes.pop();
         this._router.navigate([`${this.routes.pop()}`]);
       } else {

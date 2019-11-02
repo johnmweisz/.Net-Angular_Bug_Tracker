@@ -17,7 +17,7 @@ export class ProjectsHomeComponent implements OnInit {
     if (JSON.parse(localStorage.getItem('user'))) {
       this.canView = true;
     }
-    this._router.setRoute(`/projects/list`);
+    this._router.setRoute(`/projects`);
   }
 
 }
