@@ -5,27 +5,24 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class RouterService {
-  public currentRoute: string;
-  public previousRoute: string;
+  private routes: string[] =  [];
 
   constructor(
     private _router: Router
     ) { }
 
     setRoute(route: string) {
-      if (!this.currentRoute) {
-        this.previousRoute = route;
-      } else {
-        this.previousRoute = this.currentRoute;
+      if (this.routes[this.routes.length - 1] !== route) {
+        this.routes.push(route);
       }
-      this.currentRoute = route;
     }
 
     goBack() {
-      if (this.previousRoute === this.currentRoute) {
-        this._router.navigate([`/projects`]);
+      if (this.routes.length !== 0) {
+        this.routes.pop();
+        this._router.navigate([`${this.routes.pop()}`]);
       } else {
-        this._router.navigate([`${this.previousRoute}`]);
+        this._router.navigate([`/projects`]);
       }
     }
 
