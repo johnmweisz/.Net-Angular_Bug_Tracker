@@ -5,27 +5,27 @@
 </div>
 <div class="row" *ngIf="project">
   <div class="col-sm-3">
-    <div class="card text-center border-dark m-1 p-0">
-      <div class="card-header text-white bg-dark">
+    <div class="card border-dark m-1 p-0">
+      <div class="card-header text-center text-white bg-dark">
         <h5 class="card-title m-0">{{ project.Name }}</h5>
       </div>
-      <div class="card-body p-0">
-        <p class="card-subtitle m-1">Description: {{ project.Description }}</p>
-        <p class="card-subtitle m-1">Added: {{ project.CreatedAt | date }}</p>
-        <p class="card-subtitle m-1">Admin: {{ project.Creator.FirstName }} {{ project.Creator.LastName }}</p>
-        <p class="card-subtitle m-1">Version: {{ project.Version }}</p>
-        <p *ngIf="project.Public == 1" class="card-subtitle m-1">Access: Public</p>
-        <p *ngIf="project.Public == 0" class="card-subtitle m-1">Access: Private</p>
-        <button *ngIf="!isContributor && UserId" (click)="addContributor()" type="button" class="btn btn-primary m-1">Contribute</button>
-        <button *ngIf="isContributor" (click)="delete()" type="button" class="btn btn-danger m-1">Leave Project</button>
+      <div class="card-body p-1">
+        <p class="card-subtitle m-1"><b>Description: </b>{{ project.Description }}</p>
+        <p class="card-subtitle m-1"><b>Added: </b>{{ project.CreatedAt | date }}</p>
+        <p class="card-subtitle m-1"><b>Admin: </b>{{ project.Creator.FirstName }} {{ project.Creator.LastName }}</p>
+        <p class="card-subtitle m-1"><b>Version: </b>{{ project.Version }}</p>
+        <p *ngIf="project.Public == 1" class="card-subtitle m-1"><b>Access: </b>Public</p>
+        <p *ngIf="project.Public == 0" class="card-subtitle m-1"><b>Access: </b>Private</p>
       </div>
       <!-- <div class="card-footer"></div> -->
     </div>
   </div>
   <div class="col-sm-9">
     <div class="card text-center border-dark m-1 p-0">
-      <div class="card-header text-white bg-dark">
-        <h5 class="card-title m-0">Contributors</h5>
+      <div class="card-header text-white bg-dark p-1">
+        <h5 class="card-title float-left m-2">Contributors</h5>
+        <button *ngIf="!isContributor && UserId" (click)="addContributor()" type="button" class="btn btn-primary m-1 float-right">Contribute</button>
+        <button *ngIf="isContributor" (click)="delete()" type="button" class="btn btn-danger m-1 float-right">Leave Project</button>
       </div>
       <div class="card-body p-0 table-responsive">
         <table class="table">
