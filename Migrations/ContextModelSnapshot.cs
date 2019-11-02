@@ -112,10 +112,6 @@ namespace BugTracker.Migrations
                     b.Property<int>("Public")
                         .HasColumnType("int");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<string>("URL")
                         .HasColumnType("longtext");
 
@@ -124,6 +120,10 @@ namespace BugTracker.Migrations
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Version")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.HasKey("ProjectId");
 

@@ -13,7 +13,7 @@ export class ProjectsAddComponent implements OnInit, OnDestroy {
   public errors: Project;
   public Name: string;
   public Description: string;
-  public Status: string;
+  public Version: string;
   public Public: number;
   public URL: string;
   public UserId: number;
@@ -40,7 +40,7 @@ export class ProjectsAddComponent implements OnInit, OnDestroy {
     const newProject: Project = {
       Name: this.Name,
       Description: this.Description,
-      Status: this.Status,
+      Version: this.Version,
       Public: Number(this.Public),
       URL: this.URL,
       UserId: this.UserId

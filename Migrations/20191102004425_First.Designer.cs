@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BugTracker.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20191030171253_first")]
-    partial class first
+    [Migration("20191102004425_First")]
+    partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,7 +43,6 @@ namespace BugTracker.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Subject")
@@ -115,10 +114,6 @@ namespace BugTracker.Migrations
                     b.Property<int>("Public")
                         .HasColumnType("int");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<string>("URL")
                         .HasColumnType("longtext");
 
@@ -127,6 +122,10 @@ namespace BugTracker.Migrations
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Version")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.HasKey("ProjectId");
 

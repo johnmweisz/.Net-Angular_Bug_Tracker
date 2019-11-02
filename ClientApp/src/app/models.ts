@@ -31,7 +31,7 @@ export interface Project {
   ProjectId?: number;
   Name?: string;
   Description?: string;
-  Status?: string;
+  Version?: string;
   Public?: number;
   URL?: string;
   CreatedAt?: Date;

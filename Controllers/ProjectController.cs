@@ -105,7 +105,7 @@ namespace BugTracker.Controllers
             Project Project = context.Projects.FirstOrDefault(p => p.ProjectId == EditProject.ProjectId);
 				Project.Name = EditProject.Name;
 				Project.Description = EditProject.Description;
-				Project.Status = EditProject.Status;
+				Project.Version = EditProject.Version;
 				Project.Public = EditProject.Public;
 				Project.URL = EditProject.URL;
                 Project.UpdatedAt = DateTime.Now;

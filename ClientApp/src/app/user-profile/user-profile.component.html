@@ -38,7 +38,7 @@
               <td>N/A</td>
               <td>N/A</td>
             </tr>
-            <tr *ngFor="let bug of user['Created']">
+            <tr *ngFor="let bug of user['Created']" [routerLink]="['/bug', bug.BugId]">
               <td>{{ bug.Project['Name'] }}</td>
               <td>{{ bug['Subject'] }}</td>
               <td>{{ bug['Status'] }}</td>
@@ -58,7 +58,7 @@
             <tr>
               <th scope="col">Project</th>
               <th scope="col">Access</th>
-              <th scope="col">Status</th>
+              <th scope="col">Version</th>
             </tr>
           </thead>
           <tbody>
@@ -67,10 +67,10 @@
               <td>N/A</td>
               <td>N/A</td>
             </tr>
-            <tr *ngFor="let contribution of user['Contributors']">
+            <tr *ngFor="let contribution of user['Contributors']" [routerLink]="['/project', contribution.ProjectId]">
               <td>{{ contribution.Project['Name'] }}</td>
               <td *ngIf="contribution.Project['Public'] == 1">Public</td><td *ngIf="contribution.Project['Public'] == 0">Private</td>
-              <td>{{ contribution.Project['Status'] }}</td>
+              <td>{{ contribution.Project['Version'] }}</td>
             </tr>
           </tbody>
         </table>

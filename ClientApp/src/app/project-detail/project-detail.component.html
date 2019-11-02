@@ -8,6 +8,6 @@
   <p>{{ project.Description }}</p>
   <p>{{ project.CreatedAt | date }}</p>
   <p>{{ project.Creator.FirstName }} {{ project.Creator.LastName }}</p>
-  <p>{{ project.Status }}</p>
+  <p>{{ project.Version }}</p>
   <p *ngIf="project.Public == 1">Public</p><p *ngIf="project.Public == 0">Private</p>
 </div>

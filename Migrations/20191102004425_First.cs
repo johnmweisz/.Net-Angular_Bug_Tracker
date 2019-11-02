@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BugTracker.Migrations
 {
-    public partial class first : Migration
+    public partial class First : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -34,7 +34,7 @@ namespace BugTracker.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: false),
-                    Status = table.Column<string>(nullable: false),
+                    Version = table.Column<string>(nullable: false),
                     Public = table.Column<int>(nullable: false),
                     URL = table.Column<string>(nullable: true),
                     CreatedAt = table.Column<DateTime>(nullable: false),
@@ -61,7 +61,7 @@ namespace BugTracker.Migrations
                     Subject = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: false),
                     Priority = table.Column<string>(nullable: false),
-                    Status = table.Column<string>(nullable: false),
+                    Status = table.Column<string>(nullable: true),
                     DueDate = table.Column<DateTime>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),

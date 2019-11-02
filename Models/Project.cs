@@ -15,7 +15,7 @@ namespace BugTracker.Models
         [Required]
         public string Description {get;set;}
         [Required]
-        public string Status {get;set;}
+        public string Version {get;set;}
         [Required]
         public int Public {get;set;}
         public string URL {get;set;}

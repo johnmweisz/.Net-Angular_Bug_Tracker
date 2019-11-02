@@ -24,17 +24,17 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="Status">Status</label>
-        <select class="form-control" type="text" name="Status" required #valStatus='ngModel' [(ngModel)]="Status" placeholder="Status">
+        <label for="Version">Version</label>
+        <select class="form-control" type="text" name="Version" required #valVersion='ngModel' [(ngModel)]="Version" placeholder="Version">
           <option value="Alpha">Alpha</option>
           <option value="Beta">Beta</option>
           <option value="Production">Production</option>
           <option value="Depreciated">Depreciated</option>
         </select>
-        <div class="alert alert-danger" *ngIf="errors?.Status">
-            <p>{{ errors.Status }}</p>
+        <div class="alert alert-danger" *ngIf="errors?.Version">
+            <p>{{ errors.Version }}</p>
         </div>
-        <div class="alert alert-danger" *ngIf="valStatus.errors?.required && (valStatus.dirty || valStatus.touched)">
+        <div class="alert alert-danger" *ngIf="valVersion.errors?.required && (valVersion.dirty || valVersion.touched)">
           <p>Required</p>
         </div>
       </div>
