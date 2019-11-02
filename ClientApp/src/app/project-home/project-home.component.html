@@ -7,7 +7,7 @@
       <a *ngIf="isAdmin" class="nav-link" [routerLinkActive]="['active']" [routerLink]="['edit']">Edit</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['contributors']">Contributors</a>
+      <a *ngIf="isAdmin" class="nav-link" [routerLinkActive]="['active']" [routerLink]="['contributors']">Edit Contributors</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" *ngIf="project" [routerLinkActive]="['active']" [routerLink]="['/bugs', project.ProjectId]">Bugs</a>

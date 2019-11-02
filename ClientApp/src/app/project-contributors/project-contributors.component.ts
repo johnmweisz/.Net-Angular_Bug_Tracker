@@ -3,6 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Project, Contributor } from '../models';
 import { ProjectService } from '../services/project.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-project-contributors',
@@ -11,7 +12,6 @@ import { ProjectService } from '../services/project.service';
 })
 export class ProjectContributorsComponent implements OnInit, OnDestroy {
   private projectSub: Subscription;
-  private ProjectId: number;
   private ContributorId: number;
   private Authorized = 0;
   public UserId: number;
@@ -22,7 +22,8 @@ export class ProjectContributorsComponent implements OnInit, OnDestroy {
 
   constructor(
     private _project: ProjectService,
-    private _contributor: ContributorService
+    private _contributor: ContributorService,
+    private _router: Router
   ) { }
 
   ngOnInit() {
@@ -32,12 +33,9 @@ export class ProjectContributorsComponent implements OnInit, OnDestroy {
     this.projectSub = this._project.aProject.subscribe(p => {
       this.project = p;
       if (this.project) {
-        this.ProjectId = p.ProjectId;
         this.checkAccess(p);
-        if (p.Public === 1) {
-          this.Authorized = 1;
-        } else {
-          this.Authorized = 0;
+        if (!this.isAdmin) {
+          return this._router.navigate(['/']);
         }
       }
     });
@@ -45,17 +43,6 @@ export class ProjectContributorsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.projectSub.unsubscribe();
-  }
-
-  addContributor() {
-    const newContributor: Contributor = {
-      UserId: this.UserId,
-      ProjectId: this.ProjectId,
-      Authorized: this.Authorized
-    };
-    if (!this.isContributor && this.UserId) {
-      return this._contributor.add(newContributor);
-    }
   }
 
   authorize(ContributorId: number) {

@@ -3,31 +3,31 @@
     <span class="sr-only">Loading...</span>
   </div>
 </div>
-<div *ngIf="project">
-  <div>
-      <button *ngIf="!isContributor && UserId" (click)="addContributor()">Contribute</button>
-      <button *ngIf="isContributor" (click)="delete()">Leave Project</button>
-  </div>
-  <table class="table">
-    <thead>
+<div *ngIf="project && isAdmin">
+  <div class="card text-center border-dark m-1">
+    <table class="table">
+      <thead class="thead-dark">
       <tr>
         <th scope="col">Name</th>
+        <th scope="col">Authorized</th>
         <th scope="col">Email</th>
-        <th scope="col">Joined</th>
+        <th scope="col">Requested</th>
         <th *ngIf="isAdmin" scope="col">Admin</th>
       </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let contributor of project.Contributors">
-        <th scope="row"><a [routerLink]="['/user', contributor.UserId]">{{ contributor.User['FirstName'] }} {{ contributor.User['LastName'] }}</a></th>
-        <td>{{ contributor.User['Email'] }}</td>
-        <td>{{ contributor['CreatedAt'] | date }}</td>
-        <td *ngIf="isAdmin">
-          <button *ngIf="contributor.Authorized === 1" (click)="deauthorize(contributor.ContributorId)">Deauthorize</button>
-          <button *ngIf="contributor.Authorized === 0" (click)="authorize(contributor.ContributorId)">Authorize</button>
-          <button (click)="delete(contributor.ContributorId)">Remove Request</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <tr *ngFor="let contributor of project.Contributors">
+          <td [routerLink]="['/user', contributor.UserId]">{{ contributor.User['FirstName'] }} {{ contributor.User['LastName'] }}</td>
+          <td *ngIf="contributor.Authorized === 1">Yes</td><td *ngIf="contributor.Authorized === 0">No</td>
+          <td>{{ contributor.User['Email'] }}</td>
+          <td>{{ contributor['CreatedAt'] | date }}</td>
+          <td *ngIf="isAdmin">
+            <button *ngIf="contributor.Authorized === 0" (click)="authorize(contributor.ContributorId)" type="button" class="btn btn-primary m-1">Authorize</button>
+            <button *ngIf="contributor.Authorized === 1" (click)="deauthorize(contributor.ContributorId)" type="button" class="btn btn-danger m-1">Deauthorize</button>
+            <button (click)="delete(contributor.ContributorId)" type="button" class="btn btn-warning m-1">Remove Request</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

@@ -3,11 +3,52 @@
     <span class="sr-only">Loading...</span>
   </div>
 </div>
-<div *ngIf="project">
-  <h3>{{ project.Name }}</h3>
-  <p>{{ project.Description }}</p>
-  <p>{{ project.CreatedAt | date }}</p>
-  <p>{{ project.Creator.FirstName }} {{ project.Creator.LastName }}</p>
-  <p>{{ project.Version }}</p>
-  <p *ngIf="project.Public == 1">Public</p><p *ngIf="project.Public == 0">Private</p>
+<div class="row" *ngIf="project">
+  <div class="col-sm-3">
+    <div class="card text-center border-dark m-1 p-0">
+      <div class="card-header text-white bg-dark">
+        <h5 class="card-title m-0">{{ project.Name }}</h5>
+      </div>
+      <div class="card-body p-0">
+        <p class="card-subtitle m-1">Description: {{ project.Description }}</p>
+        <p class="card-subtitle m-1">Added: {{ project.CreatedAt | date }}</p>
+        <p class="card-subtitle m-1">Admin: {{ project.Creator.FirstName }} {{ project.Creator.LastName }}</p>
+        <p class="card-subtitle m-1">Version: {{ project.Version }}</p>
+        <p *ngIf="project.Public == 1" class="card-subtitle m-1">Access: Public</p>
+        <p *ngIf="project.Public == 0" class="card-subtitle m-1">Access: Private</p>
+        <button *ngIf="!isContributor && UserId" (click)="addContributor()" type="button" class="btn btn-primary m-1">Contribute</button>
+        <button *ngIf="isContributor" (click)="delete()" type="button" class="btn btn-danger m-1">Leave Project</button>
+      </div>
+      <!-- <div class="card-footer"></div> -->
+    </div>
+  </div>
+  <div class="col-sm-9">
+    <div class="card text-center border-dark m-1 p-0">
+      <div class="card-header text-white bg-dark">
+        <h5 class="card-title m-0">Contributors</h5>
+      </div>
+      <div class="card-body p-0 table-responsive">
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Authorized</th>
+            <th scope="col">Email</th>
+            <th scope="col">Requested</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let contributor of project.Contributors" [routerLink]="['/user', contributor.UserId]">
+              <td>{{ contributor.User['FirstName'] }} {{ contributor.User['LastName'] }}</td>
+              <td *ngIf="contributor.Authorized === 1">Yes</td><td *ngIf="contributor.Authorized === 0">No</td>
+              <td>{{ contributor.User['Email'] }}</td>
+              <td>{{ contributor['CreatedAt'] | date }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- <div class="card-footer"></div> -->
+    </div>
+  </div>
 </div>
+
