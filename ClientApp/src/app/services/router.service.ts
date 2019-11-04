@@ -22,7 +22,7 @@ export class RouterService {
         this.routes.pop();
         this._router.navigate([`${this.routes.pop()}`]);
       } else {
-        this._router.navigate([`/projects`]);
+        this._router.navigate([`/`]);
       }
     }
 
