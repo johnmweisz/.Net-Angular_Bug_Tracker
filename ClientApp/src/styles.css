@@ -24,4 +24,8 @@ tbody tr:hover {
         display: none;
     }
 
+    div {
+      padding: 0;
+    }
+
 }

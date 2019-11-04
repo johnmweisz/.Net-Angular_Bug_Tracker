@@ -9,13 +9,13 @@
       <div class="card-header text-center text-white bg-dark">
         <h5 class="card-title m-0">{{ user['FirstName'] }} {{ user['LastName'] }}</h5>
       </div>
+      <div class="text-center">
+        <p class="badge badge-dark m-1">Bugs Added: {{ user['Created'].length }}</p>
+        <p class="badge badge-dark m-1">Projects Contributed: {{ user['Contributors'].length }}</p>
+      </div>
       <div class="card-body p-1">
         <p class="card-subtitle m-1"><b>Joined: </b>{{ user['CreatedAt'] | date}}</p>
         <p class="card-subtitle m-1"><b>Email: </b>{{ user['Email'] }}</p>
-        <div class="text-center">
-          <p class="badge badge-dark m-1">Bugs Added: {{ user['Created'].length }}</p>
-          <p class="badge badge-dark m-1">Projects Contributed: {{ user['Contributors'].length }}</p>
-        </div>
       </div>
       <!-- <div class="card-footer"></div> -->
     </div>
@@ -29,9 +29,10 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">Project</th>
               <th scope="col">Subject</th>
               <th scope="col">Status</th>
+              <th scope="col">Project</th>
+              <th class="mobile-disable" scope="col">Updated</th>
             </tr>
           </thead>
           <tbody>
@@ -39,11 +40,13 @@
               <td>N/A</td>
               <td>N/A</td>
               <td>N/A</td>
+              <td class="mobile-disable">N/A</td>
             </tr>
             <tr *ngFor="let bug of user['Created']" [routerLink]="['/bug', bug.BugId]">
-              <td>{{ bug.Project['Name'] }}</td>
               <td>{{ bug['Subject'] }}</td>
               <td>{{ bug['Status'] }}</td>
+              <td>{{ bug.Project['Name'] }}</td>
+              <td class="mobile-disable">{{ bug['UpdatedAt'] | date}}</td>
             </tr>
           </tbody>
         </table>
@@ -61,6 +64,7 @@
               <th scope="col">Project</th>
               <th scope="col">Access</th>
               <th scope="col">Version</th>
+              <th class="mobile-disable" scope="col">Updated</th>
             </tr>
           </thead>
           <tbody>
@@ -68,11 +72,13 @@
               <td>N/A</td>
               <td>N/A</td>
               <td>N/A</td>
+              <td class="mobile-disable">N/A</td>
             </tr>
             <tr *ngFor="let contribution of user['Contributors']" [routerLink]="['/project', contribution.ProjectId]">
               <td>{{ contribution.Project['Name'] }}</td>
               <td *ngIf="contribution.Project['Public'] == 1">Public</td><td *ngIf="contribution.Project['Public'] == 0">Private</td>
               <td>{{ contribution.Project['Version'] }}</td>
+              <td class="mobile-disable">{{ contribution.Project['UpdatedAt'] | date}}</td>
             </tr>
           </tbody>
         </table>

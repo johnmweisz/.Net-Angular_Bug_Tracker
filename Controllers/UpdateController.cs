@@ -70,6 +70,7 @@ namespace BugTracker.Controllers
             {
 				Bug Bug = context.Bugs.FirstOrDefault(b => b.BugId == NewUpdate.BugId);
 				Bug.Status = NewUpdate.Status;
+				Bug.UpdatedAt = DateTime.Now;
                 context.Add(NewUpdate);
                 context.SaveChanges();
                 return OkJson(NewUpdate);
