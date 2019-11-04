@@ -42,14 +42,14 @@
       </div>
       <div class="form-group">
         <label for="URL">URL</label>
-        <input class="form-control" type="text" name="URL" #valURL='ngModel' [(ngModel)]="URL" placeholder="URL">
+        <input class="form-control" type="text" name="URL" #valURL='ngModel' [(ngModel)]="URL" placeholder="Project URL">
         <div class="alert alert-danger" *ngIf="errors?.URL">
             <p>{{ errors.URL }}</p>
         </div>
       </div>
       <div class="form-group">
-        <label for="Public">Public</label>
-        <select class="form-control" type="number" name="Public" required #valPublic='ngModel' [(ngModel)]="Public" placeholder="Public">
+        <label for="Public">Privacy</label>
+        <select class="form-control" type="number" name="Public" required #valPublic='ngModel' [(ngModel)]="Public" placeholder="Privacy">
           <option value="1">Public</option>
           <option value="0">Private</option>
         </select>

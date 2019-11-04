@@ -11,3 +11,17 @@ tbody tr:hover {
   /* font-weight: bold; */
   cursor: pointer;
 }
+
+.container {
+  padding: 0;
+}
+
+@media (max-width: 640px)
+{
+
+    .mobile-disable
+    {
+        display: none;
+    }
+
+}

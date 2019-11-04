@@ -10,8 +10,8 @@
       <tr>
         <th scope="col">Name</th>
         <th scope="col">Authorized</th>
-        <th scope="col">Email</th>
-        <th scope="col">Requested</th>
+        <th class="mobile-disable" scope="col">Email</th>
+        <th class="mobile-disable" scope="col">Requested</th>
         <th *ngIf="isAdmin" scope="col">Admin</th>
       </tr>
       </thead>
@@ -19,15 +19,15 @@
         <tr *ngIf="project.Contributors.length == 0">
             <td>N/A</td>
             <td>N/A</td>
-            <td>N/A</td>
-            <td>N/A</td>
+            <td class="mobile-disable">N/A</td>
+            <td class="mobile-disable">N/A</td>
             <td *ngIf="isAdmin">N/A</td>
           </tr>
         <tr *ngFor="let contributor of project.Contributors">
           <td [routerLink]="['/user', contributor.UserId]">{{ contributor.User['FirstName'] }} {{ contributor.User['LastName'] }}</td>
           <td *ngIf="contributor.Authorized === 1">Yes</td><td *ngIf="contributor.Authorized === 0">No</td>
-          <td>{{ contributor.User['Email'] }}</td>
-          <td>{{ contributor['CreatedAt'] | date }}</td>
+          <td class="mobile-disable">{{ contributor.User['Email'] }}</td>
+          <td class="mobile-disable">{{ contributor['CreatedAt'] | date }}</td>
           <td *ngIf="isAdmin">
             <button *ngIf="contributor.Authorized === 0" (click)="authorize(contributor.ContributorId)" type="button" class="btn btn-primary m-1">Authorize</button>
             <button *ngIf="contributor.Authorized === 1" (click)="deauthorize(contributor.ContributorId)" type="button" class="btn btn-danger m-1">Deauthorize</button>

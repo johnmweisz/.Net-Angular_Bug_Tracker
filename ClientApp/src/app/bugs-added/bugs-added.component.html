@@ -14,7 +14,7 @@
           <th scope="col">Subject</th>
           <th scope="col">Priority</th>
           <th scope="col">Status</th>
-          <th scope="col">Due Date</th>
+          <th class="mobile-disable" scope="col">Due Date</th>
           <th scope="col">Updated</th>
         </tr>
       </thead>
@@ -23,14 +23,14 @@
           <td>N/A</td>
           <td>N/A</td>
           <td>N/A</td>
-          <td>N/A</td>
+          <td class="mobile-disable">N/A</td>
           <td>N/A</td>
         </tr>
         <tr *ngFor="let bug of bugs" [routerLink]="['/bug', bug.BugId]">
           <td>{{ bug['Subject'] }}</td>
           <td>{{ bug['Priority'] }}</td>
           <td>{{ bug['Status'] }}</td>
-          <td>{{ bug['DueDate'] | date }}</td>
+          <td class="mobile-disable">{{ bug['DueDate'] | date }}</td>
           <td>{{ bug['UpdatedAt'] | date }}</td>
         </tr>
       </tbody>

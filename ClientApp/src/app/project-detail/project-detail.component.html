@@ -33,7 +33,7 @@
             <tr>
               <th scope="col">Name</th>
               <th scope="col">Authorized</th>
-              <th scope="col">Email</th>
+              <th class="mobile-disable" scope="col">Email</th>
               <th scope="col">Requested</th>
             </tr>
           </thead>
@@ -41,13 +41,13 @@
             <tr *ngIf="project.Contributors.length == 0">
               <td>N/A</td>
               <td>N/A</td>
-              <td>N/A</td>
+              <td class="mobile-disable">N/A</td>
               <td>N/A</td>
             </tr>
             <tr *ngFor="let contributor of project.Contributors" [routerLink]="['/user', contributor.UserId]">
               <td>{{ contributor.User['FirstName'] }} {{ contributor.User['LastName'] }}</td>
               <td *ngIf="contributor.Authorized === 1">Yes</td><td *ngIf="contributor.Authorized === 0">No</td>
-              <td>{{ contributor.User['Email'] }}</td>
+              <td class="mobile-disable">{{ contributor.User['Email'] }}</td>
               <td>{{ contributor['CreatedAt'] | date }}</td>
             </tr>
           </tbody>
