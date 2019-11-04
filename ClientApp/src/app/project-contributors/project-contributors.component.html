@@ -16,6 +16,13 @@
       </tr>
       </thead>
       <tbody>
+        <tr *ngIf="project.Contributors.length == 0">
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td *ngIf="isAdmin">N/A</td>
+          </tr>
         <tr *ngFor="let contributor of project.Contributors">
           <td [routerLink]="['/user', contributor.UserId]">{{ contributor.User['FirstName'] }} {{ contributor.User['LastName'] }}</td>
           <td *ngIf="contributor.Authorized === 1">Yes</td><td *ngIf="contributor.Authorized === 0">No</td>

@@ -1,8 +1,10 @@
 <div *ngIf="!UserId">
   <p>Please log in to add a project.</p>
 </div>
-<div *ngIf="UserId">
-  <form #valForm='ngForm' (ngSubmit)="addProject()">
+<div *ngIf="UserId" class="card border-dark m-1 p-0">
+  <!-- <div class="card-header text-white bg-dark"></div> -->
+  <div class="card-body">
+    <form #valForm='ngForm' (ngSubmit)="addProject()">
       <div class="form-group">
         <label for="Name">Name</label>
         <input class="form-control" type="text" name="Name" required #valName='ngModel' [(ngModel)]="Name" placeholder="Name">
@@ -62,5 +64,7 @@
           <button class="btn btn-warning" *ngIf="!valForm.valid" type="button">Submit</button>
           <button class="btn btn-primary" *ngIf="valForm.valid" type="submit">Submit</button>
       </div>
-  </form>
+    </form>
+  </div>
+  <!-- <div class="card-footer"></div> -->
 </div>

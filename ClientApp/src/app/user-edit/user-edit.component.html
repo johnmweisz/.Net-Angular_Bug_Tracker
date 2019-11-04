@@ -3,7 +3,9 @@
     <span class="sr-only">Loading...</span>
   </div>
 </div>
-<div *ngIf="user">
+<div *ngIf="user" class="card border-dark m-1 p-0">
+  <!-- <div class="card-header text-white bg-dark"></div> -->
+  <div class="card-body">
     <form #valForm='ngForm' (ngSubmit)="editUser()">
         <div class="form-group">
             <label for="FirstName">First Name</label>
@@ -45,3 +47,5 @@
         </div>
     </form>
   </div>
+  <!-- <div class="card-footer"></div> -->
+</div>

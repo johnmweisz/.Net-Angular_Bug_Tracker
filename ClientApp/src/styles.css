@@ -5,3 +5,9 @@
 form p {
   margin: 0;
 }
+
+tbody tr:hover {
+  font-style: italic;
+  /* font-weight: bold; */
+  cursor: pointer;
+}
