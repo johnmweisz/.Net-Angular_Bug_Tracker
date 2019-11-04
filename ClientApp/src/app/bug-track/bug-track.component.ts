@@ -5,6 +5,7 @@ import { BugService } from '../services/bug.service';
 import { ProjectService } from '../services/project.service';
 import { Subscription } from 'rxjs';
 import { Project, Bug, Update } from '../models';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-bug-track',
@@ -31,8 +32,7 @@ export class BugTrackComponent implements OnInit, OnDestroy {
   constructor(
     private _bug: BugService,
     private _project: ProjectService,
-    private _update: UpdateService,
-    private _router: Router
+    private _update: UpdateService
   ) { }
 
   ngOnInit() {

@@ -17,7 +17,7 @@ export interface Bug {
   Description?: string;
   Priority?: string;
   Status?: string;
-  DueDate?: Date;
+  DueDate?: any;
   CreatedAt?: Date;
   UpdatedAt?: Date;
   UserId?: number;

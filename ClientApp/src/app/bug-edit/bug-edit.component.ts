@@ -59,7 +59,7 @@ export class BugEditComponent implements OnInit, OnDestroy {
             this.Description = b.Description;
             this.Priority = b.Priority;
             this.Status = b.Status;
-            this.DueDate = b.DueDate;
+            this.DueDate = b.DueDate.slice(0, 10);
             this.BugId = b.BugId;
             this.ProjectId = b.ProjectId;
           } else {
@@ -85,6 +85,7 @@ export class BugEditComponent implements OnInit, OnDestroy {
   }
 
   editBug() {
+    console.log(this.DueDate);
     const editBug: Bug = {
       Subject: this.Subject,
       Description: this.Description,
