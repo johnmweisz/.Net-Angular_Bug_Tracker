@@ -21,9 +21,9 @@ namespace BugTracker.Controllers
             this.context = context;
         }
 
-		private IActionResult OkJson(object ToJSON) {
+		private IActionResult OkJson(object ToJson) {
 			return Ok(JsonConvert.SerializeObject(
-				ToJSON,
+				ToJson,
 				Formatting.Indented,
 				new JsonSerializerSettings 
 					{

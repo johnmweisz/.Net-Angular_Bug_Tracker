@@ -33,7 +33,7 @@ namespace BugTracker.Controllers
 		}
 
         [HttpGet("[action]")]
-        public IActionResult GetAll()
+        public IActionResult All()
         {
             List<Project> Projects = context.Projects
             .Include(p => p.Creator)
@@ -45,8 +45,8 @@ namespace BugTracker.Controllers
             return OkJson(Projects);
         }
 
-        [HttpGet("[action]/{UserId}")]
-        public IActionResult GetAdded(int UserId)
+        [HttpGet("[action]")]
+        public IActionResult Added(int UserId)
         {
             List<Project> Projects = context.Projects
             .Include(p => p.Creator)
@@ -59,8 +59,8 @@ namespace BugTracker.Controllers
             return OkJson(Projects);
         }
 
-        [HttpGet("[action]/{UserId}")]
-        public IActionResult GetContributed(int UserId)
+        [HttpGet("[action]")]
+        public IActionResult Contributed(int UserId)
         {
             List<Project> Projects = context.Projects
             .Include(p => p.Creator)
@@ -73,8 +73,8 @@ namespace BugTracker.Controllers
             return OkJson(Projects);
         }
 
-		[HttpGet("[action]/{ProjectId}")]
-        public IActionResult GetOne(int ProjectId)
+		[HttpGet("[action]")]
+        public IActionResult One(int ProjectId)
         {
             Project Project = context.Projects
             .Include(p => p.Creator)
@@ -115,7 +115,7 @@ namespace BugTracker.Controllers
             return BadRequest(JsonConvert.SerializeObject(ModelState));
         }
 
-		[HttpDelete("[action]/{ProjectId}")]
+		[HttpDelete("[action]")]
         public IActionResult Delete(int ProjectId)
         {
             Project Project = context.Projects.FirstOrDefault(p => p.ProjectId == ProjectId);
