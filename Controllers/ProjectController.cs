@@ -33,16 +33,22 @@ namespace BugTracker.Controllers
 		}
 
         [HttpGet("[action]")]
-        public IActionResult All()
+        public IActionResult All(int start = 0, int limit = 20, bool ascending = true)
         {
-            List<Project> Projects = context.Projects
+            IQueryable<Project> Projects = context.Projects
             .Include(p => p.Creator)
             .Include(p => p.Bugs)
             .Include(p => p.Contributors)
                 .ThenInclude(c => c.User)
-            .OrderBy(p => p.CreatedAt)
-            .ToList();
-            return OkJson(Projects);
+            .Skip(start)
+            .Take(limit);
+			if (ascending == true)
+			{
+				Projects = Projects.OrderBy(p => p.CreatedAt);
+			} else {
+                Projects = Projects.OrderByDescending(p => p.CreatedAt);
+            }
+            return OkJson(Projects.ToList());
         }
 
         [HttpGet("[action]")]
