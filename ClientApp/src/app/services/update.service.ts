@@ -45,21 +45,21 @@ export class UpdateService {
     }
 
     getAllBug(BugId: number) {
-      return this._http.get(`/Update/GetAllBug/${BugId}`).subscribe(
+      return this._http.get(`/Update/AllBug`, { params: { BugId: `${BugId}` }}).subscribe(
         (res: Update[]) => this.updatesSub.next(res),
         err => console.log(err)
       );
     }
 
     getAllUser(UserId: number) {
-      return this._http.get(`/Update/GetAllUser/${UserId}`).subscribe(
+      return this._http.get(`/Update/AllUser`, { params: { UserId: `${UserId}` }}).subscribe(
         (res: Update[]) => this.updatesSub.next(res),
         err => console.log(err)
       );
     }
 
     getOne(UpdateId: number) {
-      return this._http.get(`/Update/GetOne/${UpdateId}`).subscribe(
+      return this._http.get(`/Update/One`, { params: { UpdateId: `${UpdateId}` }}).subscribe(
         (res: Update) => this.updateSub.next(res),
         err => console.log(err)
       );
@@ -73,7 +73,7 @@ export class UpdateService {
     }
 
     delete(UpdateId: number) {
-      return this._http.delete(`/Update/Delete/${UpdateId}`).subscribe(
+      return this._http.delete(`/Update/Delete`, { params: { UpdateId: `${UpdateId}` }}).subscribe(
         (res: Update) => this._bugs.getOne(res.BugId),
         err => console.log(err)
       );

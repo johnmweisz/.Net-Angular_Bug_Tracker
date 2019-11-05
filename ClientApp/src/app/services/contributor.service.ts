@@ -29,7 +29,7 @@ export class ContributorService {
   }
 
   getAll(ContributorId: number) {
-    return this._http.get(`/Contributor/GetAll/${ContributorId}`).subscribe(
+    return this._http.get(`/Contributor/All`, { params: { ContributorId: `${ContributorId}` }}).subscribe(
       (res: Contributor[]) => this.contributorsSub.next(res),
       err => console.log(err)
     );
@@ -43,21 +43,21 @@ export class ContributorService {
   }
 
   authorize(ContributorId: number) {
-    return this._http.get(`/Contributor/Authorize/${ContributorId}`).subscribe(
+    return this._http.get(`/Contributor/Authorize`, { params: { ContributorId: `${ContributorId}` }}).subscribe(
       (res: Contributor) => this._project.getOne(res.ProjectId),
       err => console.log(err)
     );
   }
 
   deauthorize(ContributorId: number) {
-    return this._http.get(`/Contributor/Deauthorize/${ContributorId}`).subscribe(
+    return this._http.get(`/Contributor/Deauthorize`, { params: { ContributorId: `${ContributorId}` }}).subscribe(
       (res: Contributor) => this._project.getOne(res.ProjectId),
       err => console.log(err)
     );
   }
 
   delete(ContributorId: number) {
-    return this._http.delete(`/Contributor/Delete/${ContributorId}`).subscribe(
+    return this._http.delete(`/Contributor/Delete`, { params: { ContributorId: `${ContributorId}` }}).subscribe(
       (res: Contributor) => this._project.getOne(res.ProjectId),
       err => console.log(err)
     );

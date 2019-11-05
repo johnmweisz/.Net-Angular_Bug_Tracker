@@ -84,7 +84,7 @@ export class UserService {
   }
 
   getProfile(UserId: number) {
-    return this._http.get(`/User/Profile/${UserId}`).subscribe(
+    return this._http.get(`/User/Profile`, { params: { UserId: `${UserId}` }}).subscribe(
       (res: User) => {
         this.profileSub.next(res);
       },
@@ -104,7 +104,7 @@ export class UserService {
   }
 
   deleteUser(UserId: number) {
-    return this._http.delete(`/User/Delete/${UserId}`).subscribe(
+    return this._http.delete(`/User/Delete`, { params: { UserId: `${UserId}` }}).subscribe(
       res => {
         this.logout();
         this._router.navigate(['/']);

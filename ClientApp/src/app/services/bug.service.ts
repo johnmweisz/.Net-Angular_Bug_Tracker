@@ -43,46 +43,26 @@ export class BugService {
   }
 
   getAll(ProjectId?: number) {
-    if (ProjectId == null) {
-      return this._http.get('/Bug/GetAll').subscribe(
-        (res: Bug[]) => this.bugsSub.next(res),
-        err => console.log(err)
-      );
-    } else {
-      return this._http.get(`/Bug/GetAll/${ProjectId}`).subscribe(
-        (res: Bug[]) => this.bugsSub.next(res),
-        err => console.log(err)
-      );
-    }
+    return this._http.get(`/Bug/All`, { params: { ProjectId: `${ProjectId}` }}).subscribe(
+      (res: Bug[]) => this.bugsSub.next(res),
+      err => console.log(err)
+    );
   }
 
   getAdded(UserId: number, ProjectId?: number) {
-    if (ProjectId == null) {
-      return this._http.get(`/Bug/GetAdded/${UserId}`).subscribe(
-        (res: Bug[]) => this.bugsSub.next(res),
-        err => console.log(err));
-    } else {
-      return this._http.get(`/Bug/GetAdded/${UserId}/${ProjectId}`).subscribe(
-        (res: Bug[]) => this.bugsSub.next(res),
-        err => console.log(err));
-    }
+    return this._http.get(`/Bug/Added`, { params: { UserId: `${UserId}`, ProjectId: `${ProjectId}` }}).subscribe(
+      (res: Bug[]) => this.bugsSub.next(res),
+      err => console.log(err));
   }
 
   getAssigned(UserId: number, ProjectId?: number) {
-    if (ProjectId == null) {
-      return this._http.get(`/Bug/GetAssigned/${UserId}`).subscribe(
-        (res: Bug[]) => this.bugsSub.next(res),
-        err => console.log(err));
-    } else {
-      return this._http.get(`/Bug/GetAssigned/${UserId}/${ProjectId}`).subscribe(
-        (res: Bug[]) => this.bugsSub.next(res),
-        err => console.log(err));
-    }
-
+    return this._http.get(`/Bug/Assigned`, { params: { UserId: `${UserId}`, ProjectId: `${ProjectId}` }}).subscribe(
+      (res: Bug[]) => this.bugsSub.next(res),
+      err => console.log(err));
   }
 
   getOne(BugId: number) {
-    return this._http.get(`/Bug/GetOne/${BugId}`).subscribe(
+    return this._http.get(`/Bug/One`, { params: { BugId: `${BugId}` }}).subscribe(
       (res: Bug) => this.bugSub.next(res),
       err => console.log(err)
     );
@@ -108,7 +88,7 @@ export class BugService {
   }
 
   delete(BugId: number) {
-    return this._http.delete(`/Bug/Delete/${BugId}`).subscribe(
+    return this._http.delete(`/Bug/Delete`, { params: { BugId: `${BugId}` }}).subscribe(
       res => this._router.navigate(['/']),
       err => console.log(err)
     );

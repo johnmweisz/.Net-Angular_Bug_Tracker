@@ -33,7 +33,7 @@ namespace BugTracker.Controllers
 		}
 
 		[HttpGet("[action]/{ProjectId}")]
-		public IActionResult GetAll(int ProjectId)
+		public IActionResult All(int ProjectId)
 		{
 			IQueryable<Contributor> Contributor = context.Contributors
 			.Include(c => c.Project)
@@ -53,7 +53,7 @@ namespace BugTracker.Controllers
             return BadRequest(JsonConvert.SerializeObject(ModelState));
 		}
 
-		[HttpGet("[action]/{ContributorId}")]
+		[HttpGet("[action]")]
 		public IActionResult Authorize(int ContributorId) {
 			Contributor Contributor = context.Contributors.FirstOrDefault(c => c.ContributorId == ContributorId);
 			if (Contributor.Authorized == 1) {
@@ -64,7 +64,7 @@ namespace BugTracker.Controllers
 			return OkJson(Contributor);
 		}
 
-		[HttpGet("[action]/{ContributorId}")]
+		[HttpGet("[action]")]
 		public IActionResult Deauthorize(int ContributorId) {
 			Contributor Contributor = context.Contributors.FirstOrDefault(c => c.ContributorId == ContributorId);
 			if (Contributor.Authorized == 0) {
@@ -75,7 +75,7 @@ namespace BugTracker.Controllers
 			return OkJson(Contributor);
 		}
 
-		[HttpDelete("[action]/{ContributorId}")]
+		[HttpDelete("[action]")]
 		public IActionResult Delete(int ContributorId) {
 			Contributor Contributor = context.Contributors.FirstOrDefault(c => c.ContributorId == ContributorId);
 			context.Remove(Contributor);

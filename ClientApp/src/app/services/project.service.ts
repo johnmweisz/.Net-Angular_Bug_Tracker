@@ -42,7 +42,7 @@ export class ProjectService {
     this.projectSub.next(null);
   }
 
-  getAll(start: number, limit: number, ascending: boolean) {
+  getAll(start?: number, limit?: number, ascending?: boolean) {
     return this._http.get(`/Project/All`, { params: { start: `${start}`, limit: `${limit}`, ascending: `${ascending}` }}).subscribe(
       (res: Project[]) => this.projectsSub.next(res),
       err => console.log(err)

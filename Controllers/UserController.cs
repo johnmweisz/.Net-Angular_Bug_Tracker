@@ -74,7 +74,7 @@ namespace BugTracker.Controllers
             return BadRequest(JsonConvert.SerializeObject(ModelState));
         }
 
-        [HttpGet("[action]/{UserId}")]
+        [HttpGet("[action]")]
         public IActionResult Profile(int UserId)
         {
             User User = context.Users
@@ -104,7 +104,7 @@ namespace BugTracker.Controllers
             return BadRequest(JsonConvert.SerializeObject(ModelState));
         }
 
-        [HttpDelete("[action]/{UserId}")]
+        [HttpDelete("[action]")]
         public IActionResult Delete(int UserId)
         {
             User User = context.Users.FirstOrDefault(u => u.UserId == UserId);

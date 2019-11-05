@@ -32,8 +32,8 @@ namespace BugTracker.Controllers
 			));
 		}
 
-		[HttpGet("[action]/{BugId}")]
-		public IActionResult GetAllBug(int BugId)
+		[HttpGet("[action]")]
+		public IActionResult AllBug(int BugId)
 		{
 			List<Update> Updates = context.Updates
 			.Where(u => u.BugId == BugId)
@@ -43,8 +43,8 @@ namespace BugTracker.Controllers
 			return OkJson(Updates);
 		}
 
-		[HttpGet("[action]/{UserId}")]
-		public IActionResult GetAllUser(int UserId)
+		[HttpGet("[action]")]
+		public IActionResult AllUser(int UserId)
 		{
 			List<Update> Updates = context.Updates
 			.Where(u => u.UserId == UserId)
@@ -54,8 +54,8 @@ namespace BugTracker.Controllers
 			return OkJson(Updates);
 		}
 
-		[HttpGet("[action]/{UpdateId}")]
-		public IActionResult GetOne(int UpdateId)
+		[HttpGet("[action]")]
+		public IActionResult One(int UpdateId)
 		{
 			Update Update = context.Updates
 			.Include(u => User)
@@ -78,7 +78,7 @@ namespace BugTracker.Controllers
             return BadRequest(JsonConvert.SerializeObject(ModelState));
 		}
 
-		[HttpDelete("[action]/{UpdateId}")]
+		[HttpDelete("[action]")]
 		public IActionResult Delete(int UpdateId) {
 			Update DeleteUpdate = context.Updates.FirstOrDefault(c => c.UpdateId == UpdateId);
 			context.Remove(DeleteUpdate);
