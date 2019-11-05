@@ -36,12 +36,12 @@ namespace BugTracker.Controllers
         public IActionResult All(int start = 0, int limit = 20, bool ascending = true)
         {
             IQueryable<Project> Projects = context.Projects
+            .Skip(start)
+            .Take(limit)
             .Include(p => p.Creator)
             .Include(p => p.Bugs)
             .Include(p => p.Contributors)
-                .ThenInclude(c => c.User)
-            .Skip(start)
-            .Take(limit);
+                .ThenInclude(c => c.User);
 			if (ascending == true)
 			{
 				Projects = Projects.OrderBy(p => p.CreatedAt);
