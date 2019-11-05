@@ -44,7 +44,7 @@
               <td class="mobile-disable">N/A</td>
               <td>N/A</td>
             </tr>
-            <tr *ngFor="let contributor of project.Contributors" [routerLink]="['/user', contributor.UserId]">
+            <tr *ngFor="let contributor of project.Contributors" class="link-item" [routerLink]="['/user', contributor.UserId]">
               <td>{{ contributor.User['FirstName'] }} {{ contributor.User['LastName'] }}</td>
               <td *ngIf="contributor.Authorized === 1">Yes</td><td *ngIf="contributor.Authorized === 0">No</td>
               <td class="mobile-disable">{{ contributor.User['Email'] }}</td>

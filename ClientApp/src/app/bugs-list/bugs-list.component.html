@@ -26,7 +26,7 @@
           <td class="mobile-disable">N/A</td>
           <td>N/A</td>
         </tr>
-        <tr *ngFor="let bug of bugs" [routerLink]="['/bug', bug.BugId]">
+        <tr *ngFor="let bug of bugs" class="link-item" [routerLink]="['/bug', bug.BugId]">
           <td>{{ bug['Subject'] }}</td>
           <td>{{ bug['Priority'] }}</td>
           <td>{{ bug['Status'] }}</td>

@@ -33,9 +33,17 @@ namespace BugTracker.Controllers
 		}
 
         [HttpGet("[action]")]
-        public IActionResult All(int start = 0, int limit = 20, bool ascending = true)
+        public IActionResult All(int start = 0, int limit = 20, bool ascending = true, string search = null)
         {
-            IQueryable<Project> Projects = context.Projects
+            System.Console.WriteLine(search);
+            IQueryable<Project> Projects;
+            if (String.IsNullOrEmpty(search)) {
+                Projects = context.Projects;
+            } else {
+                Projects = context.Projects.Where(p => p.Name.ToLower().Contains(search.ToLower()));
+            }
+            int Count = Projects.Count();
+            Projects = Projects
             .Skip(start)
             .Take(limit)
             .Include(p => p.Creator)
@@ -48,7 +56,7 @@ namespace BugTracker.Controllers
 			} else {
                 Projects = Projects.OrderByDescending(p => p.CreatedAt);
             }
-            return OkJson(Projects.ToList());
+            return OkJson(new { Projects = Projects.ToList(), Count = Count });
         }
 
         [HttpGet("[action]")]

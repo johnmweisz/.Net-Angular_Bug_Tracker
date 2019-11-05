@@ -26,7 +26,7 @@
           <td class="mobile-disable">N/A</td>
           <td>N/A</td>
         </tr>
-        <tr *ngFor="let project of projects" [routerLink]="['/project', project.ProjectId]">
+        <tr *ngFor="let project of projects" class="link-item" [routerLink]="['/project', project.ProjectId]">
           <td>{{ project['Name'] }}</td>
           <td class="mobile-disable">{{ project['Version'] }}</td>
           <td>{{ project['Bugs'].length }}</td>

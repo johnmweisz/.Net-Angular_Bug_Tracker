@@ -10,9 +10,11 @@ import { Project } from '../models';
 export class ProjectService {
   private errorSub = new BehaviorSubject<object>(null);
   private projectsSub = new BehaviorSubject<Project[]>(null);
+  private paginationSub = new BehaviorSubject<number>(null);
   private projectSub = new BehaviorSubject<Project>(null);
   public projectErrors = this.errorSub.asObservable();
   public projectList = this.projectsSub.asObservable();
+  public paginationCount = this.paginationSub.asObservable();
   public aProject = this.projectSub.asObservable();
 
   constructor(
@@ -42,9 +44,17 @@ export class ProjectService {
     this.projectSub.next(null);
   }
 
-  getAll(start?: number, limit?: number, ascending?: boolean) {
-    return this._http.get(`/Project/All`, { params: { start: `${start}`, limit: `${limit}`, ascending: `${ascending}` }}).subscribe(
-      (res: Project[]) => this.projectsSub.next(res),
+  getAll(start: number, limit: number, ascending: boolean = null, search: string = '') {
+    return this._http.get(`/Project/All`, { params: {
+      start: `${start}`,
+      limit: `${limit}`,
+      ascending: `${ascending}`,
+      search: `${search}`
+    }}).subscribe(
+      (res: any) => {
+        this.projectsSub.next(res.Projects);
+        this.paginationSub.next(res.Count);
+      },
       err => console.log(err)
     );
   }

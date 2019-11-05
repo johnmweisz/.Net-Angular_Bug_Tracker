@@ -42,7 +42,7 @@
               <td>N/A</td>
               <td class="mobile-disable">N/A</td>
             </tr>
-            <tr *ngFor="let bug of user['Created']" [routerLink]="['/bug', bug.BugId]">
+            <tr *ngFor="let bug of user['Created']" class="link-item" [routerLink]="['/bug', bug.BugId]">
               <td>{{ bug['Subject'] }}</td>
               <td>{{ bug['Status'] }}</td>
               <td>{{ bug.Project['Name'] }}</td>
@@ -74,7 +74,7 @@
               <td>N/A</td>
               <td class="mobile-disable">N/A</td>
             </tr>
-            <tr *ngFor="let contribution of user['Contributors']" [routerLink]="['/project', contribution.ProjectId]">
+            <tr *ngFor="let contribution of user['Contributors']" class="link-item" [routerLink]="['/project', contribution.ProjectId]">
               <td>{{ contribution.Project['Name'] }}</td>
               <td *ngIf="contribution.Project['Public'] == 1">Public</td><td *ngIf="contribution.Project['Public'] == 0">Private</td>
               <td>{{ contribution.Project['Version'] }}</td>
