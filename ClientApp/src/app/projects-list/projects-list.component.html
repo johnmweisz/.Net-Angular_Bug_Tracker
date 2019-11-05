@@ -5,19 +5,19 @@
   </div>
 <div *ngIf="projects">
   <div class="row">
+    <div class="col-sm-3">
+      <div class="active-pink-3 active-pink-4 m-1">
+        <input class="form-control" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="search" (keyup)="getList()">
+      </div>
+    </div>
     <div class="col-sm-9">
       <nav *ngIf="paginationList && paginationList.length > 0" aria-label="Page navigation example">
-        <ul  class="pagination flex-wrap m-1">
+        <ul  class="pagination justify-content-end flex-wrap m-1">
           <li [ngClass]="{'disabled': start <= 0}" class="page-item link-item"><a class="page-link" (click)="getList(start - limit)">Previous</a></li>
           <li *ngFor="let page of paginationList" [ngClass]="{'active': start == page.start}" class="page-item link-item"><a class="page-link" (click)="getList(page.start)">{{ page.index }}</a></li>
           <li [ngClass]="{'disabled': start >= paginationList[paginationList.length - 1].start}" class="page-item link-item"><a class="page-link" (click)="getList(start + limit)">Next</a></li>
         </ul>
       </nav>
-    </div>
-    <div class="col-sm-3">
-      <div class="active-pink-3 active-pink-4 m-1">
-        <input class="form-control" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="search" (keyup)="getList()">
-      </div>
     </div>
   </div>
   <div class="card text-center border-dark m-1">
