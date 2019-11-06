@@ -3,7 +3,7 @@
     <span class="sr-only">Loading...</span>
   </div>
 </div>
-<div *ngIf="project && !isPublic && !isAuthorized && !isAdmin">
+<div *ngIf="project && !isPublic && !isAuthorized && !isAdmin" class="alert alert-warning m-1" role="alert">
   <p>This project is set to private and you are not a contributor or admin.</p>
 </div>
 <div *ngIf="bugs && isPublic || bugs && isAuthorized || bugs && isAdmin">

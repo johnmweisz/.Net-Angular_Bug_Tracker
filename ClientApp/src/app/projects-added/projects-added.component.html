@@ -3,7 +3,7 @@
     <span class="sr-only">Loading...</span>
   </div>
 </div>
-<div *ngIf="!UserId">
+<div *ngIf="!UserId" class="alert alert-warning m-1" role="alert">
   <p>Please log in to view your activity.</p>
 </div>
 <div *ngIf="projects && UserId">

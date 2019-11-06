@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="col-sm-9">
-      <nav *ngIf="paginationList && paginationList.length > 0" aria-label="Page navigation example">
+      <nav *ngIf="paginationList && paginationList.length > 0">
         <ul  class="pagination justify-content-end flex-wrap m-1">
           <li [ngClass]="{'disabled': start <= 0}" class="page-item link-item"><a class="page-link" (click)="getList(start - limit)">Previous</a></li>
           <li *ngFor="let page of paginationList; index as i" [ngClass]="{'active': start == page}" class="page-item link-item"><a class="page-link" (click)="getList(page)">{{ i + 1 }}</a></li>

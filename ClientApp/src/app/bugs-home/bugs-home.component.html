@@ -10,7 +10,7 @@
       <a *ngIf="isPublic || isAuthorized || isAdmin" class="nav-link" [routerLinkActive]="['active']" [routerLink]="['assigned']">Assigned</a>
     </li>
     <li class="nav-item">
-      <a *ngIf="isPublic && isAuthorized || isAdmin" class="nav-link" [routerLinkActive]="['active']" [routerLink]="['add']">Add</a>
+      <a *ngIf="isAuthorized || isAdmin" class="nav-link" [routerLinkActive]="['active']" [routerLink]="['add']">Add</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" [routerLink] (click)="goBack()">Back</a>

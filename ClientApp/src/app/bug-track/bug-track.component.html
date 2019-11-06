@@ -3,7 +3,7 @@
     <span class="sr-only">Loading...</span>
   </div>
 </div>
-<div *ngIf="project && !isAuthorized && !isAdmin && !isPublic">
+<div *ngIf="project && !isAuthorized && !isAdmin && !isPublic" class="alert alert-warning m-1" role="alert">
   <p>This project is set to private and you are not a contributor or admin.</p>
 </div>
 <div class="row" *ngIf="bug && isAuthorized || bug && isAdmin  || bug && isPublic">
@@ -26,7 +26,9 @@
         <h5 class="card-title text-center m-0">Add Update</h5>
       </div>
       <div class="card-body">
-        <p *ngIf="!isAuthorized && !isAdmin">You are not authorized to add updates.</p>
+        <div *ngIf="!isAuthorized && !isAdmin" class="alert alert-warning" role="alert">
+          <p>You are not authorized to add updates.</p>
+        </div>
         <form *ngIf="isAuthorized || isAdmin" #valForm='ngForm' (ngSubmit)="add(); valForm.reset();">
           <div class="form-group">
             <label for="Message">Message</label>
