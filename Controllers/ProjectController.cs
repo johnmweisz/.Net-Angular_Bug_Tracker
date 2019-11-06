@@ -33,29 +33,29 @@ namespace BugTracker.Controllers
 		}
 
         [HttpGet("[action]")]
-        public IActionResult All(int start = 0, int limit = 20, bool ascending = true, string search = null)
+        public IActionResult All(int start, int limit, string createdat, string contributors, string bugs, string name, string search)
         {
-            System.Console.WriteLine(search);
             IQueryable<Project> Projects;
-            if (String.IsNullOrEmpty(search)) {
-                Projects = context.Projects;
-            } else {
-                Projects = context.Projects.Where(p => p.Name.ToLower().Contains(search.ToLower()));
-            }
-            int Count = Projects.Count();
+            Projects = (String.IsNullOrEmpty(search)) ? context.Projects : context.Projects.Where(p => p.Name.ToLower().Contains(search.ToLower()));
             Projects = Projects
-            .Skip(start)
-            .Take(limit)
             .Include(p => p.Creator)
             .Include(p => p.Bugs)
             .Include(p => p.Contributors)
                 .ThenInclude(c => c.User);
-			if (ascending == true)
-			{
-				Projects = Projects.OrderBy(p => p.CreatedAt);
-			} else {
-                Projects = Projects.OrderByDescending(p => p.CreatedAt);
+            int Count = Projects.Count();
+            if (createdat != "null") {
+                Projects = (createdat == "asc") ? Projects.OrderBy(p => p.CreatedAt) : Projects.OrderByDescending(p => p.CreatedAt);
             }
+            if (contributors != "null") {
+                Projects = (contributors == "asc") ? Projects.OrderBy(p => p.Contributors.Count) : Projects.OrderByDescending(p => p.Contributors.Count);
+            }
+            if (bugs != "null") {
+                Projects = (bugs == "asc") ? Projects.OrderBy(p => p.Bugs.Count) : Projects.OrderByDescending(p => p.Bugs.Count);
+            }
+            if (name != "null") {
+                Projects = (name == "asc") ? Projects.OrderBy(p => p.Name) : Projects.OrderByDescending(p => p.Name);
+            }
+            Projects = Projects.Skip(start).Take(limit);
             return OkJson(new { Projects = Projects.ToList(), Count = Count });
         }
 

@@ -44,11 +44,15 @@ export class ProjectService {
     this.projectSub.next(null);
   }
 
-  getAll(start: number, limit: number, ascending: boolean = null, search: string = '') {
+  getAll(start: number = 0, limit: number = 20, createdat: string = 'null',
+  contributors: string = 'null', bugs: string = 'null', name: string = 'null', search: string = '') {
     return this._http.get(`/Project/All`, { params: {
       start: `${start}`,
       limit: `${limit}`,
-      ascending: `${ascending}`,
+      createdat: `${createdat}`,
+      contributors: `${contributors}`,
+      bugs: `${bugs}`,
+      name: `${name}`,
       search: `${search}`
     }}).subscribe(
       (res: any) => {

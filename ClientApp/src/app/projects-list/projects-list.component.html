@@ -24,11 +24,11 @@
     <table class="table">
       <thead class="thead-dark">
         <tr>
-          <th scope="col">Name</th>
+          <th scope="col" (click)="toggleName()">Name</th>
           <th class="mobile-disable" scope="col">Version</th>
-          <th scope="col">Bugs</th>
-          <th class="mobile-disable" scope="col">Contributors</th>
-          <th scope="col" (click)="toggleAscending()">Created</th>
+          <th scope="col" (click)="toggleBugs()">Bugs</th>
+          <th class="mobile-disable" scope="col" (click)="toggleContributors()">Contributors</th>
+          <th scope="col" (click)="toggleCreatedAt()">Created</th>
         </tr>
       </thead>
       <tbody>
