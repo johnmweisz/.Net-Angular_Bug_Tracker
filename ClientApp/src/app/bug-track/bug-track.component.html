@@ -26,6 +26,7 @@
         <h5 class="card-title text-center m-0">Add Update</h5>
       </div>
       <div class="card-body">
+        <p *ngIf="!isAuthorized && !isAdmin">You are not authorized to add updates.</p>
         <form *ngIf="isAuthorized || isAdmin" #valForm='ngForm' (ngSubmit)="add(); valForm.reset();">
           <div class="form-group">
             <label for="Message">Message</label>
