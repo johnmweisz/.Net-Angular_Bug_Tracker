@@ -2,7 +2,7 @@
   <div class="spinner-border" role="status">
     <span class="sr-only">Loading...</span>
   </div>
-  </div>
+</div>
 <div *ngIf="projects">
   <div class="row">
     <div class="col-sm-3">
@@ -14,8 +14,8 @@
       <nav *ngIf="paginationList && paginationList.length > 0" aria-label="Page navigation example">
         <ul  class="pagination justify-content-end flex-wrap m-1">
           <li [ngClass]="{'disabled': start <= 0}" class="page-item link-item"><a class="page-link" (click)="getList(start - limit)">Previous</a></li>
-          <li *ngFor="let page of paginationList" [ngClass]="{'active': start == page.start}" class="page-item link-item"><a class="page-link" (click)="getList(page.start)">{{ page.index }}</a></li>
-          <li [ngClass]="{'disabled': start >= paginationList[paginationList.length - 1].start}" class="page-item link-item"><a class="page-link" (click)="getList(start + limit)">Next</a></li>
+          <li *ngFor="let page of paginationList; index as i" [ngClass]="{'active': start == page}" class="page-item link-item"><a class="page-link" (click)="getList(page)">{{ i + 1 }}</a></li>
+          <li [ngClass]="{'disabled': start >= paginationList[paginationList.length - 1]}" class="page-item link-item"><a class="page-link" (click)="getList(start + limit)">Next</a></li>
         </ul>
       </nav>
     </div>
@@ -24,11 +24,27 @@
     <table class="table">
       <thead class="thead-dark">
         <tr>
-          <th scope="col" (click)="toggleName()">Name</th>
+          <th class="link-item" scope="col" (click)="toggleName()">Name
+            <img *ngIf="name == 'null'" class="sort-icon" src="assets/icon-sort.png" alt="sort">
+            <img *ngIf="name == 'asc'" class="sort-icon" src="assets/icon-asc.png" alt="asc">
+            <img *ngIf="name == 'desc'" class="sort-icon" src="assets/icon-desc.png" alt="desc">
+          </th>
           <th class="mobile-disable" scope="col">Version</th>
-          <th scope="col" (click)="toggleBugs()">Bugs</th>
-          <th class="mobile-disable" scope="col" (click)="toggleContributors()">Contributors</th>
-          <th scope="col" (click)="toggleCreatedAt()">Created</th>
+          <th class="link-item" scope="col" (click)="toggleBugs()">Bugs
+            <img *ngIf="bugs == 'null'" class="sort-icon" src="assets/icon-sort.png" alt="sort">
+            <img *ngIf="bugs == 'asc'" class="sort-icon" src="assets/icon-asc.png" alt="asc">
+            <img *ngIf="bugs == 'desc'" class="sort-icon" src="assets/icon-desc.png" alt="desc">
+          </th>
+          <th class="mobile-disable link-item" scope="col" (click)="toggleContributors()">Contributors
+            <img *ngIf="contributors == 'null'" class="sort-icon" src="assets/icon-sort.png" alt="sort">
+            <img *ngIf="contributors == 'asc'" class="sort-icon" src="assets/icon-asc.png" alt="asc">
+            <img *ngIf="contributors == 'desc'" class="sort-icon" src="assets/icon-desc.png" alt="desc">
+          </th>
+          <th class="link-item" scope="col" (click)="toggleCreatedAt()">Created
+            <img *ngIf="createdat == 'null'" class="sort-icon" src="assets/icon-sort.png" alt="sort">
+            <img *ngIf="createdat == 'asc'" class="sort-icon" src="assets/icon-asc.png" alt="asc">
+            <img *ngIf="createdat == 'desc'" class="sort-icon" src="assets/icon-desc.png" alt="desc">
+          </th>
         </tr>
       </thead>
       <tbody>

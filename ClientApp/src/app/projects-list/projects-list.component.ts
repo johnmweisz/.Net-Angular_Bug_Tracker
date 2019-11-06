@@ -26,27 +26,16 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
   ) { }
 
   pagination(projectCount: number) {
-    let index = 1;
+    this.paginationList = [];
     for (let i = 0; i < projectCount; i += this.limit) {
-      this.paginationList.push(
-        {
-          index:  index,
-          start: i
-        }
-      );
-      index++;
+      this.paginationList.push(i);
     }
   }
 
   ngOnInit() {
     this._projects.getAll(this.start, this.limit, this.createdat, this.contributors, this.bugs, this.name);
-    this.projectListSub = this._projects.projectList.subscribe(p => {
-      this.projects = p;
-    });
-    this.paginationCountSub = this._projects.paginationCount.subscribe(c => {
-      this.paginationList = [];
-      this.pagination(c);
-    });
+    this.projectListSub = this._projects.projectList.subscribe(p => this.projects = p);
+    this.paginationCountSub = this._projects.paginationCount.subscribe(c => this.pagination(c));
   }
 
   ngOnDestroy() {

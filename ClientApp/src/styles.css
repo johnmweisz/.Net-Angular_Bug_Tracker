@@ -18,6 +18,10 @@ form p {
                                 supported by Chrome, Opera and Firefox */
 }
 
+.sort-icon {
+  height: 12px;
+}
+
 .container {
   padding: 0;
 }
