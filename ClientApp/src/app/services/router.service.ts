@@ -5,12 +5,14 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class RouterService {
-  private routes: string[] =  [];
+  private routes: string[];
   private current: string;
 
   constructor(
     private _router: Router
-    ) { }
+    ) {
+      this.routes = [];
+    }
 
   setRoute(route: string) {
     if (this.current) {
