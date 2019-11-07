@@ -52,8 +52,8 @@
           <div class="alert alert-danger" *ngIf="errors?.Confirm">
             <p>{{ errors['Confirm'] }}</p>
           </div>
-          <div class="alert alert-danger" *ngIf="Password != Confirm && (valConfirm.dirty || valConfirm.touched)">
-            <p>Password does not match.</p>
+          <div class="alert alert-danger" *ngIf="valConfirm.errors?.required && (valConfirm.dirty || valConfirm.touched)">
+            <p>Required</p>
           </div>
       </div>
       <div>

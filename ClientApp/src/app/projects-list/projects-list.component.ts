@@ -13,7 +13,7 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
   private paginationCountSub: Subscription;
   public projects: Project[];
   public start = 0;
-  public limit = 5;
+  public limit = 20;
   public createdat = 'null';
   public contributors = 'null';
   public bugs = 'null';

@@ -44,16 +44,16 @@ namespace BugTracker.Controllers
                 .ThenInclude(c => c.User);
             int Count = Projects.Count();
             if (createdat != "null") {
-                Projects = (createdat == "asc") ? Projects.OrderBy(p => p.CreatedAt) : Projects.OrderByDescending(p => p.CreatedAt);
+                Projects = (createdat == "asc") ? Projects.OrderBy(p => p.CreatedAt).ThenBy(p => p.Name) : Projects.OrderByDescending(p => p.CreatedAt).ThenBy(p => p.Name);
             }
             if (contributors != "null") {
-                Projects = (contributors == "asc") ? Projects.OrderBy(p => p.Contributors.Count) : Projects.OrderByDescending(p => p.Contributors.Count);
+                Projects = (contributors == "asc") ? Projects.OrderBy(p => p.Contributors.Count).ThenBy(p => p.CreatedAt) : Projects.OrderByDescending(p => p.Contributors.Count).ThenBy(p => p.CreatedAt);
             }
             if (bugs != "null") {
-                Projects = (bugs == "asc") ? Projects.OrderBy(p => p.Bugs.Count) : Projects.OrderByDescending(p => p.Bugs.Count);
+                Projects = (bugs == "asc") ? Projects.OrderBy(p => p.Bugs.Count).ThenBy(p => p.CreatedAt) : Projects.OrderByDescending(p => p.Bugs.Count).ThenBy(p => p.CreatedAt);
             }
             if (name != "null") {
-                Projects = (name == "asc") ? Projects.OrderBy(p => p.Name) : Projects.OrderByDescending(p => p.Name);
+                Projects = (name == "asc") ? Projects.OrderBy(p => p.Name).ThenBy(p => p.CreatedAt) : Projects.OrderByDescending(p => p.Name).ThenBy(p => p.CreatedAt);
             }
             Projects = Projects.Skip(start).Take(limit);
             return OkJson(new { Projects = Projects.ToList(), Count = Count });
