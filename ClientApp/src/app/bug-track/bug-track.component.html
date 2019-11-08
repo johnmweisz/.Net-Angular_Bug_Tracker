@@ -78,6 +78,7 @@
           <thead>
             <tr>
               <th scope="col">Status</th>
+              <th class="mobile-disable" scope="col">Name</th>
               <th scope="col">Message</th>
               <th class="mobile-disable" scope="col">Updated</th>
               <th *ngIf="isAuthorized || isAdmin" scope="col">Admin</th>
@@ -86,12 +87,14 @@
           <tbody>
             <tr *ngIf="bug.Updates.length == 0">
               <td>N/A</td>
+              <td class="mobile-disable">N/A</td>
               <td>N/A</td>
               <td class="mobile-disable">N/A</td>
               <td *ngIf="isAuthorized || isAdmin">N/A</td>
             </tr>
             <tr *ngFor="let update of bug.Updates">
               <td>{{ update['Status'] }}</td>
+              <td class="mobile-disable">{{ update.User['FirstName'] }} {{ update.User['LastName'] }}</td>
               <td>{{ update['Message'] }}</td>
               <td class="mobile-disable">{{ update['CreatedAt'] | date }}</td>
               <td *ngIf="update.UserId == UserId || isAdmin"><button (click)="delete(update.UpdateId)" class="btn btn-danger">Delete</button></td>
