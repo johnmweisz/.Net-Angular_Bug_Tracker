@@ -28,8 +28,8 @@ export class ContributorService {
     this.contributorSub.next(null);
   }
 
-  getAll(ContributorId: number) {
-    return this._http.get(`/Contributor/All`, { params: { ContributorId: `${ContributorId}` }}).subscribe(
+  getAll(ProjectId: number) {
+    return this._http.get(`/Contributor/All`, { params: { ProjectId: `${ProjectId}` }}).subscribe(
       (res: Contributor[]) => this.contributorsSub.next(res),
       err => console.log(err)
     );

@@ -25,25 +25,33 @@
       <thead class="thead-dark">
         <tr>
           <th class="link-item" scope="col" (click)="toggleName()">Name
-            <img *ngIf="name == 'null'" class="sort-icon" src="assets/icon-sort.png" alt="sort">
-            <img *ngIf="name == 'asc'" class="sort-icon" src="assets/icon-asc.png" alt="asc">
-            <img *ngIf="name == 'desc'" class="sort-icon" src="assets/icon-desc.png" alt="desc">
+              <div class="sort-container">
+                <img *ngIf="name == 'null'" class="sort-icon" src="assets/icon-sort.png" alt="sort">
+                <img *ngIf="name == 'asc'" class="sort-icon" src="assets/icon-asc.png" alt="asc">
+                <img *ngIf="name == 'desc'" class="sort-icon" src="assets/icon-desc.png" alt="desc">
+              </div>
           </th>
           <th class="mobile-disable" scope="col">Version</th>
           <th class="link-item" scope="col" (click)="toggleBugs()">Bugs
-            <img *ngIf="bugs == 'null'" class="sort-icon" src="assets/icon-sort.png" alt="sort">
-            <img *ngIf="bugs == 'asc'" class="sort-icon" src="assets/icon-asc.png" alt="asc">
-            <img *ngIf="bugs == 'desc'" class="sort-icon" src="assets/icon-desc.png" alt="desc">
+              <div class="sort-container">
+                <img *ngIf="bugs == 'null'" class="sort-icon" src="assets/icon-sort.png" alt="sort">
+                <img *ngIf="bugs == 'asc'" class="sort-icon" src="assets/icon-asc.png" alt="asc">
+                <img *ngIf="bugs == 'desc'" class="sort-icon" src="assets/icon-desc.png" alt="desc">
+              </div>
           </th>
           <th class="mobile-disable link-item" scope="col" (click)="toggleContributors()">Contributors
-            <img *ngIf="contributors == 'null'" class="sort-icon" src="assets/icon-sort.png" alt="sort">
-            <img *ngIf="contributors == 'asc'" class="sort-icon" src="assets/icon-asc.png" alt="asc">
-            <img *ngIf="contributors == 'desc'" class="sort-icon" src="assets/icon-desc.png" alt="desc">
+              <div class="sort-container">
+                <img *ngIf="contributors == 'null'" class="sort-icon" src="assets/icon-sort.png" alt="sort">
+                <img *ngIf="contributors == 'asc'" class="sort-icon" src="assets/icon-asc.png" alt="asc">
+                <img *ngIf="contributors == 'desc'" class="sort-icon" src="assets/icon-desc.png" alt="desc">
+              </div>
           </th>
           <th class="link-item" scope="col" (click)="toggleCreatedAt()">Created
-            <img *ngIf="createdat == 'null'" class="sort-icon" src="assets/icon-sort.png" alt="sort">
-            <img *ngIf="createdat == 'asc'" class="sort-icon" src="assets/icon-asc.png" alt="asc">
-            <img *ngIf="createdat == 'desc'" class="sort-icon" src="assets/icon-desc.png" alt="desc">
+            <div class="sort-container">
+                <img *ngIf="createdat == 'null'" class="sort-icon" src="assets/icon-sort.png" alt="sort">
+                <img *ngIf="createdat == 'asc'" class="sort-icon" src="assets/icon-asc.png" alt="asc">
+                <img *ngIf="createdat == 'desc'" class="sort-icon" src="assets/icon-desc.png" alt="desc">
+            </div>
           </th>
         </tr>
       </thead>

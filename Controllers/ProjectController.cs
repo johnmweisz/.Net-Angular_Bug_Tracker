@@ -43,16 +43,20 @@ namespace BugTracker.Controllers
             .Include(p => p.Contributors)
                 .ThenInclude(c => c.User);
             int Count = Projects.Count();
-            if (createdat != "null") {
+            if (createdat != "null") 
+            {
                 Projects = (createdat == "asc") ? Projects.OrderBy(p => p.CreatedAt).ThenBy(p => p.Name) : Projects.OrderByDescending(p => p.CreatedAt).ThenBy(p => p.Name);
             }
-            if (contributors != "null") {
+            else if (contributors != "null") 
+            {
                 Projects = (contributors == "asc") ? Projects.OrderBy(p => p.Contributors.Count).ThenBy(p => p.CreatedAt) : Projects.OrderByDescending(p => p.Contributors.Count).ThenBy(p => p.CreatedAt);
             }
-            if (bugs != "null") {
+            else if (bugs != "null") 
+            {
                 Projects = (bugs == "asc") ? Projects.OrderBy(p => p.Bugs.Count).ThenBy(p => p.CreatedAt) : Projects.OrderByDescending(p => p.Bugs.Count).ThenBy(p => p.CreatedAt);
             }
-            if (name != "null") {
+            else if (name != "null") 
+            {
                 Projects = (name == "asc") ? Projects.OrderBy(p => p.Name).ThenBy(p => p.CreatedAt) : Projects.OrderByDescending(p => p.Name).ThenBy(p => p.CreatedAt);
             }
             Projects = Projects.Skip(start).Take(limit);

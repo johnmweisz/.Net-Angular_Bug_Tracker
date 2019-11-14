@@ -32,10 +32,11 @@ namespace BugTracker.Controllers
 			));
 		}
 
-		[HttpGet("[action]/{ProjectId}")]
+		[HttpGet("[action]")]
 		public IActionResult All(int ProjectId)
 		{
 			IQueryable<Contributor> Contributor = context.Contributors
+			.Where(c => c.ProjectId == ProjectId)
 			.Include(c => c.Project)
 			.Include(c => c.User)
 			.OrderBy(b => b.CreatedAt);

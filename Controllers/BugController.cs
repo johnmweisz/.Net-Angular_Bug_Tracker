@@ -48,7 +48,7 @@ namespace BugTracker.Controllers
 		}
 
         [HttpGet("[action]")]
-        public IActionResult Added(int UserId, int? ProjectId = null)
+        public IActionResult Added(int UserId, int? ProjectId)
         {
             IQueryable<Bug> Bugs = context.Bugs
             .Include(b => b.Creator)
@@ -64,7 +64,7 @@ namespace BugTracker.Controllers
         }
 
         [HttpGet("[action]")]
-        public IActionResult Assigned(int UserId, int? ProjectId = null)
+        public IActionResult Assigned(int UserId, int? ProjectId)
         {
             IQueryable<Bug> Bugs = context.Bugs
             .Include(b => b.Creator)
