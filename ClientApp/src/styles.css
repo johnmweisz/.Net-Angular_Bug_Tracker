@@ -18,6 +18,12 @@ form p {
                                 supported by Chrome, Opera and Firefox */
 }
 
+.sort-container {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+}
+
 .sort-icon {
   height: 12px;
 }
