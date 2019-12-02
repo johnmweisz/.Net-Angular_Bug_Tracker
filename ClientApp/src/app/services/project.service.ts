@@ -67,21 +67,21 @@ export class ProjectService {
   }
 
   getAdded(UserId: number) {
-    return this._http.get(`/Project/Added`, { params: { UserId: `${UserId}` }}).subscribe(
+    return this._http.get(`/Project/Added`, {params: { UserId: `${UserId}` }}).subscribe(
       (res: Project[]) => this.projectsSub.next(res),
       err => console.log(err)
     );
   }
 
   getContributed(UserId: number) {
-    return this._http.get(`/Project/Contributed`, { params: { UserId: `${UserId}` }}).subscribe(
+    return this._http.get(`/Project/Contributed`, {params: { UserId: `${UserId}` }}).subscribe(
       (res: Project[]) => this.projectsSub.next(res),
       err => console.log(err)
     );
   }
 
   getOne(ProjectId: number) {
-    return this._http.get(`/Project/One`, { params: { ProjectId: `${ProjectId}` }}).subscribe(
+    return this._http.get(`/Project/One`, {params: { ProjectId: `${ProjectId}` }}).subscribe(
       (res: Project) => this.projectSub.next(res),
       err => console.log(err)
     );
@@ -107,7 +107,7 @@ export class ProjectService {
   }
 
   delete(ProjectId: number) {
-    return this._http.delete(`/Project/Delete`, { params: { ProjectId: `${ProjectId}` }}).subscribe(
+    return this._http.delete(`/Project/Delete`, {params: { ProjectId: `${ProjectId}` }}).subscribe(
       res => this._router.navigate(['/']),
       err => console.log(err)
     );

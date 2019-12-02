@@ -13,7 +13,7 @@
             <div class="alert alert-danger" *ngIf="errors?.FirstName">
               <p>{{ errors['FirstName'] }}</p>
             </div>
-            <div class="alert alert-danger" *ngIf="valFirstName.errors?.required && (valFirstName.dirty || valFirstName.touched)">
+            <div class="alert alert-danger" *ngIf="valFirstName?.errors?.required && (valFirstName.dirty || valFirstName.touched)">
               <p>Required</p>
             </div>
         </div>
@@ -23,7 +23,7 @@
             <div class="alert alert-danger" *ngIf="errors?.LastName">
               <p>{{ errors['LastName'] }}</p>
             </div>
-            <div class="alert alert-danger" *ngIf="valLastName.errors?.required && (valLastName.dirty || valLastName.touched)">
+            <div class="alert alert-danger" *ngIf="valLastName?.errors?.required && (valLastName.dirty || valLastName.touched)">
               <p>Required</p>
             </div>
         </div>
@@ -33,7 +33,7 @@
             <div class="alert alert-danger" *ngIf="errors?.Email">
               <p>{{ errors['Email'] }}</p>
             </div>
-            <div class="alert alert-danger" *ngIf="valEmail.errors?.required && (valEmail.dirty || valEmail.touched)">
+            <div class="alert alert-danger" *ngIf="valEmail?.errors?.required && (valEmail.dirty || valEmail.touched)">
               <p>Required</p>
             </div>
             <div class="alert alert-danger" *ngIf="valEmail?.errors?.pattern && (valEmail.dirty || valEmail.touched)">

@@ -13,7 +13,7 @@
           <div class="alert alert-danger" *ngIf="errors?.Name">
               <p>{{ errors.Name }}</p>
           </div>
-          <div class="alert alert-danger" *ngIf="valName.errors?.required && (valName.dirty || valName.touched)">
+          <div class="alert alert-danger" *ngIf="valName?.errors?.required && (valName.dirty || valName.touched)">
             <p>Required</p>
           </div>
         </div>
@@ -23,7 +23,7 @@
           <div class="alert alert-danger" *ngIf="errors?.Description">
               <p>{{ errors.Description }}</p>
           </div>
-          <div class="alert alert-danger" *ngIf="valDescription.errors?.required && (valDescription.dirty || valDescription.touched)">
+          <div class="alert alert-danger" *ngIf="valDescription?.errors?.required && (valDescription.dirty || valDescription.touched)">
             <p>Required</p>
           </div>
         </div>
@@ -38,7 +38,7 @@
           <div class="alert alert-danger" *ngIf="errors?.Version">
               <p>{{ errors.Version }}</p>
           </div>
-          <div class="alert alert-danger" *ngIf="valVersion.errors?.required && (valVersion.dirty || valVersion.touched)">
+          <div class="alert alert-danger" *ngIf="valVersion?.errors?.required && (valVersion.dirty || valVersion.touched)">
             <p>Required</p>
           </div>
         </div>
@@ -58,7 +58,7 @@
           <div class="alert alert-danger" *ngIf="errors?.Public">
               <p>{{ errors.Public }}</p>
           </div>
-          <div class="alert alert-danger" *ngIf="valPublic.errors?.required && (valPublic.dirty || valPublic.touched)">
+          <div class="alert alert-danger" *ngIf="valPublic?.errors?.required && (valPublic.dirty || valPublic.touched)">
             <p>Required</p>
           </div>
         </div>

@@ -6,7 +6,7 @@
         <div class="alert alert-danger" *ngIf="errors?.Email">
             <p>{{ errors.Email }}</p>
         </div>
-        <div class="alert alert-danger" *ngIf="valEmail.errors?.required && (valEmail.dirty || valEmail.touched)">
+        <div class="alert alert-danger" *ngIf="valEmail?.errors?.required && (valEmail.dirty || valEmail.touched)">
           <p>Required</p>
         </div>
       </div>
@@ -16,7 +16,7 @@
           <div class="alert alert-danger" *ngIf="errors?.Password">
               <p>{{ errors.Password }}</p>
           </div>
-          <div class="alert alert-danger" *ngIf="valPassword.errors?.required && (valPassword.dirty || valPassword.touched)">
+          <div class="alert alert-danger" *ngIf="valPassword?.errors?.required && (valPassword.dirty || valPassword.touched)">
             <p>Required</p>
           </div>
       </div>
