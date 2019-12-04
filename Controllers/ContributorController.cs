@@ -57,9 +57,7 @@ namespace BugTracker.Controllers
 		[HttpGet("[action]")]
 		public IActionResult Authorize(int ContributorId) {
 			Contributor Contributor = context.Contributors.FirstOrDefault(c => c.ContributorId == ContributorId);
-			if (Contributor.Authorized == 1) {
-				return BadRequest();
-			}
+			if (Contributor.Authorized == 1) return BadRequest();
 			Contributor.Authorized = 1;
 			context.SaveChanges();
 			return OkJson(Contributor);
@@ -68,9 +66,7 @@ namespace BugTracker.Controllers
 		[HttpGet("[action]")]
 		public IActionResult Deauthorize(int ContributorId) {
 			Contributor Contributor = context.Contributors.FirstOrDefault(c => c.ContributorId == ContributorId);
-			if (Contributor.Authorized == 0) {
-				return BadRequest();
-			}
+			if (Contributor.Authorized == 0) return BadRequest();
 			Contributor.Authorized = 0;
 			context.SaveChanges();
 			return OkJson(Contributor);

@@ -120,7 +120,7 @@ namespace BugTracker.Controllers
         {
             if (ModelState.IsValid)
             {
-            Project Project = context.Projects.FirstOrDefault(p => p.ProjectId == EditProject.ProjectId);
+                Project Project = context.Projects.FirstOrDefault(p => p.ProjectId == EditProject.ProjectId);
 				Project.Name = EditProject.Name;
 				Project.Description = EditProject.Description;
 				Project.Version = EditProject.Version;
