@@ -27,7 +27,7 @@
     "browserslist": "^4.8.2",
     "caniuse-lite": "^1.0.30001015",
     "core-js": "^2.6.11",
-    "jquery": "3.4.1",
+    "jquery": "3.5.0",
     "npm-update-all": "^1.0.1",
     "oidc-client": "^1.9.1",
     "popper.js": "^1.16.0",
